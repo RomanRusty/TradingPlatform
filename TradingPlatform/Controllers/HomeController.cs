@@ -6,16 +6,17 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TradingPlatform.Models;
-
+using TradingPlatform.Data;
 namespace TradingPlatform.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IGenericUnitOfWork db;
+        public HomeController(ILogger<HomeController> logger, IGenericUnitOfWork work)
         {
             _logger = logger;
+            db = work;
         }
 
         public IActionResult Index()

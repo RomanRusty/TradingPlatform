@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,10 +11,20 @@ namespace TradingPlatform.Data
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         void Add(TEntity item);
+        Task AddAsync(TEntity item);
         TEntity FindById(object id);
+        Task<TEntity> FindByIdAsync(object id);
         IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAllAsync();
         IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate);
         void Remove(TEntity item);
+        Task RemoveAsync(TEntity item);
         void Update(TEntity item);
+        Task UpdateAsync(TEntity item);
+        bool Exists(object id);
+        bool Exists(TEntity item);
+        Task<bool> ExistsAsync(object id);
+        Task<bool> ExistsAsync(TEntity item);
     }
 }

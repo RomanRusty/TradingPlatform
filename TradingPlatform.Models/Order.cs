@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TradingPlatform.Data
+namespace TradingPlatform.DataAccess
 {
     [Table("Orders")]
     public class Order

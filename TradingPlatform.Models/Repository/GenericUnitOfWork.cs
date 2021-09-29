@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Data
+namespace TradingPlatform.DataAccess.Repository
 {
     public class GenericUnitOfWork : IGenericUnitOfWork, IDisposable
     {

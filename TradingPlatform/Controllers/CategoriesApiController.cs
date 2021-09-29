@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.Data;
+using TradingPlatform.DataAccess;
+using TradingPlatform.DataAccess.Repository;
 
 namespace TradingPlatform.Controllers
 {
@@ -33,10 +34,6 @@ namespace TradingPlatform.Controllers
         {
 
             var category = await _context.Repository<Category>().FindByIdAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
             return Ok(category);
         }
 

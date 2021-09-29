@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TradingPlatform.Data
+namespace TradingPlatform.DataAccess
 {
     [Table("ApplicationUsers")]
     public class ApplicationUser:IdentityUser
     {
-        
         [Required]
         [MinLength(3, ErrorMessage = "Name must be at least 3 symbols.")]
         [MaxLength(255, ErrorMessage = "Name must be less than 255 symbols.")]

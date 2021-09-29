@@ -61,7 +61,7 @@ namespace TradingPlatform
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            //app.UseMiddleware<ApplicationMiddleware>(); 
             app.UseRouting();
 
             app.UseAuthentication();

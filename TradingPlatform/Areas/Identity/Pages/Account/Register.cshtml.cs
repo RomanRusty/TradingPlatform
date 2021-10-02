@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using TradingPlatform.Data;
+using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.Areas.Identity.Pages.Account
 {

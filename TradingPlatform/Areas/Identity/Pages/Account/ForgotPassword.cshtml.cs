@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using TradingPlatform.Data;
+using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.Areas.Identity.Pages.Account
 {

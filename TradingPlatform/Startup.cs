@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TradingPlatform.DataAccess;
 using TradingPlatform.DataAccess.Repository;
+using TradingPlatform.Infrastructure;
 
 namespace TradingPlatform
 {
@@ -62,7 +63,7 @@ namespace TradingPlatform
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //app.UseMiddleware<ApplicationMiddleware>(); 
+            //app.UseMiddleware<Middleware>(); 
             app.UseRouting();
 
             app.UseAuthentication();

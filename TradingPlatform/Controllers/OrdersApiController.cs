@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.Data;
 using TradingPlatform.DataAccess;
 using TradingPlatform.DataAccess.Repository;
 
@@ -15,9 +14,9 @@ namespace TradingPlatform.Controllers
     [ApiController]
     public class OrdersApiController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly GenericUnitOfWork _context;
 
-        public OrdersApiController(ApplicationDbContext context)
+        public OrdersApiController(GenericUnitOfWork context)
         {
             _context = context;
         }
@@ -26,14 +25,14 @@ namespace TradingPlatform.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            return Ok(await _context.Repository<Order>().GetAllAsync());
         }
 
         // GET: api/OrdersApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Repository<Order>().FindByIdAsync(id);
 
             if (order == null)
             {
@@ -53,15 +52,14 @@ namespace TradingPlatform.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(order).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.Repository<Order>().UpdateAsync(order);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!_context.Repository<Order>().Exists(id))
                 {
                     return NotFound();
                 }
@@ -70,7 +68,6 @@ namespace TradingPlatform.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -79,9 +76,7 @@ namespace TradingPlatform.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
+            await _context.Repository<Order>().AddAsync(order);
             return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
@@ -89,21 +84,13 @@ namespace TradingPlatform.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Repository<Order>().FindByIdAsync(id);
             if (order == null)
             {
                 return NotFound();
             }
-
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
-
+            await _context.Repository<Order>().RemoveAsync(order);
             return NoContent();
-        }
-
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.Id == id);
         }
     }
 }

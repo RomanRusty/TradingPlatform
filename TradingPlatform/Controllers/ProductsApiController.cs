@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.Data;
 using TradingPlatform.DataAccess;
 using TradingPlatform.DataAccess.Repository;
 
@@ -15,9 +14,9 @@ namespace TradingPlatform.Controllers
     [ApiController]
     public class ProductsApiController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly GenericUnitOfWork _context;
 
-        public ProductsApiController(ApplicationDbContext context)
+        public ProductsApiController(GenericUnitOfWork context)
         {
             _context = context;
         }
@@ -26,14 +25,14 @@ namespace TradingPlatform.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return Ok(await _context.Repository<Product>().GetAllAsync());
         }
 
         // GET: api/ProductsApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Repository<Product>().FindByIdAsync(id);
 
             if (product == null)
             {
@@ -52,16 +51,13 @@ namespace TradingPlatform.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(product).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.Repository<Product>().UpdateAsync(product);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!_context.Repository<Product>().Exists(id))
                 {
                     return NotFound();
                 }
@@ -79,9 +75,7 @@ namespace TradingPlatform.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-
+            await _context.Repository<Product>().AddAsync(product);
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
@@ -89,21 +83,14 @@ namespace TradingPlatform.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Repository<Product>().FindByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-
+            await _context.Repository<Product>().RemoveAsync(product);
             return NoContent();
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

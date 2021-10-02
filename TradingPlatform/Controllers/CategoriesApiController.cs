@@ -34,6 +34,10 @@ namespace TradingPlatform.Controllers
         {
 
             var category = await _context.Repository<Category>().FindByIdAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
             return Ok(category);
         }
 
@@ -46,7 +50,6 @@ namespace TradingPlatform.Controllers
             {
                 return BadRequest();
             }
-
             try
             {
                 await _context.Repository<Category>().UpdateAsync(category);

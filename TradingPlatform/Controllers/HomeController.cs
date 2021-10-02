@@ -6,7 +6,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TradingPlatform.Models;
-using TradingPlatform.Data;
+
+using TradingPlatform.DataAccess.Repository;
+
 namespace TradingPlatform.Controllers
 {
     public class HomeController : Controller

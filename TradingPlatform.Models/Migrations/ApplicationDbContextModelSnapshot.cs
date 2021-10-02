@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TradingPlatform.Data;
+using TradingPlatform.DataAccess;
 
-namespace TradingPlatform.Data.Migrations
+namespace TradingPlatform.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -150,7 +150,7 @@ namespace TradingPlatform.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.ApplicationUser", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -217,7 +217,7 @@ namespace TradingPlatform.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Category", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -239,7 +239,7 @@ namespace TradingPlatform.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Complaint", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Complaint", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,7 +271,7 @@ namespace TradingPlatform.Data.Migrations
                     b.ToTable("Complaints");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Order", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,7 +292,7 @@ namespace TradingPlatform.Data.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Product", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -332,7 +332,7 @@ namespace TradingPlatform.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.ProductOrder", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.ProductOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -373,7 +373,7 @@ namespace TradingPlatform.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DataAccess.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -382,7 +382,7 @@ namespace TradingPlatform.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DataAccess.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -397,7 +397,7 @@ namespace TradingPlatform.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TradingPlatform.Data.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DataAccess.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -406,16 +406,16 @@ namespace TradingPlatform.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DataAccess.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Complaint", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Complaint", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.Product", "Product")
+                    b.HasOne("TradingPlatform.DataAccess.Product", "Product")
                         .WithMany("Complaints")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -424,9 +424,9 @@ namespace TradingPlatform.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Order", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Order", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.ApplicationUser", "Custumer")
+                    b.HasOne("TradingPlatform.DataAccess.ApplicationUser", "Custumer")
                         .WithMany("Orders")
                         .HasForeignKey("CustumerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -435,9 +435,9 @@ namespace TradingPlatform.Data.Migrations
                     b.Navigation("Custumer");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Product", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Product", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.Category", "Category")
+                    b.HasOne("TradingPlatform.DataAccess.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,17 +446,17 @@ namespace TradingPlatform.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.ProductOrder", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.ProductOrder", b =>
                 {
-                    b.HasOne("TradingPlatform.Data.ApplicationUser", "Custumer")
+                    b.HasOne("TradingPlatform.DataAccess.ApplicationUser", "Custumer")
                         .WithMany()
                         .HasForeignKey("CustumerId");
 
-                    b.HasOne("TradingPlatform.Data.Order", null)
+                    b.HasOne("TradingPlatform.DataAccess.Order", null)
                         .WithMany("ProductOrders")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("TradingPlatform.Data.Product", "Product")
+                    b.HasOne("TradingPlatform.DataAccess.Product", "Product")
                         .WithMany("ProductOrders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -467,22 +467,22 @@ namespace TradingPlatform.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.ApplicationUser", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Category", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Order", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Order", b =>
                 {
                     b.Navigation("ProductOrders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Data.Product", b =>
+            modelBuilder.Entity("TradingPlatform.DataAccess.Product", b =>
                 {
                     b.Navigation("Complaints");
 

@@ -11,7 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TradingPlatform.Data;
+using TradingPlatform.DataAccess;
+using TradingPlatform.DataAccess.Repository;
 
 namespace TradingPlatform
 {

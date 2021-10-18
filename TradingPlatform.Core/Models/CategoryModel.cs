@@ -1,6 +1,6 @@
 ﻿namespace TradingPlatform.Models
 {
-    public class CategoryViewModel
+    public class CategoryModel
     {
     }
 }

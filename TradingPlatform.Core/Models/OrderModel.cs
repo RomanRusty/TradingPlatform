@@ -3,7 +3,7 @@ using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.Models
 {
-    public class OrderViewModel
+    public class OrderModel
     {
         public string CustumerName;
         public virtual IEnumerable<ProductOrder> ProductOrders { get; set; }

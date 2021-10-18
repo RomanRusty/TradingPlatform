@@ -1,6 +1,6 @@
 ﻿namespace TradingPlatform.Models
 {
-    public class ProductOrderViewModel
+    public class ProductOrderModel
     {
         public string CustumerName { get; set; }
         public string ProductName { get; set; }

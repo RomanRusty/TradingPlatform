@@ -3,20 +3,22 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211012194609_changedProductOrderForeignKeys")]
+    partial class changedProductOrderForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -317,8 +319,8 @@ namespace TradingPlatform.DataAccess.Migrations
                         .HasMaxLength(3000)
                         .HasColumnType("nvarchar(3000)");
 
-                    b.Property<int?>("ImageThumbnailId")
-                        .HasColumnType("int");
+                    b.Property<string>("ImageThumbnailPath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -335,8 +337,6 @@ namespace TradingPlatform.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ImageThumbnailId");
-
                     b.ToTable("Products");
                 });
 
@@ -347,9 +347,9 @@ namespace TradingPlatform.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("ImageData")
+                    b.Property<string>("ImagePath")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -384,13 +384,6 @@ namespace TradingPlatform.DataAccess.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductOrders");
-                });
-
-            modelBuilder.Entity("TradingPlatform.DataAccess.ProductImageThumbNail", b =>
-                {
-                    b.HasBaseType("TradingPlatform.DataAccess.ProductImage");
-
-                    b.ToTable("ProductImageThumbNails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -472,13 +465,7 @@ namespace TradingPlatform.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TradingPlatform.DataAccess.ProductImageThumbNail", "ImageThumbnail")
-                        .WithMany()
-                        .HasForeignKey("ImageThumbnailId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("ImageThumbnail");
                 });
 
             modelBuilder.Entity("TradingPlatform.DataAccess.ProductImage", b =>
@@ -505,15 +492,6 @@ namespace TradingPlatform.DataAccess.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("TradingPlatform.DataAccess.ProductImageThumbNail", b =>
-                {
-                    b.HasOne("TradingPlatform.DataAccess.ProductImage", null)
-                        .WithOne()
-                        .HasForeignKey("TradingPlatform.DataAccess.ProductImageThumbNail", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TradingPlatform.DataAccess.ApplicationUser", b =>

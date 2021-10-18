@@ -21,9 +21,13 @@ namespace TradingPlatform.DataAccess.Repository
         Task RemoveAsync(TEntity item);
         void Update(TEntity item);
         Task UpdateAsync(TEntity item);
+        IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
+        IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
         bool Exists(object id);
         bool Exists(TEntity item);
         Task<bool> ExistsAsync(object id);
         Task<bool> ExistsAsync(TEntity item);
+        List<List<TEntity>> ToJaggedArray(IEnumerable<TEntity> array, int cols);
+        
     }
 }

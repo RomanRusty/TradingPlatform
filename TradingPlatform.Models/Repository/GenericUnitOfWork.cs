@@ -12,9 +12,9 @@ namespace TradingPlatform.DataAccess.Repository
 
         public GenericUnitOfWork(ApplicationDbContext context) { this.context = context; }
 
-        public void SaveChanges() { context.SaveChanges(); }
+        public void SaveChanges() => context.SaveChanges();
 
-        public async Task SaveAsync() { await context.SaveChangesAsync(); }
+        public async Task SaveAsync() => await context.SaveChangesAsync();
 
         public Dictionary<Type, object> repositories = new();
 
@@ -27,6 +27,6 @@ namespace TradingPlatform.DataAccess.Repository
             repositories.Add(typeof(T), repo);
             return repo;
         }
-        public void Dispose() { context.Dispose(); }
+        public void Dispose() => context.Dispose();
     }
 }

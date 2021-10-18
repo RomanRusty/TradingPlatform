@@ -14,11 +14,11 @@ namespace TradingPlatform.Controllers
     [ApiController]
     public class ComplaintsApiController : ControllerBase
     {
-        private readonly GenericUnitOfWork _context;
+        private readonly IGenericUnitOfWork _context;
 
-        public ComplaintsApiController(GenericUnitOfWork work)
+        public ComplaintsApiController(IGenericUnitOfWork context)
         {
-            _context = work;
+            _context = context;
         }
 
         // GET: api/ComplaintsApi

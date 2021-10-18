@@ -14,9 +14,9 @@ namespace TradingPlatform.Controllers
     [ApiController]
     public class ProductsApiController : ControllerBase
     {
-        private readonly GenericUnitOfWork _context;
+        private readonly IGenericUnitOfWork _context;
 
-        public ProductsApiController(GenericUnitOfWork context)
+        public ProductsApiController(IGenericUnitOfWork context)
         {
             _context = context;
         }

@@ -11,6 +11,8 @@ using TradingPlatform.DataAccess;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using AutoMapper;
+using TradingPlatform.Dtos;
 
 namespace TradingPlatform.Controllers
 {
@@ -18,10 +20,13 @@ namespace TradingPlatform.Controllers
     {
         private readonly IGenericUnitOfWork _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public HomeController(IGenericUnitOfWork context, IHttpContextAccessor httpContextAccessor)
+        private readonly IMapper _mapper;
+
+        public HomeController(IGenericUnitOfWork context, IHttpContextAccessor httpContextAccessor,IMapper mapper)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 		public IActionResult Index(string sortOrder, string currentFilter, string searchString,string category, int page)
         {
@@ -102,7 +107,7 @@ namespace TradingPlatform.Controllers
                 IEnumerable<Order> orders = _context.Repository<Order>().FindAll(t => t.Status == OrderStatus.Selecting && t.Custumer.UserName == User.Identity.Name);
                 orderSelectList = new SelectList(orders, "Id", "Name");
             }
-            return View(new ProductModel() { Product = product, AvailableOrdersSelectList = orderSelectList });
+            return View(new ProductReadDto() { Product = product, AvailableOrdersSelectList = orderSelectList });
         }
         public IActionResult CreateOrder()
         {

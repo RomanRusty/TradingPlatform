@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +15,14 @@ namespace TradingPlatform.DataAccess
         [Key]
         public int Id { get; set; }
         [Required]
-        public byte[] ImageData { get; set; }
+        public string ImagePath { get; set; }
         [Required]
         public virtual Product Product { get; set; }        
-        public string GetImage()
+        [NotMapped]
+        public byte[] ImageData { get; set; }
+        public void PathToFile()
         {
-            var base64 = Convert.ToBase64String(ImageData);
-            var image = string.Format("data:image/gif;base64,{0}", base64);
-            return image;
+            ImageData=File.ReadAllBytes(ImagePath);
         }
     }
 }

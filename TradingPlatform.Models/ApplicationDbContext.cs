@@ -19,6 +19,6 @@ namespace TradingPlatform.DataAccess
         public DbSet<Order> Orders { get; set; }
         public DbSet<Complaint> Complaints { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<ProductImageThumbNail> ProductImageThumbNails { get; set; }
+        public DbSet<ProductImageThumbnail> ProductImageThumbNails { get; set; }
     }
 }

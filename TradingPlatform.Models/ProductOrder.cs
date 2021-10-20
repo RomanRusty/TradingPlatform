@@ -15,10 +15,7 @@ namespace TradingPlatform.DataAccess
         public int Quantity { get; set; }
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        [NotMapped]
-        public int OrderIdSelect { get; set; }
-        [NotMapped]
-        public int ProductIdSelect { get; set; }
+     
         public ProductOrder(int quantity, Order order, Product product)
         {
             Quantity = quantity;

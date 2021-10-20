@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace TradingPlatform.DataAccess
 {
-    [Table("ProductImageThumbNails")]
-    public class ProductImageThumbNail:ProductImage
+    [Table("ProductImageThumbnails")]
+    public class ProductImageThumbnail:ProductImage
     {
 
     }

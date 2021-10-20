@@ -26,7 +26,7 @@ namespace TradingPlatform.DataAccess
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
         //[Required]
-        public virtual ProductImageThumbNail ImageThumbnail { get; set; }
+        public virtual ProductImageThumbnail ImageThumbnail { get; set; }
 
         [Required]
         public virtual Category Category { get; set; }

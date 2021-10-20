@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,19 +28,12 @@ namespace TradingPlatform
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllers()
-            //    .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web", Version = "v1" }));
-
             services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
-
             services.AddIdentity<ApplicationUser,IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
@@ -53,16 +44,10 @@ namespace TradingPlatform
                 options.Password.RequireUppercase = true;
                 options.Password.RequireDigit = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
-             .AddDefaultUI()
-             .AddDefaultTokenProviders();
-
-            services.AddControllersWithViews().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
-
+             .AddDefaultUI().AddDefaultTokenProviders();
+            services.AddControllersWithViews();
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
-
-            services.AddTransient<ExceptionHandlingMiddleware>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,8 +57,6 @@ namespace TradingPlatform
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web v1"));
                 serviceProvider.Seed();
             }
             else
@@ -82,10 +65,9 @@ namespace TradingPlatform
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-   
+            //app.UseMiddleware<RequestValidationMiddleware>();
             app.UseRouting();
 
             app.UseAuthentication();

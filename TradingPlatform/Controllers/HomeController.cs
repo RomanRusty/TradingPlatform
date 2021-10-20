@@ -6,13 +6,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TradingPlatform.Models;
-using TradingPlatform.DataAccess.Repository;
-using TradingPlatform.DataAccess;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using AutoMapper;
 using TradingPlatform.Dtos;
+using TradingPlatform.Domain.Repository;
+using TradingPlatform.Domain.Entities;
 
 namespace TradingPlatform.Controllers
 {
@@ -107,7 +107,8 @@ namespace TradingPlatform.Controllers
                 IEnumerable<Order> orders = _context.Repository<Order>().FindAll(t => t.Status == OrderStatus.Selecting && t.Custumer.UserName == User.Identity.Name);
                 orderSelectList = new SelectList(orders, "Id", "Name");
             }
-            return View(new ProductReadDto() { Product = product, AvailableOrdersSelectList = orderSelectList });
+            //return View(new ProductDetailsViewModel() { Product = product, AvailableOrdersSelectList = orderSelectList });
+            return View();
         }
         public IActionResult CreateOrder()
         {

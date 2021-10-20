@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TradingPlatform.DataAccess;
+using TradingPlatform.Domain.Entities;
 
 namespace TradingPlatform.Dtos
 {

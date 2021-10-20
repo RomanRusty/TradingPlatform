@@ -9,7 +9,7 @@ using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.DataAccess.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(RepositoryDbContext))]
     [Migration("20211012111204_addedOrderStatus")]
     partial class addedOrderStatus
     {

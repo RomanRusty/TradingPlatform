@@ -1,4 +1,4 @@
-﻿@using TradingPlatform.DataAccess
+﻿@using TradingPlatform.Domain.Entities
 @model ProductModel;
 
 @{
@@ -28,7 +28,7 @@
 						@foreach (var item in Model.Product.Images)
 						{
 							<div class="carousel-item active">
-								<img src="@item.GetImage()" class="d-block w-100" alt="...">
+								@*<img src="@item.GetImage()" class="d-block w-100" alt="...">*@
 							</div>
 						}
 					</div>

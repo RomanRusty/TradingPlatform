@@ -8,8 +8,8 @@ using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.DataAccess.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RepositoryDbContext))]
+    partial class RepositoryDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

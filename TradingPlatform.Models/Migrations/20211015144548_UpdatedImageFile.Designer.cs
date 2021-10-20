@@ -9,7 +9,7 @@ using TradingPlatform.DataAccess;
 
 namespace TradingPlatform.DataAccess.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(RepositoryDbContext))]
     [Migration("20211015144548_UpdatedImageFile")]
     partial class UpdatedImageFile
     {

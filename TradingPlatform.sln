@@ -5,27 +5,21 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform", "TradingPlatform\TradingPlatform.csproj", "{43A6E246-FFF8-47F2-9F47-161D234FBB07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DataAccess", "TradingPlatform.Models\TradingPlatform.DataAccess.csproj", "{6CCDEC55-5136-4DD7-9165-AC688F107A50}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Infrastructure", "TradingPlatform.Infrastructure\TradingPlatform.Infrastructure.csproj", "{C78053C0-53F5-433F-B9CA-F203572063E9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Core", "TradingPlatform.Core\TradingPlatform.Core.csproj", "{2239BBEC-D98C-4681-80C5-7A32A3B81891}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B1CDBB65-0AFC-4227-8F50-A53EDCD68E23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C4A21C7B-CD48-4BB8-8C5C-2539F99CF906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Contracts", "Contracts\TradingPlatform.Contracts.csproj", "{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FB95F557-CA51-4BD8-ABA4-943413BE0392}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Domain", "Domain\TradingPlatform.Domain.csproj", "{FB95F557-CA51-4BD8-ABA4-943413BE0392}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{88289DC7-1B00-4F01-BF6B-C83823CFF5C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Services", "Services\TradingPlatform.Services.csproj", "{88289DC7-1B00-4F01-BF6B-C83823CFF5C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Abstractions", "Services.Abstractions\Services.Abstractions.csproj", "{51707DA9-FB50-4D35-8C7C-46A7F5B7EACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Services.Abstractions", "Services.Abstractions\TradingPlatform.Services.Abstractions.csproj", "{51707DA9-FB50-4D35-8C7C-46A7F5B7EACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{5B0F9604-3E43-43C0-8FAB-EED3734D8275}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Persistence", "Persistence\TradingPlatform.Persistence.csproj", "{5B0F9604-3E43-43C0-8FAB-EED3734D8275}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{E8D99408-01AF-4868-9930-C20AFC102235}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Presentation", "Presentation\TradingPlatform.Presentation.csproj", "{E8D99408-01AF-4868-9930-C20AFC102235}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,18 +31,6 @@ Global
 		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6CCDEC55-5136-4DD7-9165-AC688F107A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CCDEC55-5136-4DD7-9165-AC688F107A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CCDEC55-5136-4DD7-9165-AC688F107A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CCDEC55-5136-4DD7-9165-AC688F107A50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C78053C0-53F5-433F-B9CA-F203572063E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C78053C0-53F5-433F-B9CA-F203572063E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C78053C0-53F5-433F-B9CA-F203572063E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C78053C0-53F5-433F-B9CA-F203572063E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2239BBEC-D98C-4681-80C5-7A32A3B81891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2239BBEC-D98C-4681-80C5-7A32A3B81891}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2239BBEC-D98C-4681-80C5-7A32A3B81891}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2239BBEC-D98C-4681-80C5-7A32A3B81891}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU

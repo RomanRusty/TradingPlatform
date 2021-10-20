@@ -8,9 +8,9 @@ namespace TradingPlatform.DataAccess.Repository
 {
     public class GenericUnitOfWork : IGenericUnitOfWork, IDisposable
     {
-        private readonly ApplicationDbContext context;
+        private readonly RepositoryDbContext context;
 
-        public GenericUnitOfWork(ApplicationDbContext context) { this.context = context; }
+        public GenericUnitOfWork(RepositoryDbContext context) { this.context = context; }
 
         public void SaveChanges() => context.SaveChanges();
 

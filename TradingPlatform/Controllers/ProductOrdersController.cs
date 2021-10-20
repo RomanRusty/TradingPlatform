@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.DataAccess;
+using TradingPlatform.Domain.Services;
+using TradingPlatform.Domain.Entities;
 
 namespace TradingPlatform.Controllers
 {
     public class ProductOrdersController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RepositoryDbContext _context;
 
-        public ProductOrdersController(ApplicationDbContext context)
+        public ProductOrdersController(RepositoryDbContext context)
         {
             _context = context;
         }

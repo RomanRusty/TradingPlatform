@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TradingPlatform.DataAccess;
+using TradingPlatform.Domain.Entities;
 using TradingPlatform.Dtos;
 namespace TradingPlatform.Profiles
 {

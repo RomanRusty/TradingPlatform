@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TradingPlatform.Domain.Entities;
+using TradingPlatform.Domain.Repository;
 
-using TradingPlatform.DataAccess;
-using TradingPlatform.DataAccess.Repository;
 namespace TradingPlatform.Controllers
 {
     [Route("api/[controller]")]

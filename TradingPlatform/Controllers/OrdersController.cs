@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.DataAccess;
-using TradingPlatform.DataAccess.Repository;
+using TradingPlatform.Domain.Entities;
+using TradingPlatform.Domain.Repository;
 
 namespace TradingPlatform.Controllers
 {

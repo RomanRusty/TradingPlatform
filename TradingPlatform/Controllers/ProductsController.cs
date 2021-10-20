@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.DataAccess;
-using TradingPlatform.DataAccess.Repository;
+using TradingPlatform.Domain.Entities;
+using TradingPlatform.Domain.Repository;
 using TradingPlatform.Models;
 
 namespace TradingPlatform.Controllers

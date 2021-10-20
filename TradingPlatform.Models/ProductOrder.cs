@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TradingPlatform.DataAccess
+namespace Domain.Entities
 {
     
     [Table("ProductOrders")]

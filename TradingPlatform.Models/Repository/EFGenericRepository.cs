@@ -8,10 +8,10 @@ namespace TradingPlatform.DataAccess.Repository
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        public ApplicationDbContext _context;
+        public RepositoryDbContext _context;
         DbSet<TEntity> _dbSet;
 
-        public EFGenericRepository(ApplicationDbContext context)
+        public EFGenericRepository(RepositoryDbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

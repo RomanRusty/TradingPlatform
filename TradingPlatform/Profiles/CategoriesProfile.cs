@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using TradingPlatform.DataAccess;
-using TradingPlatform.Dtos.Category;
+using TradingPlatform.Domain.Entities;
+using TradingPlatform.Dtos;
 namespace TradingPlatform.Profiles
 {
     public class CategoriesProfile :Profile

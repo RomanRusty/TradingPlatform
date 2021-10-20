@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Domain services\" />
-    <Folder Include="Repository\" />
+    <ProjectReference Include="..\Services.Abstractions\TradingPlatform.Services.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

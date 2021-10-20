@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TradingPlatform.Domain.Services;
 
 namespace TradingPlatform
 {
@@ -16,16 +17,16 @@ namespace TradingPlatform
         {
             var webHost = CreateHostBuilder(args).Build();
 
-            //await ApplyMigrations(webHost.Services);
+            await ApplyMigrations(webHost.Services);
 
             await webHost.RunAsync();
         }
-        //private static async Task ApplyMigrations(IServiceProvider serviceProvider)
-        //{
-        //    using var scope = serviceProvider.CreateScope();
-        //    await using RepositoryDbContext dbContext = scope.ServiceProvider.GetRequiredService<RepositoryDbContext>();
-        //    await dbContext.Database.MigrateAsync();
-        //}
+        private static async Task ApplyMigrations(IServiceProvider serviceProvider)
+        {
+            using var scope = serviceProvider.CreateScope();
+            await using RepositoryDbContext dbContext = scope.ServiceProvider.GetRequiredService<RepositoryDbContext>();
+            await dbContext.Database.EnsureCreatedAsync();
+        }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

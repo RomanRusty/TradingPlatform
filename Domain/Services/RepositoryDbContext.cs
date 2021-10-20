@@ -3,15 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TradingPlatform.Domain.Entities;
 
-namespace TradingPlatform.DataAccess
+namespace TradingPlatform.Domain.Services
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class RepositoryDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        public RepositoryDbContext(DbContextOptions<RepositoryDbContext> options): base(options)
         {
           
         }
+
         public override DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }

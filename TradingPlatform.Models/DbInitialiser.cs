@@ -14,7 +14,7 @@ namespace TradingPlatform.DataAccess
         public static void Seed(this IServiceProvider serviceProvider)
         {
 
-            using (ApplicationDbContext context = serviceProvider.GetRequiredService<ApplicationDbContext>())
+            using (RepositoryDbContext context = serviceProvider.GetRequiredService<RepositoryDbContext>())
             {
                 var user = new ApplicationUser
                 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using TradingPlatform.DataAccess;
-using TradingPlatform.Dtos.Order;
+using TradingPlatform.Domain.Entities;
+using TradingPlatform.Dtos;
 namespace TradingPlatform.Profiles
 {
     public class OrdersProfile:Profile

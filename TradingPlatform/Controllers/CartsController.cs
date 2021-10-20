@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using TradingPlatform.DataAccess;
-using TradingPlatform.DataAccess.Repository;
+using TradingPlatform.Domain.Entities;
+using TradingPlatform.Domain.Repository;
 using TradingPlatform.Models;
 
 namespace TradingPlatform.Controllers
@@ -31,8 +31,8 @@ namespace TradingPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
-                productOrder.Product = _context.Repository<Product>().FindById(productOrder.ProductIdSelect);
-                productOrder.Order = _context.Repository<Order>().FindById(productOrder.OrderIdSelect);
+                //productOrder.Product = _context.Repository<Product>().FindById(productOrder.ProductIdSelect);
+                //productOrder.Order = _context.Repository<Order>().FindById(productOrder.OrderIdSelect);
                 await _context.Repository<ProductOrder>().AddAsync(productOrder);
                 return RedirectToAction(nameof(Index));
             }

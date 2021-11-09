@@ -6,24 +6,24 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using TradingPlatform.Domain.Exceptions;
 
-namespace TradingPlatform.Infrastructure
+namespace TradingPlatform.Persistence.Middleware
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class ExceptionHandlingMiddleware:IMiddleware
+    public class ExceptionHandlingMiddleware : IMiddleware
     {
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
-        public ExceptionHandlingMiddleware( ILogger<ExceptionHandlingMiddleware> logger)
+        public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
         {
-            _logger= logger;
+            _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context,RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
                 await next.Invoke(context);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
                 await HandleExceptionAsync(context, e);

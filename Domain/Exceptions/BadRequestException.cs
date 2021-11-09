@@ -8,7 +8,7 @@ namespace TradingPlatform.Domain.Exceptions
 {
     public abstract class BadRequestException : Exception
     {
-        protected BadRequestException(string message)
+        public BadRequestException(string message)
             : base(message)
         {
         }

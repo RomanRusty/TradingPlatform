@@ -15,11 +15,8 @@ namespace TradingPlatform.Domain.Entities
         [MaxLength(255, ErrorMessage = "Name must be less than 255 symbols.")]
         public override string UserName {  get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
         public override string Email {  get; set; }
         public virtual IEnumerable<Order> Orders { get; set; }
-        public ApplicationUser()
-        {
-            
-        }
     }
 }

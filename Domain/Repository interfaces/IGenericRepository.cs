@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Domain.Repository
+namespace TradingPlatform.Domain.Repository_interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

@@ -1,12 +1,12 @@
-﻿@using TradingPlatform.Domain.Entities
-@using TradingPlatform.Domain.Repository
-@inject IGenericUnitOfWork db
+﻿@using TradingPlatform.Services.Abstractions
+
+@inject IServiceManager serviceManager
 <li class="nav-item dropdown">
 	<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" asp-area="Identity" asp-page="/Account/Manage/Index">
 		Categories
 	</a>
 	<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-		@foreach (var item in db.Repository<Category>().GetAll())
+		@foreach (var item in await serviceManager.CategoryService.GetAllAsync())
 		{
 			<li><a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-category="@item.Name">@item.Name</a></li>
 		}

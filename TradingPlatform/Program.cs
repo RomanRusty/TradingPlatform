@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TradingPlatform.Domain.Services;
+using TradingPlatform.Persistence.Database;
 
 namespace TradingPlatform
 {
@@ -21,6 +21,7 @@ namespace TradingPlatform
 
             await webHost.RunAsync();
         }
+
         private static async Task ApplyMigrations(IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();

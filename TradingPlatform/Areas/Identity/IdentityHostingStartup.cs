@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TradingPlatform.Domain.Entities;
-using TradingPlatform.Domain.Services;
+using TradingPlatform.Persistence.Database;
 
 [assembly: HostingStartup(typeof(TradingPlatform.Areas.Identity.IdentityHostingStartup))]
 namespace TradingPlatform.Areas.Identity

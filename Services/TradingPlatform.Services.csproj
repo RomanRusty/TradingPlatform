@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contracts\TradingPlatform.Contracts.csproj" />
+    <ProjectReference Include="..\Domain\TradingPlatform.Domain.csproj" />
+    <ProjectReference Include="..\Persistence\TradingPlatform.Persistence.csproj" />
     <ProjectReference Include="..\Services.Abstractions\TradingPlatform.Services.Abstractions.csproj" />
   </ItemGroup>
 

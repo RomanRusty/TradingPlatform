@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Abstractions
+namespace TradingPlatform.Services.Abstractions
 {
     public interface IServiceManager
     {
-
+        ICategoryService CategoryService { get; }
+        IComplaintService ComplaintService { get; }
+        IOrderService OrderService { get; }
+        IProductOrderService ProductOrderService { get; }
+        IProductService ProductService { get; }
     }
 }

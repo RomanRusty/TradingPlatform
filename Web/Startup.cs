@@ -1,15 +1,13 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using TradingPlatform.Domain.Entities;
+using System.Reflection;
 using TradingPlatform.Domain.Repository_interfaces;
 using TradingPlatform.Persistence.Database;
 using TradingPlatform.Persistence.Middleware;
@@ -32,32 +30,20 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
+
             services.AddDbContext<RepositoryDbContext>(options =>
-               options.UseLazyLoadingProxies().UseSqlServer(
+               options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web1", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseMicroservice", Version = "v1" });
             });
 
             services.AddScoped(typeof(IRepositoryManager), typeof(RepositoryManager));
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
             services.AddScoped<IServiceManager, ServiceManager>();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequiredLength = 5;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireDigit = true;
-            }).AddEntityFrameworkStores<RepositoryDbContext>().AddDefaultTokenProviders();
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ApplicationUsersProfile());
@@ -70,13 +56,10 @@ namespace Web
                 mc.AddProfile(new ProductsProfile());
             });
             services.AddSingleton(mapperConfig.CreateMapper());
-            services.AddControllers()
-                .AddApplicationPart(typeof(TradingPlatform.Presentation.CategoriesApiController).Assembly)
-                .AddApplicationPart(typeof(TradingPlatform.Presentation.ComplaintsApiController).Assembly)
-                .AddApplicationPart(typeof(TradingPlatform.Presentation.OrdersApiController).Assembly)
-                .AddApplicationPart(typeof(TradingPlatform.Presentation.ProductOrdersApiController).Assembly)
-                .AddApplicationPart(typeof(TradingPlatform.Presentation.ProductsApiController).Assembly)
-                ;
+
+            var assembly = Assembly.Load("TradingPlatform.Presentation");
+            services.AddControllers().AddApplicationPart(assembly);
+
             services.AddTransient<ExceptionHandlingMiddleware>();
         }
 
@@ -86,9 +69,10 @@ namespace Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseMigrationsEndPoint();
+                app.UseMigrationsEndPoint();
+
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DatabaseMicroservice"));
                 serviceProvider.Seed();
             }
             app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -96,7 +80,6 @@ namespace Web
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

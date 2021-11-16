@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform", "TradingPlatform\TradingPlatform.csproj", "{43A6E246-FFF8-47F2-9F47-161D234FBB07}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B1CDBB65-0AFC-4227-8F50-A53EDCD68E23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C4A21C7B-CD48-4BB8-8C5C-2539F99CF906}"
@@ -19,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Services.Ab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Persistence", "Persistence\TradingPlatform.Persistence.csproj", "{5B0F9604-3E43-43C0-8FAB-EED3734D8275}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{1D56489B-5359-44E0-9D6E-98258B07FBE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseMicroserviceApi", "Web\TradingPlatform.DatabaseMicroserviceApi.csproj", "{1D56489B-5359-44E0-9D6E-98258B07FBE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.Presentation", "TradingPlatform.Presentation\TradingPlatform.Presentation.csproj", "{65DA064E-7005-41A0-B4C5-708790640E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.Presentation", "TradingPlatform.Presentation\TradingPlatform.Presentation.csproj", "{65DA064E-7005-41A0-B4C5-708790640E5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.WebMVC", "WebMVC\TradingPlatform.WebMVC.csproj", "{7C7D648C-8216-4966-BC8B-B80EF8184F55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseMicroservice", "DatabaseMicroservice", "{C134B3B8-D4A5-4D2E-BC95-3E23353B3CB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43A6E246-FFF8-47F2-9F47-161D234FBB07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +59,10 @@ Global
 		{65DA064E-7005-41A0-B4C5-708790640E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65DA064E-7005-41A0-B4C5-708790640E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65DA064E-7005-41A0-B4C5-708790640E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

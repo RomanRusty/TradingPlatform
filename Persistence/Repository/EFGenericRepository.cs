@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using TradingPlatform.Domain.Repository_interfaces;
-using TradingPlatform.Persistence.Database;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Persistence.Database;
 
-namespace TradingPlatform.Persistence.Repository
+namespace TradingPlatform.DatabaseService.Persistence.Repository
 {
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {

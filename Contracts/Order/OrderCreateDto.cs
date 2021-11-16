@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TradingPlatform.Contracts.ApplicationUser;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Contracts.ApplicationUser;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Contracts.Order
+namespace TradingPlatform.DatabaseService.Contracts.Order
 {
     public class OrderCreateDto
     {

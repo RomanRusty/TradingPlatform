@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TradingPlatform.Contracts.Complaint;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Contracts.Complaint;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Persistence.Profiles
+namespace TradingPlatform.DatabaseService.Persistence.Profiles
 {
     public class ComplaintsProfile : Profile
     {

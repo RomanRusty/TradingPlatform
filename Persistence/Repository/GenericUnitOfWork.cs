@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TradingPlatform.Domain.Repository_interfaces;
-using TradingPlatform.Persistence.Database;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Persistence.Database;
 
-namespace TradingPlatform.Persistence.Repository
+namespace TradingPlatform.DatabaseService.Persistence.Repository
 {
     public class GenericUnitOfWork : IGenericUnitOfWork, IDisposable
     {

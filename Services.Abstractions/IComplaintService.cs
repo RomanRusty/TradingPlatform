@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TradingPlatform.Contracts.Complaint;
+using TradingPlatform.DatabaseService.Contracts.Complaint;
 
-namespace TradingPlatform.Services.Abstractions
+namespace TradingPlatform.DatabaseService.Services.Abstractions
 {
     public interface IComplaintService
     {

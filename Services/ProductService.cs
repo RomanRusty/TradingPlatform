@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.Contracts.Product;
-using TradingPlatform.Domain.Entities;
-using TradingPlatform.Domain.Exceptions.Product;
-using TradingPlatform.Domain.Repository_interfaces;
-using TradingPlatform.Services.Abstractions;
+using TradingPlatform.DatabaseService.Contracts.Product;
+using TradingPlatform.DatabaseService.Domain.Entities;
+using TradingPlatform.DatabaseService.Domain.Exceptions.Product;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 
-namespace TradingPlatform.Services
+namespace TradingPlatform.DatabaseService.Services
 {
     internal class ProductService : IProductService
     {

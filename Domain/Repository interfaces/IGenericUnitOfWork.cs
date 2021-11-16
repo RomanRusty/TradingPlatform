@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace TradingPlatform.Domain.Repository_interfaces
+namespace TradingPlatform.DatabaseService.Domain.Repository_interfaces
 {
     public interface IGenericUnitOfWork
     {

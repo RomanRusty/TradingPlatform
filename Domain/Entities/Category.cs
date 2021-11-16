@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TradingPlatform.Domain.Entities
+namespace TradingPlatform.DatabaseService.Domain.Entities
 {
     [Table("Categories")]
     public class Category

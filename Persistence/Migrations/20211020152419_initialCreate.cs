@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TradingPlatform.Persistence.Migrations
+namespace TradingPlatform.DatabaseService.Persistence.Migrations
 {
     public partial class initialCreate : Migration
     {

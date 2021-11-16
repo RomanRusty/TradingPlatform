@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TradingPlatform.Persistence.Database;
+using TradingPlatform.DatabaseService.Persistence.Database;
 
-namespace TradingPlatform.Persistence.Migrations
+namespace TradingPlatform.DatabaseService.Persistence.Migrations
 {
     [DbContext(typeof(RepositoryDbContext))]
     [Migration("20211020152419_initialCreate")]
@@ -152,7 +152,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -219,7 +219,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Category", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,7 +241,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Complaint", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Complaint", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -273,7 +273,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("Complaints");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Order", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +301,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -342,7 +342,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ProductImage", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -363,7 +363,7 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ProductOrder", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -388,9 +388,9 @@ namespace TradingPlatform.Persistence.Migrations
                     b.ToTable("ProductOrders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ProductImageThumbnail", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", b =>
                 {
-                    b.HasBaseType("TradingPlatform.Domain.Entities.ProductImage");
+                    b.HasBaseType("TradingPlatform.DatabaseService.Domain.Entities.ProductImage");
 
                     b.ToTable("ProductImageThumbnails");
                 });
@@ -406,7 +406,7 @@ namespace TradingPlatform.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -415,7 +415,7 @@ namespace TradingPlatform.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -430,7 +430,7 @@ namespace TradingPlatform.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TradingPlatform.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -439,16 +439,16 @@ namespace TradingPlatform.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Complaint", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Complaint", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.Product", "Product")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Product", "Product")
                         .WithMany("Complaints")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -457,24 +457,24 @@ namespace TradingPlatform.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Order", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Order", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.ApplicationUser", "Custumer")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", "Custumer")
                         .WithMany("Orders")
                         .HasForeignKey("CustumerId");
 
                     b.Navigation("Custumer");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.Category", "Category")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TradingPlatform.Domain.Entities.ProductImageThumbnail", "ImageThumbnail")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", "ImageThumbnail")
                         .WithMany()
                         .HasForeignKey("ImageThumbnailId");
 
@@ -483,9 +483,9 @@ namespace TradingPlatform.Persistence.Migrations
                     b.Navigation("ImageThumbnail");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ProductImage", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImage", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.Product", "Product")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -494,13 +494,13 @@ namespace TradingPlatform.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ProductOrder", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductOrder", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.Order", "Order")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Order", "Order")
                         .WithMany("ProductOrders")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("TradingPlatform.Domain.Entities.Product", "Product")
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Product", "Product")
                         .WithMany("ProductOrders")
                         .HasForeignKey("ProductId");
 
@@ -509,31 +509,31 @@ namespace TradingPlatform.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ProductImageThumbnail", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", b =>
                 {
-                    b.HasOne("TradingPlatform.Domain.Entities.ProductImage", null)
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ProductImage", null)
                         .WithOne()
-                        .HasForeignKey("TradingPlatform.Domain.Entities.ProductImageThumbnail", "Id")
+                        .HasForeignKey("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Category", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Order", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Order", b =>
                 {
                     b.Navigation("ProductOrders");
                 });
 
-            modelBuilder.Entity("TradingPlatform.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.Product", b =>
                 {
                     b.Navigation("Complaints");
 

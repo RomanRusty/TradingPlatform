@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using System;
-using TradingPlatform.Domain.Repository_interfaces;
-using TradingPlatform.Services.Abstractions;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 
-namespace TradingPlatform.Services
+namespace TradingPlatform.DatabaseService.Services
 {
     public class ServiceManager : IServiceManager
     {

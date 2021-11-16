@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Domain.Exceptions.Complaint
+namespace TradingPlatform.DatabaseService.Domain.Exceptions.Complaint
 {
     public class ComplaintAlreadyExistsException : BadRequestException
     {

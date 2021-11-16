@@ -1,6 +1,6 @@
-﻿using TradingPlatform.Contracts.ProductImage;
+﻿using TradingPlatform.DatabaseService.Contracts.ProductImage;
 
-namespace TradingPlatform.Contracts.ProductImageThumbnail
+namespace TradingPlatform.DatabaseService.Contracts.ProductImageThumbnail
 {
     public class ProductImageThumbnailCreateDto : ProductImageCreateDto
     {

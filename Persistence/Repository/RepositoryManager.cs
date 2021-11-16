@@ -1,8 +1,8 @@
 ﻿using System;
-using TradingPlatform.Domain.Entities;
-using TradingPlatform.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Domain.Entities;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 
-namespace TradingPlatform.Persistence.Repository
+namespace TradingPlatform.DatabaseService.Persistence.Repository
 {
     public class RepositoryManager : IRepositoryManager
     {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TradingPlatform.Domain.Entities;
-using TradingPlatform.Contracts.ProductImage;
+using TradingPlatform.DatabaseService.Domain.Entities;
+using TradingPlatform.DatabaseService.Contracts.ProductImage;
 
-namespace TradingPlatform.Persistence.Profiles
+namespace TradingPlatform.DatabaseService.Persistence.Profiles
 {
     public class ProductImagesProfile : Profile
     {

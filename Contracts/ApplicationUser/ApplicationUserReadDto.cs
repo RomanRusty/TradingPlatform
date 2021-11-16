@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TradingPlatform.Contracts.Order;
+using TradingPlatform.DatabaseService.Contracts.Order;
 
-namespace TradingPlatform.Contracts.ApplicationUser
+namespace TradingPlatform.DatabaseService.Contracts.ApplicationUser
 {
     public class ApplicationUserReadDto
     {

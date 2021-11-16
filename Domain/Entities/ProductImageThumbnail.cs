@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Domain.Entities
+namespace TradingPlatform.DatabaseService.Domain.Entities
 {
     [Table("ProductImageThumbnails")]
     public class ProductImageThumbnail:ProductImage

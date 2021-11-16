@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TradingPlatform.Domain.Entities;
-using TradingPlatform.Contracts.Order;
+using TradingPlatform.DatabaseService.Domain.Entities;
+using TradingPlatform.DatabaseService.Contracts.Order;
 
-namespace TradingPlatform.Persistence.Profiles
+namespace TradingPlatform.DatabaseService.Persistence.Profiles
 {
     public class OrdersProfile : Profile
     {

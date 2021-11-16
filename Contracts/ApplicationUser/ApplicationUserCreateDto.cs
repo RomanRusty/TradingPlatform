@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TradingPlatform.Contracts.ApplicationUser
+namespace TradingPlatform.DatabaseService.Contracts.ApplicationUser
 {
     public class ApplicationUserCreateDto
     {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMVC
+namespace TradingPlatform.WebMvc
 {
     public class Program
     {

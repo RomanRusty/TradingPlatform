@@ -8,13 +8,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Reflection;
-using TradingPlatform.Domain.Repository_interfaces;
-using TradingPlatform.Persistence.Database;
-using TradingPlatform.Persistence.Middleware;
-using TradingPlatform.Persistence.Profiles;
-using TradingPlatform.Persistence.Repository;
-using TradingPlatform.Services;
-using TradingPlatform.Services.Abstractions;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Persistence.Database;
+using TradingPlatform.DatabaseService.Persistence.Middleware;
+using TradingPlatform.DatabaseService.Persistence.Profiles;
+using TradingPlatform.DatabaseService.Persistence.Repository;
+using TradingPlatform.DatabaseService.Services;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 
 namespace Web
 {
@@ -57,7 +57,7 @@ namespace Web
             });
             services.AddSingleton(mapperConfig.CreateMapper());
 
-            var assembly = Assembly.Load("TradingPlatform.Presentation");
+            var assembly = Assembly.Load("TradingPlatform.DatabaseService.Presentation");
             services.AddControllers().AddApplicationPart(assembly);
 
             services.AddTransient<ExceptionHandlingMiddleware>();

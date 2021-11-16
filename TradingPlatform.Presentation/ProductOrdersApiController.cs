@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.Contracts.ProductOrder;
+using TradingPlatform.DatabaseService.Contracts.ProductOrder;
 
-namespace TradingPlatform.Presentation
+namespace TradingPlatform.DatabaseService.Presentation
 {
     [Route("api/[controller]")]
     [ApiController]

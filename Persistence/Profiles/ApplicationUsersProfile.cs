@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TradingPlatform.Contracts.ApplicationUser;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Contracts.ApplicationUser;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Persistence.Profiles
+namespace TradingPlatform.DatabaseService.Persistence.Profiles
 {
     public class ApplicationUsersProfile : Profile
     {

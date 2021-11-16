@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Domain.Exceptions.Category
+namespace TradingPlatform.DatabaseService.Domain.Exceptions.Category
 {
     public class CategoryAlreadyExistsException:BadRequestException
     {

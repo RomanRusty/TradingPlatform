@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TradingPlatform.Contracts.Category
+namespace TradingPlatform.DatabaseService.Contracts.Category
 {
     public class CategoryCreateDto
     {

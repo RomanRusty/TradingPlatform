@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Persistence.Database
+namespace TradingPlatform.DatabaseService.Persistence.Database
 {
     public static class DbInitialiser
     {

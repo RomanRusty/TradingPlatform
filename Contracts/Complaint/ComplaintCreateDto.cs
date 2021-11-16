@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TradingPlatform.Contracts.Product;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Contracts.Product;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Contracts.Complaint
+namespace TradingPlatform.DatabaseService.Contracts.Complaint
 {
     public class ComplaintCreateDto
     {

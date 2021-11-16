@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
 namespace TradingPlatform.Models
 {

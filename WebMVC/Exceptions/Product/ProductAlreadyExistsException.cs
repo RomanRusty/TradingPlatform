@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebMVC.Exceptions.Product
+namespace TradingPlatform.WebMvc.Exceptions.Product
 {
     public class ProductAlreadyExistsException:BadRequestException
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebMVC.Exceptions
+namespace TradingPlatform.WebMvc.Exceptions
 {
     public abstract class NotFoundException : Exception
     {

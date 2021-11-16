@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.Contracts.ProductOrder;
-using TradingPlatform.Domain.Entities;
-using TradingPlatform.Domain.Exceptions.ProductOrder;
-using TradingPlatform.Domain.Repository_interfaces;
-using TradingPlatform.Services.Abstractions;
+using TradingPlatform.DatabaseService.Contracts.ProductOrder;
+using TradingPlatform.DatabaseService.Domain.Entities;
+using TradingPlatform.DatabaseService.Domain.Exceptions.ProductOrder;
+using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 
-namespace TradingPlatform.Services
+namespace TradingPlatform.DatabaseService.Services
 {
     public class ProductOrderService : IProductOrderService
     {

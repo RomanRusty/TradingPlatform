@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebMVC": {
+    "TradingPlatform.WebMvc": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

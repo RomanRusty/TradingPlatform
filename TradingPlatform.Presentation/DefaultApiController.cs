@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using TradingPlatform.Services.Abstractions;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 
-namespace TradingPlatform.Presentation
+namespace TradingPlatform.DatabaseService.Presentation
 {
     [ApiController]
     public class DefaultApiController : ControllerBase

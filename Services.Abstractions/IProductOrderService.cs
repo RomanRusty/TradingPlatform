@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TradingPlatform.Contracts.ProductOrder;
+using TradingPlatform.DatabaseService.Contracts.ProductOrder;
 
-namespace TradingPlatform.Services.Abstractions
+namespace TradingPlatform.DatabaseService.Services.Abstractions
 {
     public interface IProductOrderService
     {

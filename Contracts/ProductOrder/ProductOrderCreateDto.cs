@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TradingPlatform.Contracts.Order;
-using TradingPlatform.Contracts.Product;
+using TradingPlatform.DatabaseService.Contracts.Order;
+using TradingPlatform.DatabaseService.Contracts.Product;
 
-namespace TradingPlatform.Contracts.ProductOrder
+namespace TradingPlatform.DatabaseService.Contracts.ProductOrder
 {
     public class ProductOrderCreateDto
     {

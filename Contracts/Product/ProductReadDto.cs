@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using TradingPlatform.Contracts.Category;
-using TradingPlatform.Contracts.Complaint;
-using TradingPlatform.Contracts.ProductImage;
-using TradingPlatform.Contracts.ProductOrder;
+using TradingPlatform.DatabaseService.Contracts.Category;
+using TradingPlatform.DatabaseService.Contracts.Complaint;
+using TradingPlatform.DatabaseService.Contracts.ProductImage;
+using TradingPlatform.DatabaseService.Contracts.ProductOrder;
 
-namespace TradingPlatform.Contracts.Product
+namespace TradingPlatform.DatabaseService.Contracts.Product
 {
     public class ProductReadDto
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebMVC.Exceptions.ProductOrder
+namespace TradingPlatform.WebMvc.Exceptions.ProductOrder
 {
     public class ProductOrderNotFoundException : NotFoundException
     {

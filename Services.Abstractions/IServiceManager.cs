@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Services.Abstractions
+namespace TradingPlatform.DatabaseService.Services.Abstractions
 {
     public interface IServiceManager
     {

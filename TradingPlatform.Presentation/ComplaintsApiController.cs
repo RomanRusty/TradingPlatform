@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TradingPlatform.Contracts.Complaint;
+using TradingPlatform.DatabaseService.Contracts.Complaint;
 
-namespace TradingPlatform.Presentation
+namespace TradingPlatform.DatabaseService.Presentation
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TradingPlatform.Domain.Entities;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Persistence.Database
+namespace TradingPlatform.DatabaseService.Persistence.Database
 {
     public class RepositoryDbContext : IdentityDbContext<ApplicationUser>
     {

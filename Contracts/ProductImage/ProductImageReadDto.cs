@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TradingPlatform.Contracts.Product;
+using TradingPlatform.DatabaseService.Contracts.Product;
 
-namespace TradingPlatform.Contracts.ProductImage
+namespace TradingPlatform.DatabaseService.Contracts.ProductImage
 {
     public class ProductImageReadDto
     {

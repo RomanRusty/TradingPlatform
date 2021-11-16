@@ -11,10 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebMvc.Middleware;
-using WebMVC.Data;
+using TradingPlatform.WebMvc.Middleware;
+using TradingPlatform.WebMvc.Data;
 
-namespace WebMVC
+namespace TradingPlatform.WebMvc
 {
     public class Startup
     {
@@ -46,12 +46,7 @@ namespace WebMVC
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
-            //Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            services.AddControllersWithViews().AddJsonOptions(x =>
-            {
-                x.JsonSerializerOptions.MaxDepth = 5;
-                 }
-                );
+            services.AddControllersWithViews();
             services.AddTransient<ExceptionHandlingMiddleware>();
         }
 

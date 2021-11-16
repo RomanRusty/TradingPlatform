@@ -1,6 +1,6 @@
-﻿using TradingPlatform.Domain.Entities;
+﻿using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Domain.Repository_interfaces
+namespace TradingPlatform.DatabaseService.Domain.Repository_interfaces
 {
     public interface IRepositoryManager
     {

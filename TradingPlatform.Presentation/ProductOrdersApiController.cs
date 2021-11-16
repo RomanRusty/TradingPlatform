@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TradingPlatform.Contracts.ProductOrder;
@@ -11,6 +12,7 @@ namespace TradingPlatform.Presentation
     {
         // GET: api/ProductOrdersApi
         [HttpGet]
+        [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ProductOrderReadDto>>> GetProductOrders()
         {
             var productOrders = await ServiceManager.ProductOrderService.GetAllAsync();
@@ -20,6 +22,8 @@ namespace TradingPlatform.Presentation
 
         // GET: api/ProductOrdersApi/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductOrderReadDto>> GetProductOrder(int id)
         {
             var productOrder = await ServiceManager.ProductOrderService.GetByIdAsync(id);
@@ -30,6 +34,9 @@ namespace TradingPlatform.Presentation
         // PUT: api/ProductOrdersApi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProductOrder(int id, ProductOrderCreateDto productOrderCreateDto)
         {
             await ServiceManager.ProductOrderService.UpdateAsync(id, productOrderCreateDto);
@@ -40,6 +47,8 @@ namespace TradingPlatform.Presentation
         // POST: api/ProductOrdersApi
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductOrderReadDto>> CreateProductOrder(ProductOrderCreateDto productOrderCreateDto)
         {
             var productOrderReadDto = await ServiceManager.ProductOrderService.CreateAsync(productOrderCreateDto);
@@ -49,6 +58,8 @@ namespace TradingPlatform.Presentation
 
         // DELETE: api/ProductOrdersApi/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteProductOrder(int id)
         {
             await ServiceManager.ProductOrderService.DeleteAsync(id);

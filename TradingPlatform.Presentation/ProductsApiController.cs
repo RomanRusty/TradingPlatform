@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TradingPlatform.Contracts.Product;
@@ -12,6 +13,7 @@ namespace TradingPlatform.Presentation
         // GET: api/ProductsApi
 
         [HttpGet]
+        [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetProducts()
         {
             IEnumerable<ProductReadDto> products = await ServiceManager.ProductService.GetAllAsync();
@@ -21,6 +23,8 @@ namespace TradingPlatform.Presentation
 
         // GET: api/ProductsApi/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductReadDto>> GetProduct(int id)
         {
             ProductReadDto product = await ServiceManager.ProductService.GetByIdAsync(id);
@@ -31,6 +35,9 @@ namespace TradingPlatform.Presentation
         // PUT: api/ProductsApi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct(int id, ProductCreateDto productCreateDto)
         {
             await ServiceManager.ProductService.UpdateAsync(id, productCreateDto);
@@ -40,6 +47,8 @@ namespace TradingPlatform.Presentation
 
         // POST: api/ProductsApi
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductReadDto>> CreateProduct(ProductCreateDto productCreateDto)
         {
             var productReadDto = await ServiceManager.ProductService.CreateAsync(productCreateDto);
@@ -49,6 +58,8 @@ namespace TradingPlatform.Presentation
 
         // DELETE: api/ProductsApi/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             await ServiceManager.ProductService.DeleteAsync(id);

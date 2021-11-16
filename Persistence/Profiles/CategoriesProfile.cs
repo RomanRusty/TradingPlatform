@@ -10,6 +10,11 @@ namespace TradingPlatform.Persistence.Profiles
         {
             CreateMap<Category, CategoryReadDto>();
             CreateMap<CategoryCreateDto, Category>();
+
+            CreateMap<CategoryReadDto, Category>(); 
+            CreateMap<Category, CategoryReadDto>(); 
+
+
         }
     }
 }

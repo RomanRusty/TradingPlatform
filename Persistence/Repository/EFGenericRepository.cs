@@ -12,7 +12,7 @@ namespace TradingPlatform.Persistence.Repository
     public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         public RepositoryDbContext _context;
-        DbSet<TEntity> _dbSet;
+        readonly DbSet<TEntity> _dbSet;
 
         public EFGenericRepository(RepositoryDbContext context)
         {
@@ -29,7 +29,6 @@ namespace TradingPlatform.Persistence.Repository
         }
         public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
         {
-
             return _dbSet.Where(predicate).ToList();
         }
         public async Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> predicate)
@@ -78,14 +77,15 @@ namespace TradingPlatform.Persistence.Repository
         {
             return Include(includeProperties).ToList();
         }
-        public async Task<IEnumerable<TEntity>> GetWithIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            return await Include(includeProperties).ToListAsync();
-        }
+
         public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = Include(includeProperties);
             return query.Where(predicate).ToList();
+        }
+        public async Task<IEnumerable<TEntity>> GetWithIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return await Include(includeProperties).ToListAsync();
         }
         public bool Exists(object id)
         {
@@ -107,23 +107,6 @@ namespace TradingPlatform.Persistence.Repository
         {
             IQueryable<TEntity> query = _dbSet;
             return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        }
-        public List<List<TEntity>> ToJaggedArray(IEnumerable<TEntity> array, int cols)
-        {
-            int index = 0;
-            List<List<TEntity>> jaggedArray = new();
-            for (int i = 0; i < Math.Ceiling((double)array.Count() / cols); i++)
-            {
-                List<TEntity> rows = new();
-                for (int j = 0; j < cols; j++)
-                {
-                    if (index >= array.Count())
-                        break;
-                    rows.Add(array.ElementAt(index++));
-                }
-                jaggedArray.Add(rows);
-            }
-            return jaggedArray;
         }
     }
 }

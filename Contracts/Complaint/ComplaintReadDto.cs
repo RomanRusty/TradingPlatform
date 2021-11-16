@@ -9,6 +9,6 @@ namespace TradingPlatform.Contracts.Complaint
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
-        public virtual ProductReadDto Product { get; set; }
+        //public virtual ProductReadDto Product { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace TradingPlatform.Contracts.ApplicationUser
         public string Email { get; set; }
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
-        public virtual IEnumerable<OrderReadDto> Orders { get; set; }
+        //public IEnumerable<OrderReadDto> Orders { get; set; }
 
     }
 }

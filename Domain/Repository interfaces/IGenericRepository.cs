@@ -23,11 +23,11 @@ namespace TradingPlatform.Domain.Repository_interfaces
         Task UpdateAsync(TEntity item);
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
         IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<IEnumerable<TEntity>> GetWithIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties);
         bool Exists(object id);
         bool Exists(TEntity item);
         Task<bool> ExistsAsync(object id);
         Task<bool> ExistsAsync(TEntity item);
-        List<List<TEntity>> ToJaggedArray(IEnumerable<TEntity> array, int cols);
         
     }
 }

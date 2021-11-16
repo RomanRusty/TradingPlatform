@@ -10,15 +10,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using TradingPlatform.DatabaseService.Persistence.Database;
 
-namespace Web
+namespace TradingPlatform.DatabaseService.Api
 {
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            var webHost = CreateHostBuilder(args).Build();
-            await ApplyMigrations(webHost.Services);
-            await webHost.RunAsync();
+            var host = CreateHostBuilder(args).Build();
+            await ApplyMigrations(host.Services);
+            await host.RunAsync();
         }
         private static async Task ApplyMigrations(IServiceProvider serviceProvider)
         {

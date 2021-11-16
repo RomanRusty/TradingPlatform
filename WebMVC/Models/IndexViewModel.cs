@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TradingPlatform.DatabaseService.Domain.Entities;
 using TradingPlatform.DatabaseService.Contracts.Product;
 
-namespace TradingPlatform.Models
+namespace TradingPlatform.WebMvc.Models
 {
     public class IndexViewModel
     {

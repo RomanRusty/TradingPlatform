@@ -1,6 +1,6 @@
 using System;
 
-namespace TradingPlatform.Models
+namespace TradingPlatform.WebMvc.Models
 {
     public class ErrorViewModel
     {

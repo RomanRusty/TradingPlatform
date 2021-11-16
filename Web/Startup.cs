@@ -16,7 +16,7 @@ using TradingPlatform.DatabaseService.Persistence.Repository;
 using TradingPlatform.DatabaseService.Services;
 using TradingPlatform.DatabaseService.Services.Abstractions;
 
-namespace Web
+namespace TradingPlatform.DatabaseService.Api
 {
     public class Startup
     {

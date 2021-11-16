@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TradingPlatform.WebMvc.Data
+namespace TradingPlatform.ClientService.Persistence.Database
 {
     public class ApplicationDbContext : IdentityDbContext
     {

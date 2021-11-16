@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TradingPlatform.Models
+namespace TradingPlatform.WebMvc.Models
 {
     public class ItemPaginationViewModel
 	{

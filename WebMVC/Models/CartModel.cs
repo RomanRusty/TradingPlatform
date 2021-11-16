@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.Models
+namespace TradingPlatform.WebMvc.Models
 {
     public class CartModel
     {

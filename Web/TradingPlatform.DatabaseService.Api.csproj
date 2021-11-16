@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>aspnet-Web-C3E20E87-8CA8-4A9B-8905-EF731F613EDA</UserSecretsId>
+    <UserSecretsId>aspnet-TradingPlatform.DatabaseService.Api-C3E20E87-8CA8-4A9B-8905-EF731F613EDA</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj" />
     <ProjectReference Include="..\Services\TradingPlatform.DatabaseService.Services.csproj" />
-    <ProjectReference Include="..\TradingPlatform.DatabaseService.Presentation\TradingPlatform.DatabaseService.Presentation.csproj" />
+    <ProjectReference Include="..\TradingPlatform.Presentation\TradingPlatform.DatabaseService.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

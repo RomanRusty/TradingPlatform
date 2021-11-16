@@ -1,5 +1,5 @@
 ﻿using TradingPlatform.DatabaseService.Contracts;
-namespace TradingPlatform.Models
+namespace TradingPlatform.WebMvc.Models
 {
     public class ProductDetailsViewModel
     {

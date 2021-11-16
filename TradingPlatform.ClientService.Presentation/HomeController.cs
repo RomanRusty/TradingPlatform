@@ -4,7 +4,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.Controllers
+namespace TradingPlatform.ClientService.Presentation
 {
     public class HomeController : Controller
     {
@@ -14,7 +14,7 @@ namespace TradingPlatform.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, string category, int page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, string category, int page)
         {
             var client = new HttpClient()
             {

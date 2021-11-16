@@ -16,11 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
+    <ProjectReference Include="..\TradingPlatform.ClientService.Persistence\TradingPlatform.ClientService.Persistence.csproj" />
+    <ProjectReference Include="..\TradingPlatform.ClientService.Presentation\TradingPlatform.ClientService.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

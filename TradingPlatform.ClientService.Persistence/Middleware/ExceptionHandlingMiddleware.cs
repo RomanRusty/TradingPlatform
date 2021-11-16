@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TradingPlatform.WebMvc.Exceptions;
+using TradingPlatform.ClientService.Domain.Exceptions;
 
-namespace TradingPlatform.WebMvc.Middleware
+namespace TradingPlatform.ClientService.Persistence.Middleware
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class ExceptionHandlingMiddleware : IMiddleware

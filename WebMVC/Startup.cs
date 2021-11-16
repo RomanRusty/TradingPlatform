@@ -10,9 +10,11 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
-using TradingPlatform.WebMvc.Middleware;
-using TradingPlatform.WebMvc.Data;
+using TradingPlatform.ClientService.Persistence.Database;
+using TradingPlatform.ClientService.Persistence.Middleware;
+using TradingPlatform.DatabaseService.Domain.Entities;
 
 namespace TradingPlatform.WebMvc
 {
@@ -34,7 +36,7 @@ namespace TradingPlatform.WebMvc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedAccount = false;
@@ -46,7 +48,9 @@ namespace TradingPlatform.WebMvc
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
-            services.AddControllersWithViews();
+
+            var assembly = Assembly.Load("TradingPlatform.ClientService.Presentation");
+            services.AddControllersWithViews().AddApplicationPart(assembly);
             services.AddTransient<ExceptionHandlingMiddleware>();
         }
 

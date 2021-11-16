@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-namespace TradingPlatform.Controllers
+namespace TradingPlatform.ClientService.Presentation
 {
     public class ProductOrdersController : Controller
     {

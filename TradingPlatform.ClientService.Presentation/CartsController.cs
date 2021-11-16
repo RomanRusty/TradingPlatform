@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 
-namespace TradingPlatform.Controllers
+namespace TradingPlatform.ClientService.Presentation
 {
     public class CartsController : Controller
     {

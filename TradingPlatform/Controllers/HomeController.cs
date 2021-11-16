@@ -14,12 +14,15 @@ namespace TradingPlatform.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public IActionResult Index(string sortOrder, string currentFilter, string searchString, string category, int page)
+        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, string category, int page)
         {
-            //var client=new HttpClient() {
-            //    BaseAddress=new Uri("SomeUrl")
-            //};
-            //var response = await client.GetAsync("QueryString");
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri("https://localhost:44338/")
+            };
+
+            var response = await client.GetAsync("api/CategoriesApi");
+            Console.WriteLine(response);
 
             //int rowsOnPage = 5;
             //int itemsInRow = 3;

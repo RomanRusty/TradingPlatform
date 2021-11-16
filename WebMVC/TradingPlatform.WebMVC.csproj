@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\TradingPlatform.Contracts.csproj" />
+    <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

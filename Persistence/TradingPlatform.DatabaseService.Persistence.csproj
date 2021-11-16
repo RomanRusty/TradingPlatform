@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\TradingPlatform.Contracts.csproj" />
-    <ProjectReference Include="..\Domain\TradingPlatform.Domain.csproj" />
+    <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
+    <ProjectReference Include="..\Domain\TradingPlatform.DatabaseService.Domain.csproj" />
   </ItemGroup>
 
 </Project>

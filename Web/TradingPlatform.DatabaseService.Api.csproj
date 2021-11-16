@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Services.Abstractions\TradingPlatform.Services.Abstractions.csproj" />
-    <ProjectReference Include="..\Services\TradingPlatform.Services.csproj" />
-    <ProjectReference Include="..\TradingPlatform.Presentation\TradingPlatform.Presentation.csproj" />
+    <ProjectReference Include="..\Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\Services\TradingPlatform.DatabaseService.Services.csproj" />
+    <ProjectReference Include="..\TradingPlatform.Presentation\TradingPlatform.DatabaseService.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\TradingPlatform.Contracts.csproj" />
-    <ProjectReference Include="..\Services.Abstractions\TradingPlatform.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
+    <ProjectReference Include="..\Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

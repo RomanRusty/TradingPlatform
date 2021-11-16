@@ -1,0 +1,76 @@
+﻿@using TradingPlatform.Domain.Entities
+@model CartModel;
+<div class="container">
+	<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-10">
+			<ul class="list-group">
+				@for (var i = 0; i < Model.Orders.Count; i++)
+				{
+					string collapseId = "#orderCollapse" + i;
+					string collapseForId = "orderCollapse" + i;
+					Order order = Model.Orders[i];
+					<li class="list-group-item">
+						<button class="btn btn-primary w-100 d-flex justify-content-between align-content-center" type="button" data-bs-toggle="collapse" data-bs-target="@collapseId" aria-expanded="false" aria-controls="collapse">
+							<p>@order.Name</p>
+							<a type="button" class="btn btn-danger"  asp-action="DeleteOrder" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>
+						</button>
+						<div class="collapse" id="@collapseForId">
+							<div class="list-group">
+								@if (order.ProductOrders == null)
+								{
+									<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">No products in order buy one</a>
+								}
+								else
+								{
+									<div class="list-group-item list-group-item-action d-flex justify-content-around">
+										<div>
+											Product Name
+										</div>
+										<div>
+											Product Quantity
+										</div>
+										<div>
+											Product Price
+										</div>
+										<div>
+											Total Price
+										</div>
+										<div>
+
+										</div>
+									</div>
+									@foreach (var productOrder in order.ProductOrders)
+									{
+										double totalPrice = productOrder.Product.Price * productOrder.Quantity;
+										<div class="list-group-item d-flex justify-content-between">
+											<a class="list-group-item d-flex justify-content-around w-100" asp-action="ProductDetails" asp-route-id="@productOrder.Product.Id">
+												<div>
+													@productOrder.Product.Name
+												</div>
+												<div>
+													@productOrder.Quantity
+												</div>
+												<div>
+													@productOrder.Product.Price
+												</div>
+												<div>
+													@totalPrice
+												</div>
+											</a>
+												<a type="button" class="btn btn-outline-danger bi bi-file-minus" asp-action="DeleteProductOrder" asp-route-id="@productOrder.Id"></a>
+										</div>
+								
+										
+									
+									}
+								}
+							</div>
+						</div>
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+</div>

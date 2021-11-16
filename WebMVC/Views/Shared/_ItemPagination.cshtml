@@ -1,0 +1,56 @@
+﻿@model ItemPaginationViewModel;
+<nav aria-label="Page navigation example">
+	<ul class="pagination">
+		@if (Model.EnablePrevNextButtons)
+		{
+			if (Model.HasPreviousPage())
+			{
+				<li class="page-item">
+					<a class="page-link" asp-action="index" asp-route-page="@Model.GetPreviousPage()"
+					asp-route-sortOrder="@Model.CurrentSort" asp-route-currentFilter="@Model.CurrentFilter">Previous</a>
+				</li>
+			}
+			else
+			{
+				<li class="page-item disabled">
+					<a class="page-link" asp-action="index" asp-route-page="@Model.GetPreviousPage()"
+					asp-route-sortOrder="@Model.CurrentSort" asp-route-currentFilter="@Model.CurrentFilter">Previous</a>
+				</li>
+			}
+		}
+		@for (var i = Model.MinPage; i < Model.MaxPage; i++)
+		{
+			if (i == Model.CurrentPage)
+			{
+				<li class="page-item active">
+					<a class="page-link" asp-action="index" asp-route-page="@i"
+					asp-route-sortOrder="@Model.CurrentSort" asp-route-currentFilter="@Model.CurrentFilter">@i</a>
+				</li>
+			}
+			else
+			{
+				<li class="page-item">
+					<a class="page-link" asp-action="index" asp-route-page="@i"
+					asp-route-sortOrder="@Model.CurrentSort" asp-route-currentFilter="@Model.CurrentFilter">@i</a>
+				</li>
+			}
+		}
+		@if (Model.EnablePrevNextButtons)
+		{
+			if (Model.HasNextPage())
+			{
+				<li class="page-item">
+					<a class="page-link" asp-action="index" asp-route-page="@Model.GetNextPage()"
+					asp-route-sortOrder="@Model.CurrentSort" asp-route-currentFilter="@Model.CurrentFilter">Next</a>
+				</li>
+			}
+			else
+			{
+				<li class="page-item disabled">
+					<a class="page-link" asp-action="index" asp-route-page="@Model.GetNextPage()"
+					asp-route-sortOrder="@Model.CurrentSort" asp-route-currentFilter="@Model.CurrentFilter">Next</a>
+				</li>
+			}
+		}
+	</ul>
+</nav>

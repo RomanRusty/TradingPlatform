@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>aspnet-TradingPlatform.DatabaseService.Api-C3E20E87-8CA8-4A9B-8905-EF731F613EDA</UserSecretsId>
+    <UserSecretsId>aspnet-TradingPlatform.DatabaseService.WebApi-C3E20E87-8CA8-4A9B-8905-EF731F613EDA</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TradingPlatform.DatabaseService.Contracts.Product;
+using TradingPlatform.EntityContracts.Product;
 
-namespace TradingPlatform.DatabaseService.Contracts.ProductImage
+namespace TradingPlatform.EntityContracts.ProductImage
 {
     public class ProductImageCreateDto
     {

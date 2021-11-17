@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TradingPlatform.DatabaseService.Contracts.Product;
+using TradingPlatform.EntityContracts.Product;
 
-namespace TradingPlatform.DatabaseService.Contracts.Category
+namespace TradingPlatform.EntityContracts.Category
 {
     public class CategoryReadDto
     {

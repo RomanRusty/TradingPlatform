@@ -1,7 +1,7 @@
 ﻿using System;
-using TradingPlatform.DatabaseService.Contracts.Product;
+using TradingPlatform.EntityContracts.Product;
 
-namespace TradingPlatform.DatabaseService.Contracts.Complaint
+namespace TradingPlatform.EntityContracts.Complaint
 {
     public class ComplaintReadDto
     {

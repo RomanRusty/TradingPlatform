@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using TradingPlatform.DatabaseService.Contracts.ApplicationUser;
-using TradingPlatform.DatabaseService.Contracts.ProductOrder;
+using TradingPlatform.EntityContracts.ApplicationUser;
+using TradingPlatform.EntityContracts.ProductOrder;
 using TradingPlatform.DatabaseService.Domain.Entities;
 
-namespace TradingPlatform.DatabaseService.Contracts.Order
+namespace TradingPlatform.EntityContracts.Order
 {
     public class OrderReadDto
     {

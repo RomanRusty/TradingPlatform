@@ -1,7 +1,7 @@
-﻿using TradingPlatform.DatabaseService.Contracts.Order;
-using TradingPlatform.DatabaseService.Contracts.Product;
+﻿using TradingPlatform.EntityContracts.Order;
+using TradingPlatform.EntityContracts.Product;
 
-namespace TradingPlatform.DatabaseService.Contracts.ProductOrder
+namespace TradingPlatform.EntityContracts.ProductOrder
 {
     public class ProductOrderReadDto
     {

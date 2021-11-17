@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using TradingPlatform.DatabaseService.Contracts.Category;
-using TradingPlatform.DatabaseService.Contracts.ProductImage;
-using TradingPlatform.DatabaseService.Contracts.ProductImageThumbnail;
+using TradingPlatform.EntityContracts.Category;
+using TradingPlatform.EntityContracts.ProductImage;
+using TradingPlatform.EntityContracts.ProductImageThumbnail;
 
-namespace TradingPlatform.DatabaseService.Contracts.Product
+namespace TradingPlatform.EntityContracts.Product
 {
     public class ProductCreateDto
     {

@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TradingPlatform.ClientService.Services.Abstractions\TradingPlatform.ClientService.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\WebMVC\TradingPlatform.WebMVC.csproj" />
   </ItemGroup>
 
 </Project>

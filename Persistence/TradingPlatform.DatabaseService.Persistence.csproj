@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,8 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
     <ProjectReference Include="..\Domain\TradingPlatform.DatabaseService.Domain.csproj" />
+    <ProjectReference Include="..\EntityContracts\TradingPlatform.EntityContracts.csproj" />
+    <ProjectReference Include="..\EntityExceptions\TradingPlatform.EntityExceptions.csproj" />
   </ItemGroup>
 
 </Project>

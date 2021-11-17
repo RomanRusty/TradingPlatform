@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TradingPlatform.DatabaseService.Contracts.Category;
+using TradingPlatform.EntityContracts.Category;
 using TradingPlatform.DatabaseService.Domain.Entities;
 
 namespace TradingPlatform.DatabaseService.Persistence.Profiles

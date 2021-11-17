@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TradingPlatform.DatabaseService.Domain.Exceptions;
+using TradingPlatform.EntityExceptions;
 
 namespace TradingPlatform.DatabaseService.Persistence.Middleware
 {

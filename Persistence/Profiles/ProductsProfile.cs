@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using TradingPlatform.DatabaseService.Domain.Entities;
-using TradingPlatform.DatabaseService.Contracts.Product;
+using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.DatabaseService.Persistence.Profiles
 {

@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.DatabaseService.Contracts.Complaint;
+using TradingPlatform.EntityContracts.Complaint;
 using TradingPlatform.DatabaseService.Domain.Entities;
-using TradingPlatform.DatabaseService.Domain.Exceptions.Complaint;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 using TradingPlatform.DatabaseService.Services.Abstractions;
+using TradingPlatform.EntityExceptions.Complaint;
 
 namespace TradingPlatform.DatabaseService.Services
 {

@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.DatabaseService.Contracts.ProductOrder;
+using TradingPlatform.EntityContracts.ProductOrder;
 using TradingPlatform.DatabaseService.Domain.Entities;
-using TradingPlatform.DatabaseService.Domain.Exceptions.ProductOrder;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 using TradingPlatform.DatabaseService.Services.Abstractions;
+using TradingPlatform.EntityExceptions.ProductOrder;
 
 namespace TradingPlatform.DatabaseService.Services
 {

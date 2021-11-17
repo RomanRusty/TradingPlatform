@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EntityExceptions\TradingPlatform.EntityExceptions.csproj" />
     <ProjectReference Include="..\TradingPlatform.ClientService.Domain\TradingPlatform.ClientService.Domain.csproj" />
   </ItemGroup>
 

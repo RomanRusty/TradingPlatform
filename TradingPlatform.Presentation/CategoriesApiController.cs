@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.DatabaseService.Contracts.Category;
+using TradingPlatform.EntityContracts.Category;
 
 namespace TradingPlatform.DatabaseService.Presentation
 {

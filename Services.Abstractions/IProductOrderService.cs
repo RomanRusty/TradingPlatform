@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TradingPlatform.DatabaseService.Contracts.ProductOrder;
+using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.DatabaseService.Services.Abstractions
 {

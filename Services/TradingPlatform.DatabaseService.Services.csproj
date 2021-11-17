@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
     <ProjectReference Include="..\Domain\TradingPlatform.DatabaseService.Domain.csproj" />
+    <ProjectReference Include="..\EntityContracts\TradingPlatform.EntityContracts.csproj" />
     <ProjectReference Include="..\Persistence\TradingPlatform.DatabaseService.Persistence.csproj" />
     <ProjectReference Include="..\Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj" />
   </ItemGroup>

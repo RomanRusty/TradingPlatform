@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TradingPlatform.DatabaseService.Contracts.Category;
 using TradingPlatform.DatabaseService.Domain.Entities;
-using TradingPlatform.DatabaseService.Domain.Exceptions.Category;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 using TradingPlatform.DatabaseService.Services.Abstractions;
+using TradingPlatform.EntityContracts.Category;
+using TradingPlatform.EntityExceptions.Category;
 
 namespace TradingPlatform.DatabaseService.Services
 {

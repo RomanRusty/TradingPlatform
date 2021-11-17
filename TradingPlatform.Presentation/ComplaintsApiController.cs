@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TradingPlatform.DatabaseService.Contracts.Complaint;
+using TradingPlatform.EntityContracts.Complaint;
 
 namespace TradingPlatform.DatabaseService.Presentation
 {

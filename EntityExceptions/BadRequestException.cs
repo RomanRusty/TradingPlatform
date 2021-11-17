@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.ClientService.Domain.Exceptions
+namespace TradingPlatform.EntityExceptions
 {
     public abstract class BadRequestException : Exception
     {

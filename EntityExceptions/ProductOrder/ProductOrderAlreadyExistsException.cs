@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.DatabaseService.Domain.Exceptions.ProductOrder
+namespace TradingPlatform.EntityExceptions.ProductOrder
 {
     public class ProductOrderAlreadyExistsException : BadRequestException
     {

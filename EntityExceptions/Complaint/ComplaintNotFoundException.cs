@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.DatabaseService.Domain.Exceptions.Complaint
+namespace TradingPlatform.EntityExceptions.Complaint
 {
     public class ComplaintNotFoundException : NotFoundException
     {

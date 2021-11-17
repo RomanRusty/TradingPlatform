@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.DatabaseService.Domain.Exceptions
+namespace TradingPlatform.EntityExceptions
 {
-    public abstract class BadRequestException : Exception
+    public abstract class NotFoundException : Exception
     {
-        public BadRequestException(string message)
+        protected NotFoundException(string message)
             : base(message)
         {
         }

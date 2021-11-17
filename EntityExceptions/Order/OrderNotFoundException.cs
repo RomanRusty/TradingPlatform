@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradingPlatform.DatabaseService.Domain.Exceptions.Order
+namespace TradingPlatform.EntityExceptions.Order
 {
     public class OrderNotFoundException : NotFoundException
     {

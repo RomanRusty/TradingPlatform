@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\TradingPlatform.DatabaseService.Contracts.csproj" />
+    <ProjectReference Include="..\EntityContracts\TradingPlatform.EntityContracts.csproj" />
     <ProjectReference Include="..\TradingPlatform.ClientService.Persistence\TradingPlatform.ClientService.Persistence.csproj" />
     <ProjectReference Include="..\TradingPlatform.ClientService.Presentation\TradingPlatform.ClientService.Presentation.csproj" />
   </ItemGroup>

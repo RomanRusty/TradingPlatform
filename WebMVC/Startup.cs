@@ -1,3 +1,4 @@
+using ExampleWebApplication.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -52,6 +53,9 @@ namespace TradingPlatform.WebMvc
             var assembly = Assembly.Load("TradingPlatform.ClientService.Presentation");
             services.AddControllersWithViews().AddApplicationPart(assembly);
             services.AddTransient<ExceptionHandlingMiddleware>();
+
+            services.Configure<AppConfiguration>(Configuration);
+            //services.AddHttpClient<IExampleApiClient, ExampleApiClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

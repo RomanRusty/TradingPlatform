@@ -17,15 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Persistence", "Persistence\TradingPlatform.DatabaseService.Persistence.csproj", "{5B0F9604-3E43-43C0-8FAB-EED3734D8275}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Api", "Web\TradingPlatform.DatabaseService.Api.csproj", "{1D56489B-5359-44E0-9D6E-98258B07FBE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.WebApi", "Web\TradingPlatform.DatabaseService.WebApi.csproj", "{1D56489B-5359-44E0-9D6E-98258B07FBE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Presentation", "TradingPlatform.Presentation\TradingPlatform.DatabaseService.Presentation.csproj", "{65DA064E-7005-41A0-B4C5-708790640E5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.WebMVC", "WebMVC\TradingPlatform.WebMVC.csproj", "{7C7D648C-8216-4966-BC8B-B80EF8184F55}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseMicroService", "DatabaseMicroService", "{C134B3B8-D4A5-4D2E-BC95-3E23353B3CB5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C134B3B8-D4A5-4D2E-BC95-3E23353B3CB5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientMicroservice", "ClientMicroservice", "{5ACD78E8-10A6-4847-97F1-AFF2C828D4B0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{5ACD78E8-10A6-4847-97F1-AFF2C828D4B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{5BA56329-4149-4AB5-B51C-4E5D6BB62386}"
 EndProject
@@ -33,21 +33,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GlobalLibraries", "GlobalLibraries", "{4106956F-5002-4A5F-BE92-41AF3B8305E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Persistence", "TradingPlatform.ClientService.Persistence\TradingPlatform.ClientService.Persistence.csproj", "{9DBD1F2C-CD1F-4899-8306-1FE23A5A8529}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Persistence", "TradingPlatform.ClientService.Persistence\TradingPlatform.ClientService.Persistence.csproj", "{9DBD1F2C-CD1F-4899-8306-1FE23A5A8529}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Presentation", "TradingPlatform.ClientService.Presentation\TradingPlatform.ClientService.Presentation.csproj", "{041EB39A-22A4-410C-9683-4AE519810274}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Presentation", "TradingPlatform.ClientService.Presentation\TradingPlatform.ClientService.Presentation.csproj", "{041EB39A-22A4-410C-9683-4AE519810274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Services", "TradingPlatform.ClientService.Services\TradingPlatform.ClientService.Services.csproj", "{9B411864-6DC7-447D-BBCD-B7FC325EDA65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Services", "TradingPlatform.ClientService.Services\TradingPlatform.ClientService.Services.csproj", "{9B411864-6DC7-447D-BBCD-B7FC325EDA65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Services.Abstractions", "TradingPlatform.ClientService.Services.Abstractions\TradingPlatform.ClientService.Services.Abstractions.csproj", "{C7D679C4-31F5-4C13-9E3A-900D6BA672F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Services.Abstractions", "TradingPlatform.ClientService.Services.Abstractions\TradingPlatform.ClientService.Services.Abstractions.csproj", "{C7D679C4-31F5-4C13-9E3A-900D6BA672F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Domain", "TradingPlatform.ClientService.Domain\TradingPlatform.ClientService.Domain.csproj", "{7209E78E-5630-49A3-B006-884CDBAA27EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Domain", "TradingPlatform.ClientService.Domain\TradingPlatform.ClientService.Domain.csproj", "{7209E78E-5630-49A3-B006-884CDBAA27EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Contracts", "TradingPlatform.ClientService.Contracts\TradingPlatform.ClientService.Contracts.csproj", "{7FD7ABE6-3DB4-409A-BACC-95E5F8D85A1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Contracts", "TradingPlatform.ClientService.Contracts\TradingPlatform.ClientService.Contracts.csproj", "{7FD7ABE6-3DB4-409A-BACC-95E5F8D85A1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.EntityContracts", "EntityContracts\TradingPlatform.EntityContracts.csproj", "{E3698EB6-8079-4003-9277-1E4EAD502F39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.EntityContracts", "EntityContracts\TradingPlatform.EntityContracts.csproj", "{E3698EB6-8079-4003-9277-1E4EAD502F39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.EntityExceptions", "EntityExceptions\TradingPlatform.EntityExceptions.csproj", "{1515A237-F96E-466E-8692-3F79F1F47F23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.EntityExceptions", "EntityExceptions\TradingPlatform.EntityExceptions.csproj", "{1515A237-F96E-466E-8692-3F79F1F47F23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

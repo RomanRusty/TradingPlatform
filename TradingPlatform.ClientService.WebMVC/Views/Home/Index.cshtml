@@ -1,0 +1,70 @@
+﻿@using TradingPlatform.ClientService.Contracts.Home
+@using TradingPlatform.EntityContracts.Product
+@model IndexViewModel;
+@{
+	ViewData["Title"] = "Home Page";
+	List<List<ProductReadDto>> products = Model.Products;
+}
+<div class="container">
+@*	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<p class="text-center fs-1">Search</p>
+			<form asp-action="Index" method="get">
+
+				<div class="input-group input-group-lg">
+					<span class="input-group-text" id="inputGroup-sizing-lg">Name</span>
+					<input type="text" name="searchString" value="@Model.ItemPagination.CurrentFilter" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+				</div>
+				<div class="input-group mb-3">
+					<label class="input-group-text" for="inputGroupSelect01">Order by</label>
+					<select class="form-select" name="sortOrder" id="inputGroupSelect01">
+						<option value="">Price</option>
+						<option value="price_desc">Price desc</option>
+						<option value="date">Date</option>
+							<option value="date_desc">Dates desc</option>
+					</select>
+				</div>
+				<div class="mt-3 d-flex justify-content-between">
+					<a class="btn btn-info" asp-action="Index" asp-route-currentFilter="@Model.ItemPagination.CurrentFilter">Back to Full List</a>
+					<input type="submit" value="Search" class="btn btn-primary" />
+				</div>
+
+
+			</form>
+		</div>
+	</div>*@
+@*	<div class="d-flex justify-content-center mt-3">
+		<partial name="_ItemPagination" model="@Model.ItemPagination" />
+	</div>*@
+
+	@for (var i = 0; i < products.Count; i++)
+	{
+		<div class="row">
+			@for (var j = 0; j < products[i].Count; j++)
+			{
+				ProductReadDto product = products[i][j];
+				<div class="col-md-4">
+					<div class="card ms-1 mt-1">
+						<a asp-action="ProductDetails" asp-route-id="@product.Id">
+							<img src="https://mediapure.ru/wp-content/uploads/2012/03/cpu.png" class="card-img-top" alt="Not found">
+						</a>
+						<div class="card-body">
+							<h5 class="card-title text-truncate">@product.Name</h5>
+							<p class="card-text text-truncate">@product.Description</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<h5 class="card-title">@product.Price</h5>
+								<div>
+									@*<partial name="_ModalAddItemToCart" model="@new AddItemToCartViewModel(){Product=product,Orders=Model.AvailableOrdersSelectList }" />*@
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	}
+@*	<div class="d-flex justify-content-center mt-3">
+		<partial name="_ItemPagination" model="@Model.ItemPagination" />
+	</div>*@
+</div>

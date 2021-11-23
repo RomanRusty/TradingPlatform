@@ -7,21 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B1CDBB65-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C4A21C7B-CD48-4BB8-8C5C-2539F99CF906}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Contracts", "Contracts\TradingPlatform.DatabaseService.Contracts.csproj", "{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Contracts", "TradingPlatform.DatabaseService.Contracts\TradingPlatform.DatabaseService.Contracts.csproj", "{B9546722-D9D1-4DAD-A91E-C9C7382DAFA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Domain", "Domain\TradingPlatform.DatabaseService.Domain.csproj", "{FB95F557-CA51-4BD8-ABA4-943413BE0392}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Domain", "TradingPlatform.DatabaseService.Domain\TradingPlatform.DatabaseService.Domain.csproj", "{FB95F557-CA51-4BD8-ABA4-943413BE0392}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Services", "Services\TradingPlatform.DatabaseService.Services.csproj", "{88289DC7-1B00-4F01-BF6B-C83823CFF5C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Services", "TradingPlatform.DatabaseService.Services\TradingPlatform.DatabaseService.Services.csproj", "{88289DC7-1B00-4F01-BF6B-C83823CFF5C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Services.Abstractions", "Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj", "{51707DA9-FB50-4D35-8C7C-46A7F5B7EACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Services.Abstractions", "TradingPlatform.DatabaseService.Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj", "{51707DA9-FB50-4D35-8C7C-46A7F5B7EACA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Persistence", "Persistence\TradingPlatform.DatabaseService.Persistence.csproj", "{5B0F9604-3E43-43C0-8FAB-EED3734D8275}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Persistence", "TradingPlatform.DatabaseService.Persistence\TradingPlatform.DatabaseService.Persistence.csproj", "{5B0F9604-3E43-43C0-8FAB-EED3734D8275}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.WebApi", "Web\TradingPlatform.DatabaseService.WebApi.csproj", "{1D56489B-5359-44E0-9D6E-98258B07FBE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.WebApi", "TradingPlatform.DatabaseService.WebApi\TradingPlatform.DatabaseService.WebApi.csproj", "{1D56489B-5359-44E0-9D6E-98258B07FBE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Presentation", "TradingPlatform.Presentation\TradingPlatform.DatabaseService.Presentation.csproj", "{65DA064E-7005-41A0-B4C5-708790640E5D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.WebMVC", "WebMVC\TradingPlatform.WebMVC.csproj", "{7C7D648C-8216-4966-BC8B-B80EF8184F55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.WebMVC", "TradingPlatform.ClientService.WebMVC\TradingPlatform.ClientService.WebMVC.csproj", "{7C7D648C-8216-4966-BC8B-B80EF8184F55}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{C134B3B8-D4A5-4D2E-BC95-3E23353B3CB5}"
 EndProject
@@ -45,9 +43,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientServi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Contracts", "TradingPlatform.ClientService.Contracts\TradingPlatform.ClientService.Contracts.csproj", "{7FD7ABE6-3DB4-409A-BACC-95E5F8D85A1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.EntityContracts", "EntityContracts\TradingPlatform.EntityContracts.csproj", "{E3698EB6-8079-4003-9277-1E4EAD502F39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.EntityContracts", "TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj", "{E3698EB6-8079-4003-9277-1E4EAD502F39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.EntityExceptions", "EntityExceptions\TradingPlatform.EntityExceptions.csproj", "{1515A237-F96E-466E-8692-3F79F1F47F23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.EntityExceptions", "TradingPlatform.EntityExceptions\TradingPlatform.EntityExceptions.csproj", "{1515A237-F96E-466E-8692-3F79F1F47F23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseService.Presentation", "TradingPlatform.DatabaseService.Presentation\TradingPlatform.DatabaseService.Presentation.csproj", "{E596B0F2-4874-4D5E-A311-33881D2910AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,10 +79,6 @@ Global
 		{1D56489B-5359-44E0-9D6E-98258B07FBE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D56489B-5359-44E0-9D6E-98258B07FBE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D56489B-5359-44E0-9D6E-98258B07FBE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65DA064E-7005-41A0-B4C5-708790640E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65DA064E-7005-41A0-B4C5-708790640E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65DA064E-7005-41A0-B4C5-708790640E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65DA064E-7005-41A0-B4C5-708790640E5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7D648C-8216-4966-BC8B-B80EF8184F55}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -119,6 +115,10 @@ Global
 		{1515A237-F96E-466E-8692-3F79F1F47F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1515A237-F96E-466E-8692-3F79F1F47F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1515A237-F96E-466E-8692-3F79F1F47F23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E596B0F2-4874-4D5E-A311-33881D2910AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E596B0F2-4874-4D5E-A311-33881D2910AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E596B0F2-4874-4D5E-A311-33881D2910AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E596B0F2-4874-4D5E-A311-33881D2910AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,7 +132,6 @@ Global
 		{51707DA9-FB50-4D35-8C7C-46A7F5B7EACA} = {B1CDBB65-0AFC-4227-8F50-A53EDCD68E23}
 		{5B0F9604-3E43-43C0-8FAB-EED3734D8275} = {C4A21C7B-CD48-4BB8-8C5C-2539F99CF906}
 		{1D56489B-5359-44E0-9D6E-98258B07FBE2} = {C134B3B8-D4A5-4D2E-BC95-3E23353B3CB5}
-		{65DA064E-7005-41A0-B4C5-708790640E5D} = {C4A21C7B-CD48-4BB8-8C5C-2539F99CF906}
 		{7C7D648C-8216-4966-BC8B-B80EF8184F55} = {5ACD78E8-10A6-4847-97F1-AFF2C828D4B0}
 		{5BA56329-4149-4AB5-B51C-4E5D6BB62386} = {5ACD78E8-10A6-4847-97F1-AFF2C828D4B0}
 		{57698AA3-2EAF-4DF4-AE0C-6A8A0D70F189} = {5ACD78E8-10A6-4847-97F1-AFF2C828D4B0}
@@ -144,6 +143,7 @@ Global
 		{7FD7ABE6-3DB4-409A-BACC-95E5F8D85A1A} = {5BA56329-4149-4AB5-B51C-4E5D6BB62386}
 		{E3698EB6-8079-4003-9277-1E4EAD502F39} = {4106956F-5002-4A5F-BE92-41AF3B8305E6}
 		{1515A237-F96E-466E-8692-3F79F1F47F23} = {4106956F-5002-4A5F-BE92-41AF3B8305E6}
+		{E596B0F2-4874-4D5E-A311-33881D2910AD} = {C4A21C7B-CD48-4BB8-8C5C-2539F99CF906}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49460036-2A5C-4A85-AD8E-FF463A31E2FE}

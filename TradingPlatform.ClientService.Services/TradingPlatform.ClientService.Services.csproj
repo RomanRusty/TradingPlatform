@@ -9,8 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TradingPlatform.ClientService.Contracts\TradingPlatform.ClientService.Contracts.csproj" />
+    <ProjectReference Include="..\TradingPlatform.ClientService.Persistence\TradingPlatform.ClientService.Persistence.csproj" />
     <ProjectReference Include="..\TradingPlatform.ClientService.Services.Abstractions\TradingPlatform.ClientService.Services.Abstractions.csproj" />
-    <ProjectReference Include="..\WebMVC\TradingPlatform.WebMVC.csproj" />
+    <ProjectReference Include="..\TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj" />
   </ItemGroup>
 
 </Project>

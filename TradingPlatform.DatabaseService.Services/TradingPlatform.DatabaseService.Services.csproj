@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TradingPlatform.DatabaseService.Domain\TradingPlatform.DatabaseService.Domain.csproj" />
+    <ProjectReference Include="..\TradingPlatform.DatabaseService.Services.Abstractions\TradingPlatform.DatabaseService.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\TradingPlatform.EntityExceptions\TradingPlatform.EntityExceptions.csproj" />
+  </ItemGroup>
+
+</Project>

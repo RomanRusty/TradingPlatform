@@ -17,31 +17,33 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
     public class ProductOrderHttpClient:HttpClientBase,IProductOrderHttpClient
     {
         private readonly ILogger<ProductOrderHttpClient> _logger;
+        private readonly string _apiName;
         public ProductOrderHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILogger<ProductOrderHttpClient> logger) : base(config, client)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _apiName = "ProductOrdersApi";
         }
 
         public async Task<IEnumerable<ProductOrderReadDto>> GetAllAsync()
         {
-            var response = await _client.GetAsync("ProductOrdersApi");
+            var response = await _client.GetAsync(_apiName);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await JsonSerializer.DeserializeAsync<List<ProductOrderReadDto>>(await response.Content.ReadAsStreamAsync());
+            return await DesserializeAsync<IEnumerable<ProductOrderReadDto>>(response);
         }
 
         public async Task<ProductOrderReadDto> GetByIdAsync(int id)
         {
-            var response = await _client.GetAsync("ProductOrdersApi" + id);
+            var response = await _client.GetAsync(_apiName + id);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            var productOrderDto = await JsonSerializer.DeserializeAsync<ProductOrderReadDto>(await response.Content.ReadAsStreamAsync());
+            var productOrderDto =await DesserializeAsync<ProductOrderReadDto>(response);
 
             if (productOrderDto == null)
             {
@@ -58,7 +60,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
 
             var jsonContent = JsonSerializer.Serialize(productOrderCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync("ProductOrdersApi" + id, data);
+            var response = await _client.PutAsync(_apiName + id, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -69,23 +71,23 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(productOrderCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("ProductOrdersApi", data);
+            var response = await _client.PostAsync(_apiName, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await JsonSerializer.DeserializeAsync<ProductOrderReadDto>(await response.Content.ReadAsStreamAsync());
+            return await DesserializeAsync<ProductOrderReadDto>(response);
         }
         public async Task DeleteAsync(int id)
         {
-            var response = await _client.GetAsync("ProductOrdersApi" + id);
+            var response = await _client.GetAsync(_apiName + id);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var productOrderDto = await JsonSerializer.DeserializeAsync<ProductOrderReadDto>(await response.Content.ReadAsStreamAsync());
+            var productOrderDto = DesserializeAsync<ProductOrderReadDto>(response);
             if (productOrderDto == null)
             {
                 throw new ProductOrderNotFoundException("ProductOrder with such id does not exsists");

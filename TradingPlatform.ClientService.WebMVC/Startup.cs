@@ -54,12 +54,7 @@ namespace TradingPlatform.ClientService.WebMVC
             .AddDefaultUI()
             .AddDefaultTokenProviders();
 
-            services.Configure<AppConfiguration>(Configuration);
-            services.AddHttpClient<IHttpClientManager, HttpClientManager>();
             services.AddControllersWithViews().AddApplicationPart(typeof(HomeController).Assembly);
-
-            services.AddScoped<IServiceManager, ServiceManager>();
-
             services.AddLogging(config =>
             {
                 config.AddDebug();
@@ -67,6 +62,23 @@ namespace TradingPlatform.ClientService.WebMVC
                 //etc
             });
 
+            services.AddAuthentication()
+                //.AddCookie(options =>
+                //{
+                //    options.LoginPath = "/account/google-login"; // Must be lowercase
+                //})
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
+
+            services.Configure<AppConfiguration>(Configuration);
+            services.AddHttpClient<IHttpClientManager, HttpClientManager>();
+            services.AddScoped<IServiceManager, ServiceManager>();
             services.AddTransient<ExceptionHandlingMiddleware>();
         }
 

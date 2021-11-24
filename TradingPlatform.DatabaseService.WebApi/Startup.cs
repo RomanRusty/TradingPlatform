@@ -46,14 +46,11 @@ namespace TradingPlatform.DatabaseService.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseMicroservice", Version = "v1" });
             });
+            services.AddControllers().AddApplicationPart(typeof(CategoriesApiController).Assembly);
+
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
             services.AddScoped(typeof(IRepositoryManager), typeof(RepositoryManager));
             services.AddScoped<IServiceManager, ServiceManager>();
-
-            services.AddControllers().AddApplicationPart(typeof(CategoriesApiController).Assembly);
-
-    
-
             services.AddTransient<ExceptionHandlingMiddleware>();
         }
 

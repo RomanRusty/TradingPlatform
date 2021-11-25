@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using TradingPlatform.EntityContracts.Product;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TradingPlatform.EntityContracts.Category
 {
-    public class CategoryReadDto
+    public class CategorySearchDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

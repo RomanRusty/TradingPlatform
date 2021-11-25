@@ -16,10 +16,8 @@ namespace TradingPlatform.EntityContracts.Product
         public double Price { get; set; }
         public int Quantity { get; set; }
         public DateTime CreationDate { get; set; }
-        //public virtual CategoryReadDto Category { get; set; }
-        //public virtual ProductImageReadDto ImageThumbnail { get; set; }
-        //public virtual IEnumerable<ProductOrderReadDto> ProductOrders { get; set; }
-        //public virtual IEnumerable<ComplaintReadDto> Complaints { get; set; }
-        //public virtual IEnumerable<ProductImageReadDto> Images { get; set; }
+        public virtual ProductImageReadDto ImageThumbnail { get; set; }
+        public virtual IEnumerable<ProductImageReadDto> Images { get; set; }
+        public int CategoryId { get; set; }
     }
 }

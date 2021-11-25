@@ -8,7 +8,9 @@ namespace TradingPlatform.DatabaseService.Persistence.Profiles
     {
         public OrdersProfile()
         {
-            CreateMap<Order, OrderReadDto>();
+            CreateMap<Order, OrderReadDto>()
+                .ForMember(p => p.CustumerId, opt => opt.MapFrom(p => p.Custumer != null ? p.Custumer.Id : default));
+
             CreateMap<OrderCreateDto, Order>();
         }
     }

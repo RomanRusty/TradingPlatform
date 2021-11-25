@@ -49,9 +49,9 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(ComplaintReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ComplaintReadDto>> CreateComplaint([FromBody] ComplaintCreateDto complaintCreateDto)
         {
-            var complaintReadDto = await ServiceManager.ComplaintService.CreateAsync(complaintCreateDto);
+            var complaint = await ServiceManager.ComplaintService.CreateAsync(complaintCreateDto);
 
-            return Ok(complaintReadDto);
+            return Ok(complaint);
         }
 
         // DELETE: api/ComplaintsApi/5
@@ -63,6 +63,14 @@ namespace TradingPlatform.DatabaseService.Presentation
             await ServiceManager.ComplaintService.DeleteAsync(id);
 
             return NoContent();
+        }
+        [HttpPost("by-filter")]
+        [ProducesResponseType(typeof(IEnumerable<ComplaintReadDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ComplaintReadDto>>> GetBySearchFilterAsync([FromBody] ComplaintSearchDto filter)
+        {
+            var complaints = await ServiceManager.ComplaintService.FindBySearchAsync(filter);
+
+            return Ok(complaints);
         }
     }
 }

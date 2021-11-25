@@ -51,9 +51,9 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductReadDto>> CreateProduct(ProductCreateDto productCreateDto)
         {
-            var productReadDto = await ServiceManager.ProductService.CreateAsync(productCreateDto);
+            var product = await ServiceManager.ProductService.CreateAsync(productCreateDto);
 
-            return Ok(productReadDto);
+            return Ok(product);
         }
 
         // DELETE: api/ProductsApi/5
@@ -65,6 +65,14 @@ namespace TradingPlatform.DatabaseService.Presentation
             await ServiceManager.ProductService.DeleteAsync(id);
 
             return NoContent();
+        }
+        [HttpPost("by-filter")]
+        [ProducesResponseType(typeof(IEnumerable<ProductReadDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetBySearchFilterAsync([FromBody] ProductSearchDto filter)
+        {
+            var products = await ServiceManager.ProductService.FindBySearchAsync(filter);
+
+            return Ok( products);
         }
     }
 }

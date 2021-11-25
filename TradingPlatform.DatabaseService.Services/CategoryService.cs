@@ -24,8 +24,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<IEnumerable<CategoryReadDto>> GetAllAsync()
         {
             var categories = await _repository.Categories.GetAllAsync();
-            var categoriesDto = _mapper.Map<IEnumerable<CategoryReadDto>>(categories);
-            return categoriesDto;
+            return _mapper.Map<IEnumerable<CategoryReadDto>>(categories);
         }
         public async Task<CategoryReadDto> GetByIdAsync(int id)
         {
@@ -35,8 +34,7 @@ namespace TradingPlatform.DatabaseService.Services
             {
                 throw new CategoryNotFoundException("Category not found");
             }
-            var categoriesDto = _mapper.Map<CategoryReadDto>(category);
-            return categoriesDto;
+            return _mapper.Map<CategoryReadDto>(category);
         }
         public async Task UpdateAsync(int id, CategoryCreateDto categoryCreateDto)
         {
@@ -63,8 +61,7 @@ namespace TradingPlatform.DatabaseService.Services
 
             await _repository.Categories.AddAsync(category);
 
-            var categoryReadDto = _mapper.Map<CategoryReadDto>(category);
-            return categoryReadDto;
+            return _mapper.Map<CategoryReadDto>(category);
         }
         public async Task DeleteAsync(int id)
         {
@@ -74,6 +71,14 @@ namespace TradingPlatform.DatabaseService.Services
                 throw new CategoryNotFoundException("Category with such id does not exsists");
             }
             _repository.Categories.Remove(category);
+        }
+        public async Task<IEnumerable<CategoryReadDto>> FindBySearchAsync(CategorySearchDto categorySearchDto)
+        {
+            var categories = await _repository.Categories.FindAllAsync(item =>
+            (string.IsNullOrEmpty(categorySearchDto.Name) || item.Name.Contains(categorySearchDto.Name)) &&
+            (string.IsNullOrEmpty(categorySearchDto.Description) || item.Name.Contains(categorySearchDto.Description)));
+
+            return _mapper.Map<IEnumerable<CategoryReadDto>>(categories);
         }
     }
 }

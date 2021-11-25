@@ -50,9 +50,9 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(OrderReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<OrderReadDto>> CreateOrder(OrderCreateDto orderCreateDto)
         {
-            var orderReadDto = await ServiceManager.OrderService.CreateAsync(orderCreateDto);
+            var order = await ServiceManager.OrderService.CreateAsync(orderCreateDto);
 
-            return Ok(orderReadDto);
+            return Ok(order);
         }
 
         // DELETE: api/OrdersApi/5
@@ -64,6 +64,15 @@ namespace TradingPlatform.DatabaseService.Presentation
             await ServiceManager.OrderService.DeleteAsync(id);
 
             return NoContent();
+        }
+
+        [HttpPost("by-filter")]
+        [ProducesResponseType(typeof(IEnumerable<OrderReadDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetBySearchFilterAsync([FromBody] OrderSearchDto filter)
+        {
+            var orders = await ServiceManager.OrderService.FindBySearchAsync(filter);
+
+            return Ok(orders);
         }
     }
 }

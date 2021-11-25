@@ -74,5 +74,15 @@ namespace TradingPlatform.DatabaseService.Services
             }
             _repository.Products.Remove(product);
         }
+        public async Task<IEnumerable<ProductReadDto>> FindBySearchAsync(ProductSearchDto productSearchDto)
+        {
+            var products= await _repository.Products.FindAllAsync(item =>
+            (string.IsNullOrEmpty(productSearchDto.Name) || item.Name.Contains(productSearchDto.Name)) &&
+            item.Price>=productSearchDto.MinPrice &&
+            item.Price <= productSearchDto.MaxPrice);  
+
+            var productsReadDto = _mapper.Map<IEnumerable<ProductReadDto>>(products);
+            return productsReadDto;
+        }
     }
 }

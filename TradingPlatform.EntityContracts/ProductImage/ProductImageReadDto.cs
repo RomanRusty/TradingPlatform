@@ -7,7 +7,6 @@ namespace TradingPlatform.EntityContracts.ProductImage
     public class ProductImageReadDto
     {
         public byte[] ImageData { get; set; }
-        //public virtual ProductReadDto Product { get; set; }
         public string GetImage()
         {
             var base64 = Convert.ToBase64String(ImageData);

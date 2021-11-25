@@ -23,8 +23,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<IEnumerable<ProductOrderReadDto>> GetAllAsync()
         {
             var productOrders = await _repository.ProductOrders.GetAllAsync();
-            var productOrdersDto = _mapper.Map<IEnumerable<ProductOrderReadDto>>(productOrders);
-            return productOrdersDto;
+            return _mapper.Map<IEnumerable<ProductOrderReadDto>>(productOrders);
         }
         public async Task<ProductOrderReadDto> GetByIdAsync(int id)
         {
@@ -34,8 +33,7 @@ namespace TradingPlatform.DatabaseService.Services
             {
                 throw new ProductOrderNotFoundException("ProductOrder not found");
             }
-            var productOrdersDto = _mapper.Map<ProductOrderReadDto>(productOrders);
-            return productOrdersDto;
+            return _mapper.Map<ProductOrderReadDto>(productOrders);
         }
         public async Task UpdateAsync(int id, ProductOrderCreateDto productOrderCreateDto)
         {
@@ -62,8 +60,7 @@ namespace TradingPlatform.DatabaseService.Services
 
             await _repository.ProductOrders.AddAsync(productOrder);
 
-            var productOrderReadDto = _mapper.Map<ProductOrderReadDto>(productOrder);
-            return productOrderReadDto;
+            return _mapper.Map<ProductOrderReadDto>(productOrder);
         }
         public async Task DeleteAsync(int id)
         {

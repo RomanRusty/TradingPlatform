@@ -14,5 +14,6 @@ namespace TradingPlatform.DatabaseService.Services.Abstractions
         Task UpdateAsync(int id, OrderCreateDto productReadDto);
         Task<OrderReadDto> CreateAsync(OrderCreateDto productCreateDto);
         Task DeleteAsync(int id);
+        Task<IEnumerable<OrderReadDto>> FindBySearchAsync(OrderSearchDto orderSearchDto);
     }
 }

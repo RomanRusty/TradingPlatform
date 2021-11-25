@@ -51,9 +51,9 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductOrderReadDto>> CreateProductOrder(ProductOrderCreateDto productOrderCreateDto)
         {
-            var productOrderReadDto = await ServiceManager.ProductOrderService.CreateAsync(productOrderCreateDto);
+            var productOrder = await ServiceManager.ProductOrderService.CreateAsync(productOrderCreateDto);
 
-            return Ok(productOrderReadDto);
+            return Ok(productOrder);
         }
 
         // DELETE: api/ProductOrdersApi/5

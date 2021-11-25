@@ -8,7 +8,9 @@ namespace TradingPlatform.DatabaseService.Persistence.Profiles
     {
         public ComplaintsProfile()
         {
-            CreateMap<Complaint, ComplaintReadDto>();
+            CreateMap<Complaint, ComplaintReadDto>()
+                .ForMember(p => p.ProductId, opt => opt.MapFrom(p => p.Product != null ? p.Product.Id : default));
+
             CreateMap<ComplaintCreateDto, Complaint>();
         }
     }

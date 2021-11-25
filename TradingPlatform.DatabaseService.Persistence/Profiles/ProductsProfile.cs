@@ -8,7 +8,9 @@ namespace TradingPlatform.DatabaseService.Persistence.Profiles
     {
         public ProductsProfile()
         {
-            CreateMap<Product, ProductReadDto>();
+            CreateMap<Product, ProductReadDto>()
+                .ForMember(p=>p.CategoryId, opt=>opt.MapFrom(p=>p.Category != null ? p.Category.Id:default));
+
             CreateMap<ProductCreateDto, Product>();
         }
     }

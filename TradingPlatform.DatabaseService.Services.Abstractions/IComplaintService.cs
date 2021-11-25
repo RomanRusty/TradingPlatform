@@ -14,5 +14,6 @@ namespace TradingPlatform.DatabaseService.Services.Abstractions
         Task UpdateAsync(int id, ComplaintCreateDto productReadDto);
         Task<ComplaintReadDto> CreateAsync(ComplaintCreateDto productCreateDto);
         Task DeleteAsync(int id);
+        Task<IEnumerable<ComplaintReadDto>> FindBySearchAsync(ComplaintSearchDto complaintSearchDto);
     }
 }

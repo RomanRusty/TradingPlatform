@@ -64,6 +64,13 @@ namespace TradingPlatform.DatabaseService.Presentation
 
             return NoContent();
         }
+        [HttpPost("by-filter")]
+        [ProducesResponseType(typeof(IEnumerable<CategoryReadDto>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<CategoryReadDto>>> GetBySearchFilterAsync([FromBody] CategorySearchDto filter)
+        {
+            var products = await ServiceManager.CategoryService.FindBySearchAsync(filter);
 
+            return Ok(products);
+        }
     }
 }

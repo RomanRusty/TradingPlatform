@@ -23,8 +23,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<IEnumerable<ComplaintReadDto>> GetAllAsync()
         {
             var complaints = await _repository.Complaints.GetAllAsync();
-            var complaintsDto = _mapper.Map<IEnumerable<ComplaintReadDto>>(complaints);
-            return complaintsDto;
+            return _mapper.Map<IEnumerable<ComplaintReadDto>>(complaints);
         }
         public async Task<ComplaintReadDto> GetByIdAsync(int id)
         {
@@ -34,8 +33,7 @@ namespace TradingPlatform.DatabaseService.Services
             {
                 throw new ComplaintNotFoundException("Complaint not found");
             }
-            var complaintsDto = _mapper.Map<ComplaintReadDto>(complaint);
-            return complaintsDto;
+            return _mapper.Map<ComplaintReadDto>(complaint);
         }
         public async Task UpdateAsync(int id, ComplaintCreateDto complaintCreateDto)
         {
@@ -62,8 +60,7 @@ namespace TradingPlatform.DatabaseService.Services
 
             await _repository.Complaints.AddAsync(complaint);
 
-            var complaintReadDto= _mapper.Map<ComplaintReadDto>(complaint);
-            return complaintReadDto;
+            return _mapper.Map<ComplaintReadDto>(complaint);
         }
         public async Task DeleteAsync(int id)
         {
@@ -73,6 +70,14 @@ namespace TradingPlatform.DatabaseService.Services
                 throw new ComplaintNotFoundException("Complaint with such id does not exsists");
             }
             _repository.Complaints.Remove(complaint);
+        }
+        public async Task<IEnumerable<ComplaintReadDto>> FindBySearchAsync(ComplaintSearchDto complaintSearchDto)
+        {
+            var complaints = await _repository.Complaints.FindAllAsync(item =>
+            (string.IsNullOrEmpty(complaintSearchDto.Title) || item.Title.Contains(complaintSearchDto.Title)) &&
+            (string.IsNullOrEmpty(complaintSearchDto.Description) || item.Description.Contains(complaintSearchDto.Description)));
+            
+            return _mapper.Map<IEnumerable<ComplaintReadDto>>(complaints);
         }
     }
 }

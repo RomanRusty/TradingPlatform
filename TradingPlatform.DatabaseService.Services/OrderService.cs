@@ -23,8 +23,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<IEnumerable<OrderReadDto>> GetAllAsync()
         {
             var orders = await _repository.Orders.GetAllAsync();
-            var prdersDto = _mapper.Map<IEnumerable<OrderReadDto>>(orders);
-            return prdersDto;
+            return _mapper.Map<IEnumerable<OrderReadDto>>(orders);
         }
         public async Task<OrderReadDto> GetByIdAsync(int id)
         {
@@ -34,8 +33,7 @@ namespace TradingPlatform.DatabaseService.Services
             {
                 throw new OrderNotFoundException("Order not found");
             }
-            var ordersDto = _mapper.Map<OrderReadDto>(order);
-            return ordersDto;
+            return _mapper.Map<OrderReadDto>(order);
         }
         public async Task UpdateAsync(int id, OrderCreateDto orderCreateDto)
         {
@@ -62,8 +60,7 @@ namespace TradingPlatform.DatabaseService.Services
 
             await _repository.Orders.AddAsync(order);
 
-            var orderReadDto = _mapper.Map<OrderReadDto>(order);
-            return orderReadDto;
+            return _mapper.Map<OrderReadDto>(order);
         }
         public async Task DeleteAsync(int id)
         {
@@ -73,6 +70,14 @@ namespace TradingPlatform.DatabaseService.Services
                 throw new OrderNotFoundException("Order with such id does not exsists");
             }
             _repository.Orders.Remove(order);
+        }
+        public async Task<IEnumerable<OrderReadDto>> FindBySearchAsync(OrderSearchDto orderSearchDto)
+        {
+            var orders = await _repository.Orders.FindAllAsync(item =>
+            (string.IsNullOrEmpty(orderSearchDto.Name) || item.Name.Contains(orderSearchDto.Name)) &&
+            item.Status == orderSearchDto.Status);
+
+            return _mapper.Map<IEnumerable<OrderReadDto>>(orders);
         }
     }
 }

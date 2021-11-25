@@ -63,10 +63,6 @@ namespace TradingPlatform.ClientService.WebMVC
             });
 
             services.AddAuthentication()
-                //.AddCookie(options =>
-                //{
-                //    options.LoginPath = "/account/google-login"; // Must be lowercase
-                //})
                 .AddGoogle(options =>
                 {
                     IConfigurationSection googleAuthNSection =

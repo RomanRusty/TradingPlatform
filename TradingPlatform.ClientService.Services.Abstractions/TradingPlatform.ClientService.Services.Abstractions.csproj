@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EntityContracts\TradingPlatform.EntityContracts.csproj" />
     <ProjectReference Include="..\TradingPlatform.ClientService.Contracts\TradingPlatform.ClientService.Contracts.csproj" />
   </ItemGroup>
 

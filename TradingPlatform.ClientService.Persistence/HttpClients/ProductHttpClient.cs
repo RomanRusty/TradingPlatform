@@ -96,5 +96,17 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 throw new ProductNotFoundException("Product with such id does not exsists");
             }
         }
+        public async Task<IEnumerable<ProductReadDto>> FindBySearchAsync(ProductSearchDto productSearchDto)
+        {
+            var jsonContent = JsonSerializer.Serialize(productSearchDto);
+            var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync(_apiName, data);
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
+                return default;
+            }
+            return await DesserializeAsync<IEnumerable<ProductReadDto>>(response);
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace TradingPlatform.ClientService.Domain.HttpInterfaces
         public Task UpdateAsync(int id, ProductCreateDto productCreateDto);
         public Task<ProductReadDto> CreateAsync(ProductCreateDto productCreateDto);
         public Task DeleteAsync(int id);
+        public Task<IEnumerable<ProductReadDto>> FindBySearchAsync(ProductSearchDto productSearchDto);
     }
 }

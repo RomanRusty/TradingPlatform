@@ -66,7 +66,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(categoryCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("CategoriesApiApi", data);
+            var response = await _client.PostAsync(_apiName, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -87,6 +87,18 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
             {
                 throw new CategoryNotFoundException("Complaint with such id does not exsists");
             }
+        }
+        public async Task<IEnumerable<CategoryReadDto>> FindBySearchAsync(CategorySearchDto categorySearchDto)
+        {
+            var jsonContent = JsonSerializer.Serialize(categorySearchDto);
+            var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync(_apiName, data);
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
+                return default;
+            }
+            return await DesserializeAsync<IEnumerable<CategoryReadDto>>(response);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
     public class ProductOrderHttpClient:HttpClientBase,IProductOrderHttpClient
     {
         private readonly ILogger<ProductOrderHttpClient> _logger;
-        private readonly string _apiName;
         public ProductOrderHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILogger<ProductOrderHttpClient> logger) : base(config, client)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -4,17 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TradingPlatform.ClientService.Contracts.Home;
+using TradingPlatform.ClientService.Contracts;
 
 namespace TradingPlatform.ClientService.Presentation
 {
     public class HomeController : ControllerBase {
-        public async Task<IActionResult> Index(string category, int page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, string category, int page)
         {
+            IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync(User, sortOrder, currentFilter, searchString, category, page);
 
-           IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync();
-
-           return View(indexViewModel);
+            return View(indexViewModel);
         }
         //public async Task<IActionResult> ProductDetails(int? id)
         //{

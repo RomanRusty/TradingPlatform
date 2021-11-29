@@ -12,5 +12,6 @@ namespace TradingPlatform.EntityContracts.Product
         public double MinPrice { get; set; }
         public double MaxPrice { get; set; }
         public DateTime CreationDate { get; set; }
+        public string CategoryName { get; set; }
     }
 }

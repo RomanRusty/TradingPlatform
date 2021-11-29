@@ -1,0 +1,34 @@
+﻿@model AddItemToCartViewModel;
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	Add to cart
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form class="modal-content" method="post" asp-controller="Carts" asp-action="AddProductToOrder">
+			<div class="modal-body">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="ProductOrder.ProductId" value="@Model.Product.Id" class="form-control">
+				<div class="input-group flex-nowrap">
+					<span class="input-group-text" id="addon-wrapping">Quantity</span>
+					<input type="number" asp-for="ProductOrder.Quantity" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">
+				</div>
+				<div class="input-group mt-3">
+					<label class="input-group-text" for="inputGroupSelect01">Orders</label>
+					<select asp-for="ProductOrder.OrderId" class="form-select" asp-items="@Model.Orders"></select>
+				<a class="btn btn-outline-success" asp-controller="Home" asp-action="CreateOrder">Create new</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				@if (Model.Orders==null)
+				{
+					<button type="submit" class="btn btn-primary" disabled>Add to cart</button>
+				}
+				else
+				{
+					<button type="submit" class="btn btn-primary">Add to cart</button>
+				}
+			</div>
+		</form>
+	</div>
+</div>

@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Shared\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

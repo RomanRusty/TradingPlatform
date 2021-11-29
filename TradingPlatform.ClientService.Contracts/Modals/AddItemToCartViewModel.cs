@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TradingPlatform.EntityContracts.Product;
+using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.ClientService.Contracts
 {
-    public class IndexViewModel
+    public class AddItemToCartViewModel
     {
-        public List<List<ProductReadDto>> Products { get; set; }
-        public ItemPaginationViewModel ItemPagination { get; set; }
-        public SelectList AvailableOrdersSelectList { get; set; }
+        public ProductReadDto Product { get; set; }
+        public SelectList Orders { get; set; }
+        public ProductOrderReadDto ProductOrder { get; set; }
     }
 }

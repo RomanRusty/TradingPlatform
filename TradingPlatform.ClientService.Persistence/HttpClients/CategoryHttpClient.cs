@@ -18,7 +18,6 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
     {
 
         private readonly ILogger<CategoryHttpClient> _logger;
-        private readonly string _apiName;
         public CategoryHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILogger<CategoryHttpClient> logger) : base(config, client)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -14,6 +14,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
     {
         protected readonly HttpClient _client;
         private readonly JsonSerializerOptions options;
+        protected string _apiName;
         public HttpClientBase(IOptions<AppConfiguration> config, HttpClient client)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));

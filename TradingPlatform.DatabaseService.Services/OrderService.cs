@@ -75,6 +75,7 @@ namespace TradingPlatform.DatabaseService.Services
         {
             var orders = await _repository.Orders.FindAllAsync(item =>
             (string.IsNullOrEmpty(orderSearchDto.Name) || item.Name.Contains(orderSearchDto.Name)) &&
+            (string.IsNullOrEmpty(orderSearchDto.CustumerName) || item.Custumer.UserName.Contains(orderSearchDto.CustumerName)) &&
             item.Status == orderSearchDto.Status);
 
             return _mapper.Map<IEnumerable<OrderReadDto>>(orders);

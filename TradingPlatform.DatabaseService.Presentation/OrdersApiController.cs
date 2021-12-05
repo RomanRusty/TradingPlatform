@@ -68,7 +68,7 @@ namespace TradingPlatform.DatabaseService.Presentation
 
         [HttpPost("by-filter")]
         [ProducesResponseType(typeof(IEnumerable<OrderReadDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetBySearchFilterAsync([FromBody] OrderSearchDto filter)
+        public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetBySearchFilterAsync( OrderSearchDto filter)
         {
             var orders = await ServiceManager.OrderService.FindBySearchAsync(filter);
 

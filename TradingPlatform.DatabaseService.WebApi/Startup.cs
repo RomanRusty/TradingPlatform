@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -7,11 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
+using TradingPlatform.DatabaseService.Persistence.Configurations;
 using TradingPlatform.DatabaseService.Persistence.Database;
 using TradingPlatform.DatabaseService.Persistence.Middleware;
 using TradingPlatform.DatabaseService.Persistence.Profiles;
@@ -36,9 +40,8 @@ namespace TradingPlatform.DatabaseService.Api
         {
 
             services.AddDbContext<RepositoryDbContext>(options =>
-               options.UseSqlServer(
+               options.UseLazyLoadingProxies().UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
-
 
             services.AddAutoMapper(typeof(CategoriesProfile).Assembly);
 
@@ -47,6 +50,29 @@ namespace TradingPlatform.DatabaseService.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseMicroservice", Version = "v1" });
             });
             services.AddControllers().AddApplicationPart(typeof(CategoriesApiController).Assembly);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+               options.TokenValidationParameters=new TokenValidationParameters()
+               {
+                   IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                   ValidateIssuerSigningKey = true,
+               };
+            });
+            var identityUrl = Configuration.GetValue<string>("IdentityUrl");
+
+            // Add Authentication services
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = identityUrl;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "orders";
+            });
 
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
             services.AddScoped(typeof(IRepositoryManager), typeof(RepositoryManager));
@@ -83,8 +109,9 @@ namespace TradingPlatform.DatabaseService.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

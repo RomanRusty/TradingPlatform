@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TradingPlatform.DatabaseService.Domain.Entities;
 
 namespace TradingPlatform.DatabaseService.Persistence.Database
@@ -10,7 +11,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Database
         {
 
         }
-
         public override DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }

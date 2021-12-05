@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System;
 using System.Net.Http;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
@@ -11,9 +12,9 @@ namespace TradingPlatform.ClientService.Services
     public class ServiceManager : IServiceManager
     {
         private readonly Lazy<IHomeService> _lazyHomeService;
-        public ServiceManager(IHttpClientManager httpClientManager)
+        public ServiceManager(IHttpClientManager httpClientManager, IHttpContextAccessor contextAccessor)
         {
-            _lazyHomeService = new Lazy<IHomeService>(() => new HomeService(httpClientManager));
+            _lazyHomeService = new Lazy<IHomeService>(() => new HomeService(httpClientManager, contextAccessor));
         }
         public IHomeService HomeService => _lazyHomeService.Value;
     }

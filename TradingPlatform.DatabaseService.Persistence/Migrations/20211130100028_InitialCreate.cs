@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TradingPlatform.DatabaseService.Persistence.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -199,7 +199,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     Price = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImageThumbnailId = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -242,8 +241,8 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,6 +250,26 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_ProductImages_Products_ProductId",
                         column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductImageThumbnails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProudctId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductImageThumbnails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductImageThumbnails_Products_ProudctId",
+                        column: x => x.ProudctId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -279,23 +298,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                         name: "FK_ProductOrders_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductImageThumbnails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductImageThumbnails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductImageThumbnails_ProductImages_Id",
-                        column: x => x.Id,
-                        principalTable: "ProductImages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -355,6 +357,12 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductImageThumbnails_ProudctId",
+                table: "ProductImageThumbnails",
+                column: "ProudctId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductOrders_OrderId",
                 table: "ProductOrders",
                 column: "OrderId");
@@ -368,27 +376,10 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_ImageThumbnailId",
-                table: "Products",
-                column: "ImageThumbnailId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Products_ProductImageThumbnails_ImageThumbnailId",
-                table: "Products",
-                column: "ImageThumbnailId",
-                principalTable: "ProductImageThumbnails",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ProductImages_Products_ProductId",
-                table: "ProductImages");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -408,6 +399,12 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                 name: "Complaints");
 
             migrationBuilder.DropTable(
+                name: "ProductImages");
+
+            migrationBuilder.DropTable(
+                name: "ProductImageThumbnails");
+
+            migrationBuilder.DropTable(
                 name: "ProductOrders");
 
             migrationBuilder.DropTable(
@@ -417,19 +414,13 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "ProductImageThumbnails");
-
-            migrationBuilder.DropTable(
-                name: "ProductImages");
         }
     }
 }

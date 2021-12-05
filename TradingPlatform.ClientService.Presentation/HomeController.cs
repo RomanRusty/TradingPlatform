@@ -11,8 +11,7 @@ namespace TradingPlatform.ClientService.Presentation
     public class HomeController : ControllerBase {
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, string category, int page)
         {
-            IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync(User, sortOrder, currentFilter, searchString, category, page);
-
+            IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync( sortOrder, currentFilter, searchString, category, page);
             return View(indexViewModel);
         }
         //public async Task<IActionResult> ProductDetails(int? id)

@@ -2,7 +2,7 @@
 
 namespace TradingPlatform.ClientService.Presentation
 {
-    public class ProductsController : Controller
+    public class ProductsController : ControllerBase
     {
         //    private readonly IGenericUnitOfWork _context;
 
@@ -40,11 +40,11 @@ namespace TradingPlatform.ClientService.Presentation
         //        return View(new ProductModel() { Product=product, AvailableOrdersSelectList= orderSelectList });
         //    }
 
-        //    // GET: Products/Create
-        //    public IActionResult Create()
-        //    {
-        //        return View();
-        //    }
+        // GET: Products/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         //    // POST: Products/Create
         //    // To protect from overposting attacks, enable the specific properties you want to bind to.

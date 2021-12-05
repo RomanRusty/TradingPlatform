@@ -10,7 +10,7 @@ namespace TradingPlatform.ClientService.Services.Abstractions
 {
     public interface IHomeService
     {
-        Task<IndexViewModel> IndexAsync(ClaimsPrincipal user, string sortOrder, string currentFilter, string searchString, string category, int page);
+        Task<IndexViewModel> IndexAsync(string sortOrder, string currentFilter, string searchString, string category, int page);
         //Task<CategoryReadDto> GetByIdAsync(int id);
         //Task UpdateAsync(int id, CategoryCreateDto categoryReadDto);
         //Task<CategoryReadDto> CreateAsync(CategoryCreateDto categoryCreateDto);

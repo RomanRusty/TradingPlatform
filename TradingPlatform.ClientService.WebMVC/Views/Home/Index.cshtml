@@ -46,7 +46,9 @@
 				<div class="col-md-4">
 					<div class="card ms-1 mt-1">
 						<a asp-action="ProductDetails" asp-route-id="@product.Id">
-							<img src="@product.ImageThumbnail.GetImage()" class="card-img-top" alt="Not found">
+							@if (@product.ImageThumbnail!=null){
+								<img src="@product.ImageThumbnail.GetImage()" class="card-img-top" alt="Not found">
+							}
 						</a>
 						<div class="card-body">
 							<h5 class="card-title text-truncate">@product.Name</h5>

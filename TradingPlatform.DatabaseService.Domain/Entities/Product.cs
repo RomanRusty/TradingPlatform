@@ -25,14 +25,16 @@ namespace TradingPlatform.DatabaseService.Domain.Entities
         public int Quantity { get; set; }
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
-        //[Required]
-        public virtual ProductImageThumbnail ImageThumbnail { get; set; }
+   
 
         [Required]
         public virtual Category Category { get; set; }
+
+        public virtual ProductImageThumbnail ImageThumbnail { get; set; }
+        public virtual IEnumerable<ProductImage> Images { get; set; }
+
         public virtual IEnumerable<ProductOrder> ProductOrders { get; set; }
         public virtual IEnumerable<Complaint> Complaints { get; set; }
-        public virtual IEnumerable<ProductImage> Images { get; set; }
 
         public Product(string name, string description, double price, int quantity, Category category)
         {

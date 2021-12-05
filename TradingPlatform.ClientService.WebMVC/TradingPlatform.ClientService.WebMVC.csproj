@@ -26,4 +26,8 @@
     <ProjectReference Include="..\TradingPlatform.ClientService.Services\TradingPlatform.ClientService.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Modals\" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +11,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using TradingPlatform.ClientService.Domain.Entities;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Persistence.Configurations;
@@ -70,38 +74,38 @@ namespace TradingPlatform.ClientService.WebMVC
 
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
+
+                    //options.SaveTokens = true;
+                    //options.Events.OnCreatingTicket = ctx =>
+                    //{
+                    //    List<AuthenticationToken> tokens = ctx.Properties.GetTokens().ToList();
+
+                    //    tokens.Add(new AuthenticationToken()
+                    //    {
+                    //        Name = "TicketCreated",
+                    //        Value = DateTime.UtcNow.ToString()
+                    //    });
+
+                    //    ctx.Properties.StoreTokens(tokens);
+
+                    //    return Task.CompletedTask;
+                    //};
                 });
+
 
             services.Configure<AppConfiguration>(Configuration);
             services.AddHttpClient<IHttpClientManager, HttpClientManager>();
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddTransient<ExceptionHandlingMiddleware>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
-            }
-            else
-            {
-                app.UseExceptionHandler(error => error.Run(async context =>
-                {
-                    var feature =
-                        context.Features
-                            .Get<IExceptionHandlerPathFeature>(); //here you can get the actual exception 'feature.Error'
+            app.UseMigrationsEndPoint();
+            app.UseHsts();
 
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                    context.Response.ContentType = "application/json";
-                    await context.Response.WriteAsync(JsonConvert.SerializeObject(new
-                    { Error = "Ups... Something went wrong" }));
-                }));
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

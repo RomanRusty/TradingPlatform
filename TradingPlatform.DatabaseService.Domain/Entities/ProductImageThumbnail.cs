@@ -9,8 +9,13 @@ using System.Threading.Tasks;
 namespace TradingPlatform.DatabaseService.Domain.Entities
 {
     [Table("ProductImageThumbnails")]
-    public class ProductImageThumbnail:ProductImage
+  
+    public class ProductImageThumbnail:Image
     {
-
+        [Required]
+        [ForeignKey("Product")]
+        public int ProudctId { get; set; }
+        [Required]
+        public virtual Product Product { get; set; }
     }
 }

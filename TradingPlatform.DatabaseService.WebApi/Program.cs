@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Formatting.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,23 @@ namespace TradingPlatform.DatabaseService.Api
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                //.UseSerilog((context, loggerConfiguration) //configuration from appsettings
+                //  => loggerConfiguration.ReadFrom.Configuration(context.Configuration))
+                 .UseSerilog((context, loggerConfiguration)
+                     => loggerConfiguration.ReadFrom.Configuration(context.Configuration)
+                         .Enrich.WithEnvironment(Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"))
+                         .Enrich.WithEnvironmentUserName()
+                         .Enrich.WithEnvironmentName()
+                         .Enrich.WithCorrelationId()
+                         .Enrich.WithAssemblyName()
+                         .Enrich.WithMemoryUsage()
+                         .Enrich.FromLogContext()
+                         .Enrich.WithProcessId()
+                         .Enrich.WithThreadId()
+                         .WriteTo.File(new JsonFormatter(), "logs.json",
+                             rollingInterval: RollingInterval.Day)
+                         .WriteTo.Seq("http://localhost:5341/"))
+                // alternative configuration from code 
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

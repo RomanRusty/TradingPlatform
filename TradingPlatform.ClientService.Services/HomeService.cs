@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,17 @@ namespace TradingPlatform.ClientService.Services
 {
     public class HomeService : ServiceBase, IHomeService
     {
-        public HomeService(IHttpClientManager clientManager) : base(clientManager)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public HomeService(IHttpClientManager clientManager,IHttpContextAccessor contextAccessor) : base(clientManager)
         {
+            _contextAccessor = contextAccessor;
         }
-        public async Task<IndexViewModel> IndexAsync(ClaimsPrincipal user, string sortOrder, string currentFilter, string searchString, string category, int page)
+        public async Task<IndexViewModel> IndexAsync(string sortOrder, string currentFilter, string searchString, string category, int page)
         {
             int rowsOnPage = 5;
             int itemsInRow = 3;
             int itemsOnPage = rowsOnPage * itemsInRow;
+            var user =  _contextAccessor.HttpContext.User;
             if (searchString != null)
             {
                 page = 1;
@@ -63,9 +67,12 @@ namespace TradingPlatform.ClientService.Services
                     Status=EntityContracts.Enums.OrderStatus.Selecting,
                     CustumerName= user.Identity.Name 
                 });
-                orderSelectList = new SelectList(orders, "Id", "Name");
+                if (orders != null)
+                {
+                    orderSelectList = new SelectList(orders, "Id", "Name");
+                }
             }
-            return new IndexViewModel()
+            var indexViewModel= new IndexViewModel()
             {
                 Products = ToJaggedArray(products, itemsInRow),
                 ItemPagination=new ItemPaginationViewModel(true, products.Count(), page, itemsOnPage, 5) 
@@ -75,11 +82,8 @@ namespace TradingPlatform.ClientService.Services
                 },
                 AvailableOrdersSelectList=orderSelectList,
             };
+            return indexViewModel;
         }
-        //public async Task<IndexViewModel> SortAsync()
-        //{
-
-        //}
 
         //public async Task<CategoryReadDto> GetByIdAsync(int id)
         //{

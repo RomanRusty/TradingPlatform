@@ -9,10 +9,18 @@ using System.Threading.Tasks;
 
 namespace TradingPlatform.DatabaseService.Domain.Entities
 {
-    [Table("ProductImages")]
-    public class ProductImage :Image
+    public abstract class Image
     {
+        [Key]
+        public int Id { get; set; }
         [Required]
-        public virtual Product Product { get; set; }
+        public string ImagePath { get; set; }
+        [NotMapped]
+        public byte[] ImageData { get; set; }
+
+        public void PathToFile()
+        {
+            ImageData = File.ReadAllBytes(ImagePath);
+        }
     }
 }

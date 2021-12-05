@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradingPlatform.DatabaseService.Persistence.Database;
 
 namespace TradingPlatform.DatabaseService.Persistence.Migrations
@@ -15,7 +16,7 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -316,9 +317,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                         .HasMaxLength(3000)
                         .HasColumnType("nvarchar(3000)");
 
-                    b.Property<int?>("ImageThumbnailId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -333,8 +331,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ImageThumbnailId");
 
                     b.ToTable("Products");
                 });
@@ -360,6 +356,28 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     b.ToTable("ProductImages");
                 });
 
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProudctId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProudctId")
+                        .IsUnique();
+
+                    b.ToTable("ProductImageThumbnails");
+                });
+
             modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductOrder", b =>
                 {
                     b.Property<int>("Id")
@@ -383,13 +401,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductOrders");
-                });
-
-            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", b =>
-                {
-                    b.HasBaseType("TradingPlatform.DatabaseService.Domain.Entities.ProductImage");
-
-                    b.ToTable("ProductImageThumbnails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -471,13 +482,7 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", "ImageThumbnail")
-                        .WithMany()
-                        .HasForeignKey("ImageThumbnailId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("ImageThumbnail");
                 });
 
             modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImage", b =>
@@ -485,6 +490,17 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", b =>
+                {
+                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.Product", "Product")
+                        .WithOne("ImageThumbnail")
+                        .HasForeignKey("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", "ProudctId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -504,15 +520,6 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", b =>
-                {
-                    b.HasOne("TradingPlatform.DatabaseService.Domain.Entities.ProductImage", null)
-                        .WithOne()
-                        .HasForeignKey("TradingPlatform.DatabaseService.Domain.Entities.ProductImageThumbnail", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TradingPlatform.DatabaseService.Domain.Entities.ApplicationUser", b =>
@@ -535,6 +542,8 @@ namespace TradingPlatform.DatabaseService.Persistence.Migrations
                     b.Navigation("Complaints");
 
                     b.Navigation("Images");
+
+                    b.Navigation("ImageThumbnail");
 
                     b.Navigation("ProductOrders");
                 });

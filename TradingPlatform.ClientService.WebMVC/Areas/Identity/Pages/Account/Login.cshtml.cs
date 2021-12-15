@@ -12,6 +12,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TradingPlatform.ClientService.Domain.Entities;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using TradingPlatform.ClientService.Domain.Tokens;
 
 namespace TradingPlatform.ClientService.WebMVC.Areas.Identity.Pages.Account
 {
@@ -21,7 +26,6 @@ namespace TradingPlatform.ClientService.WebMVC.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)

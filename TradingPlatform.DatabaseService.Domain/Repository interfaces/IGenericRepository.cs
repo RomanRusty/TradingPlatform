@@ -11,6 +11,8 @@ namespace TradingPlatform.DatabaseService.Domain.Repository_interfaces
     {
         void Add(TEntity item);
         Task AddAsync(TEntity item);
+        void AddRange(IEnumerable<TEntity> items);
+        Task AddRangeAsync(IEnumerable<TEntity> items);
         TEntity FindById(object id);
         Task<TEntity> FindByIdAsync(object id);
         IEnumerable<TEntity> GetAll();

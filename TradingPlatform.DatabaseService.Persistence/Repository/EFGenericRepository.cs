@@ -53,6 +53,16 @@ namespace TradingPlatform.DatabaseService.Persistence.Repository
             await _dbSet.AddAsync(item);
             await _context.SaveChangesAsync();
         }
+        public void AddRange(IEnumerable<TEntity> items)
+        {
+            _dbSet.AddRange(items);
+            _context.SaveChanges();
+        }
+        public async Task AddRangeAsync(IEnumerable<TEntity> items)
+        {
+            await _dbSet.AddRangeAsync(items);
+            await _context.SaveChangesAsync();
+        }
         public void Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;

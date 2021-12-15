@@ -10,5 +10,8 @@ namespace TradingPlatform.DatabaseService.Domain.Repository_interfaces
         IGenericRepository<Order> Orders { get; }
         IGenericRepository<Product> Products { get; }
         IGenericRepository<ProductOrder> ProductOrders { get; }
+
+        IGenericRepository<ProductImageThumbnail> ProductImageThumbnails { get; }
+        IGenericRepository<ProductImage> ProductImages { get; }
     }
 }

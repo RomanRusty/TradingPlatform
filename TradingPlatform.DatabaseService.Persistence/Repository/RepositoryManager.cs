@@ -12,6 +12,9 @@ namespace TradingPlatform.DatabaseService.Persistence.Repository
         private readonly Lazy<IGenericRepository<Order>> _lazyOrderService;
         private readonly Lazy<IGenericRepository<Product>> _lazyProductService;
         private readonly Lazy<IGenericRepository<ProductOrder>> _lazyProductOrderService;
+
+        private readonly Lazy<IGenericRepository<ProductImageThumbnail>> _lazyProductImageThumbnailService;
+        private readonly Lazy<IGenericRepository<ProductImage>> _lazyProductImageService;
         public RepositoryManager(IGenericUnitOfWork work)
         {
  
@@ -21,6 +24,9 @@ namespace TradingPlatform.DatabaseService.Persistence.Repository
             _lazyOrderService = new Lazy<IGenericRepository<Order>>(work.Repository<Order>());
             _lazyProductService = new Lazy<IGenericRepository<Product>>(work.Repository<Product>());
             _lazyProductOrderService = new Lazy<IGenericRepository<ProductOrder>>(work.Repository<ProductOrder>());
+
+            _lazyProductImageThumbnailService = new Lazy<IGenericRepository<ProductImageThumbnail>>(work.Repository<ProductImageThumbnail>());
+            _lazyProductImageService = new Lazy<IGenericRepository<ProductImage>>(work.Repository<ProductImage>());
         }
         public IGenericRepository<ApplicationUser> Users => _lazyUserService.Value;
         public IGenericRepository<Category> Categories => _lazyCategoryService.Value;
@@ -29,5 +35,7 @@ namespace TradingPlatform.DatabaseService.Persistence.Repository
         public IGenericRepository<Product> Products => _lazyProductService.Value;
         public IGenericRepository<ProductOrder> ProductOrders => _lazyProductOrderService.Value;
 
+        public IGenericRepository<ProductImageThumbnail> ProductImageThumbnails => _lazyProductImageThumbnailService.Value;
+        public IGenericRepository<ProductImage> ProductImages => _lazyProductImageService.Value;
     }
 }

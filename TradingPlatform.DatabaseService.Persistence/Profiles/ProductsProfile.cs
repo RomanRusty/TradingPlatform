@@ -9,9 +9,10 @@ namespace TradingPlatform.DatabaseService.Persistence.Profiles
         public ProductsProfile()
         {
             CreateMap<Product, ProductReadDto>()
-                .ForMember(p=>p.CategoryId, opt=>opt.MapFrom(p=>p.Category != null ? p.Category.Id:default));
+                .ForMember(p=>p.CategoryId, opt=>opt.MapFrom(p=>p.Category != null ? p.Category.Id:default)).MaxDepth(2);
 
-            CreateMap<ProductCreateDto, Product>();
+            CreateMap<ProductCreateDto, Product>()
+                .ForPath(p => p.Category.Id, opt => opt.MapFrom(p => p.CategoryId)).MaxDepth(2);
         }
     }
 }

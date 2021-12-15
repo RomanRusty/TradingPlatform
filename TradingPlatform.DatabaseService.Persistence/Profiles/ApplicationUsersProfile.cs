@@ -8,8 +8,8 @@ namespace TradingPlatform.DatabaseService.Persistence.Profiles
     {
         public ApplicationUsersProfile()
         {
-            CreateMap<ApplicationUser, ApplicationUserCreateDto>();
-            CreateMap<ApplicationUserCreateDto, ApplicationUser>();
+            CreateMap<ApplicationUser, ApplicationUserCreateDto>().MaxDepth(2);
+            CreateMap<ApplicationUserCreateDto, ApplicationUser>().MaxDepth(2);
         }
     }
 }

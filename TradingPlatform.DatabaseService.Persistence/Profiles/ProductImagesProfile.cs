@@ -8,8 +8,11 @@ namespace TradingPlatform.DatabaseService.Persistence.Profiles
     {
         public ProductImagesProfile()
         {
-            CreateMap<ProductImage, ProductImageReadDto>();
-            CreateMap<ProductImageCreateDto, ProductImage>();
+            CreateMap<ProductImage, ProductImageReadDto>().MaxDepth(2);
+            CreateMap<ProductImageCreateDto, ProductImage>().MaxDepth(2);
+
+            CreateMap<ProductImageThumbnail, ProductImageReadDto>().MaxDepth(2);
+            CreateMap<ProductImageCreateDto, ProductImageThumbnail>().MaxDepth(2);
         }
     }
 }

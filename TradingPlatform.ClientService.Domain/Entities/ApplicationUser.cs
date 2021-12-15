@@ -16,6 +16,6 @@ namespace TradingPlatform.ClientService.Domain.Entities
         public override string UserName {  get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
-        public override string Email {  get; set; }
+        public override string Email {  get; set; } 
     }
 }

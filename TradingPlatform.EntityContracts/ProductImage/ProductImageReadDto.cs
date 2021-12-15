@@ -6,14 +6,17 @@ namespace TradingPlatform.EntityContracts.ProductImage
 {
     public class ProductImageReadDto
     {
-        public byte[] ImageData { get; set; }
+        public int Id { get; set; }
+        public string Extension { get; set; }
+        public string Name { get; set; }
+        public byte[] Data { get; set; }
         public string GetImage()
         {
-            if (ImageData == null)
+            if (Data == null)
             {
                 return default;
             }  
-            var base64 = Convert.ToBase64String(ImageData);
+            var base64 = Convert.ToBase64String(Data);
             var image = string.Format("data:image/gif;base64,{0}", base64);
             return image;
         }

@@ -12,7 +12,7 @@ namespace TradingPlatform.EntityContracts.Order
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public OrderStatus Status { get; set; }
-        public int? CustumerId { get; set; }
+        public string CustumerId { get; set; }
         public string CustumerName { get; set; }
     }
 }

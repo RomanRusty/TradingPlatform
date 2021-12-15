@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TradingPlatform.EntityContracts.Category;
 using TradingPlatform.EntityContracts.ProductImage;
-using TradingPlatform.EntityContracts.ProductImageThumbnail;
 
 namespace TradingPlatform.EntityContracts.Product
 {
@@ -21,15 +21,13 @@ namespace TradingPlatform.EntityContracts.Product
         [RegularExpression(@"^\d{0,8}(\.\d{1,4})?$", ErrorMessage = "Wrong price type")]
         public double Price { get; set; }
         [Required]
-        [RegularExpression(@"/^\d+$/", ErrorMessage = "Quantity must be higher than 0")]
         public int Quantity { get; set; }
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
         //[Required]
-        public virtual ProductImageThumbnailReadDto ImageThumbnail { get; set; }
-
+        public ProductImageCreateDto ImageThumbnail { get; set; }
+        public IEnumerable<ProductImageCreateDto> Images { get; set; }
         [Required]
-        public virtual CategoryReadDto Category { get; set; }
-        public virtual IEnumerable<ProductImageReadDto> Images { get; set; }
+        public int CategoryId { get; set; }
     }
 }

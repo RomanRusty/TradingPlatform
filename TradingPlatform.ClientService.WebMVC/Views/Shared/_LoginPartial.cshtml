@@ -13,12 +13,12 @@
 			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 				@if(User.IsInRole("Custumer")){
 					<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Cart</a></li>
-					<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Purchases</a></li>
-					<li><a asp-controller="Home" asp-action="BecomeSeller" class="dropdown-item">Become seller</a></li>
+			@*		<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Purchases</a></li>
+					<li><a asp-controller="Home" asp-action="BecomeSeller" class="dropdown-item">Become seller</a></li>*@
 				}
 				@if(User.IsInRole("Seller")){
-					<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Sellings</a></li>
-					<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Purchases</a></li>
+		@*			<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Sellings</a></li>
+					<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Purchases</a></li>*@
 				}
 				<li><a class="dropdown-item">Settings</a></li>
 				<li><hr class="dropdown-divider"></li>

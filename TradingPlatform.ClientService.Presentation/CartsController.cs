@@ -26,7 +26,6 @@ namespace TradingPlatform.ClientService.Presentation
             if (ModelState.IsValid)
             {
                 await ServiceManager.CartService.AddProductToOrderAsync(productOrder);
-                return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index", "Home");
         }

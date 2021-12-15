@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 using TradingPlatform.DatabaseService.Services.Abstractions;
@@ -12,13 +13,13 @@ namespace TradingPlatform.DatabaseService.Services
         private readonly Lazy<IOrderService> _lazyOrderService;
         private readonly Lazy<IProductOrderService> _lazyProductOrderService;
         private readonly Lazy<IProductService> _lazyProductService;
-        public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
+        public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper, IHostingEnvironment environment)
         {
             _lazyCategoryService = new Lazy<ICategoryService>(() => new CategoryService(repositoryManager, mapper));
             _lazyComplaintService = new Lazy<IComplaintService>(() => new ComplaintService(repositoryManager, mapper));
             _lazyOrderService = new Lazy<IOrderService>(() => new OrderService(repositoryManager, mapper));
             _lazyProductOrderService = new Lazy<IProductOrderService>(() => new ProductOrderService(repositoryManager, mapper));
-            _lazyProductService = new Lazy<IProductService>(() => new ProductService(repositoryManager, mapper));
+            _lazyProductService = new Lazy<IProductService>(() => new ProductService(repositoryManager, mapper, environment));
         }
         public ICategoryService CategoryService => _lazyCategoryService.Value;
         public IComplaintService ComplaintService => _lazyComplaintService.Value;

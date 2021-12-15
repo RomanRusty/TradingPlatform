@@ -7,6 +7,9 @@ using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityExceptions.Product;
 using System;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace TradingPlatform.DatabaseService.Services
 {
@@ -14,11 +17,12 @@ namespace TradingPlatform.DatabaseService.Services
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
-
-        public ProductService(IRepositoryManager repository, IMapper mapper)
+        private readonly IHostingEnvironment _environment;
+        public ProductService(IRepositoryManager repository, IMapper mapper, IHostingEnvironment environment)
         {
             _repository = repository;
             _mapper = mapper;
+            _environment= environment;
         }
         public async Task<IEnumerable<ProductReadDto>> GetAllAsync()
         {
@@ -59,7 +63,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<ProductReadDto> CreateAsync(ProductCreateDto productCreateDto)
         {
             var product = _mapper.Map<Product>(productCreateDto);
-
+            product.Category =await _repository.Categories.FindByIdAsync(product.Category.Id);
             await _repository.Products.AddAsync(product);
 
             var productReadDto = _mapper.Map<ProductReadDto>(product);
@@ -76,10 +80,11 @@ namespace TradingPlatform.DatabaseService.Services
         }
         public async Task<IEnumerable<ProductReadDto>> FindBySearchAsync(ProductSearchDto productSearchDto)
         {
-            var products= await _repository.Products.FindAllAsync(item =>
-            (string.IsNullOrEmpty(productSearchDto.Name) || item.Name.Contains(productSearchDto.Name)) &&
-            item.Price>=productSearchDto.MinPrice &&
-            item.Price <= productSearchDto.MaxPrice);  
+            var products = await _repository.Products.FindAllAsync(item =>
+             (string.IsNullOrEmpty(productSearchDto.Name) || item.Name.Contains(productSearchDto.Name)) &&
+             (string.IsNullOrEmpty(productSearchDto.CategoryName) || item.Category.Name.Contains(productSearchDto.CategoryName)) &&
+             (productSearchDto.MinPrice == null)||item.Price >= productSearchDto.MinPrice &&
+             (productSearchDto.MaxPrice == null) || item.Price <= productSearchDto.MaxPrice);
 
             var productsReadDto = _mapper.Map<IEnumerable<ProductReadDto>>(products);
             return productsReadDto;

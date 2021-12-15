@@ -57,7 +57,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<OrderReadDto> CreateAsync(OrderCreateDto orderCreateDto)
         {
             var order = _mapper.Map<Order>(orderCreateDto);
-
+            order.Custumer =await _repository.Users.FindByIdAsync(orderCreateDto.CustumerId);
             await _repository.Orders.AddAsync(order);
 
             return _mapper.Map<OrderReadDto>(order);

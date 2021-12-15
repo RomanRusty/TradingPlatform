@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
+using TradingPlatform.ClientService.Domain.Tokens;
 using TradingPlatform.ClientService.Persistence.Configurations;
 using TradingPlatform.EntityContracts.Category;
 using TradingPlatform.EntityExceptions;
@@ -18,15 +20,16 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
     {
 
         private readonly ILogger<CategoryHttpClient> _logger;
-        public CategoryHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILogger<CategoryHttpClient> logger) : base(config, client)
+        public CategoryHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILoggerFactory loggerFactory, ITokenManager tokenManager, IHttpContextAccessor contextAccessor) :
+            base(config, client, tokenManager,contextAccessor)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = loggerFactory is not null ? loggerFactory.CreateLogger< CategoryHttpClient>(): throw new ArgumentNullException(nameof(loggerFactory));
             _apiName = "CategoriesApi";
         }
 
         public async Task<IEnumerable<CategoryReadDto>> GetAllAsync()
         {
-            var response = await _client.GetAsync(_apiName);
+            var response = await GetRequestAsync(_apiName);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -37,7 +40,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
 
         public async Task<CategoryReadDto> GetByIdAsync(int id)
         {
-            var response = await _client.GetAsync(_apiName + id);
+            var response = await GetRequestAsync(_apiName + "/" + id);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -54,7 +57,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
 
             var jsonContent = JsonSerializer.Serialize(categoryCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync(_apiName + id, data);
+            var response = await PutRequestAsync(_apiName + "/" + id, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -65,7 +68,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(categoryCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(_apiName, data);
+            var response = await PostRequestAsync(_apiName, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -75,7 +78,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         }
         public async Task DeleteAsync(int id)
         {
-            var response = await _client.GetAsync(_apiName + id);
+            var response = await DeleteRequestAsync(_apiName + "/" + id);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -91,7 +94,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(categorySearchDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(_apiName, data);
+            var response = await PostRequestAsync(_apiName + "/by-filter", data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());

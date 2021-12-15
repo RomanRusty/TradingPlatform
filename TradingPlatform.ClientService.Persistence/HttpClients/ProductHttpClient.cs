@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -10,6 +11,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
+using TradingPlatform.ClientService.Domain.Tokens;
 using TradingPlatform.ClientService.Persistence.Configurations;
 using TradingPlatform.EntityContracts.Product;
 using TradingPlatform.EntityExceptions;
@@ -17,18 +19,19 @@ using TradingPlatform.EntityExceptions.Product;
 
 namespace TradingPlatform.ClientService.Persistence.HttpClients
 {
-    public class ProductHttpClient:HttpClientBase,IProductHttpClient
+    public class ProductHttpClient : HttpClientBase, IProductHttpClient
     {
         private readonly ILogger<ProductHttpClient> _logger;
-        public ProductHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILogger<ProductHttpClient> logger) : base(config, client)
+        public ProductHttpClient(IOptions<AppConfiguration> config, HttpClient client, ILoggerFactory loggerFactory, ITokenManager tokenManager, IHttpContextAccessor contextAccessor) :
+            base(config, client, tokenManager, contextAccessor)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = loggerFactory is not null ? loggerFactory.CreateLogger<ProductHttpClient>() : throw new ArgumentNullException(nameof(loggerFactory));
             _apiName = "ProductsApi";
         }
 
         public async Task<IEnumerable<ProductReadDto>> GetAllAsync()
         {
-            var response = await _client.GetAsync(_apiName);
+            var response = await GetRequestAsync(_apiName);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -39,14 +42,13 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
 
         public async Task<ProductReadDto> GetByIdAsync(int id)
         {
-            var response = await _client.GetAsync(_apiName + id);
+            var response = await GetRequestAsync(_apiName + "/" + id);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
             var productDto = await DesserializeAsync<ProductReadDto>(response);
-
             if (productDto == null)
             {
                 throw new ProductNotFoundException("Product not found");
@@ -62,7 +64,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
 
             var jsonContent = JsonSerializer.Serialize(productCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync(_apiName + id, data);
+            var response = await PutRequestAsync(_apiName + "/" + id, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -73,7 +75,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(productCreateDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(_apiName, data);
+            var response = await PostRequestAsync(_apiName, data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -83,7 +85,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         }
         public async Task DeleteAsync(int id)
         {
-            var response = await _client.GetAsync(_apiName + id);
+            var response = await DeleteRequestAsync(_apiName + "/" + id);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
@@ -99,7 +101,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(productSearchDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(_apiName, data);
+            var response = await PostRequestAsync(_apiName + "/by-filter", data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());

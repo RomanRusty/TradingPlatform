@@ -15,17 +15,17 @@ namespace TradingPlatform.DatabaseService.Domain.Entities
         [MaxLength(255, ErrorMessage = "Name must be less than 255 symbols.")]
         public string Name { get; set; }
         [Required]
-        [StringLength(3000,ErrorMessage = "Description must be less than 3000 symbols")]
+        [StringLength(3000, ErrorMessage = "Description must be less than 3000 symbols")]
         public string Description { get; set; }
         [Required]
-        [RegularExpression(@"^\d{0,8}(\.\d{1,4})?$",ErrorMessage ="Wrong price type")]
+        [RegularExpression(@"^\d{0,8}(\.\d{1,4})?$", ErrorMessage = "Wrong price type")]
         public double Price { get; set; }
         [Required]
         [RegularExpression(@"/^\d+$/", ErrorMessage = "Quantity must be higher than 0")]
         public int Quantity { get; set; }
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
-   
+
 
         [Required]
         public virtual Category Category { get; set; }
@@ -39,11 +39,22 @@ namespace TradingPlatform.DatabaseService.Domain.Entities
         public Product(string name, string description, double price, int quantity, Category category)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            Description = description;
+            Description = description ?? throw new ArgumentNullException(nameof(description));
             Price = price;
             Quantity = quantity;
             CreationDate = DateTime.Now.Date;
             Category = category ?? throw new ArgumentNullException(nameof(category));
+        }
+        public Product(string name, string description, double price, int quantity, Category category, ProductImageThumbnail imageThumbnail, IEnumerable<ProductImage> images)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+            Price = price;
+            Quantity = quantity;
+            CreationDate = DateTime.Now.Date;
+            Category = category ?? throw new ArgumentNullException(nameof(category));
+            ImageThumbnail = imageThumbnail ?? throw new ArgumentNullException(nameof(imageThumbnail));
+            Images = images ?? throw new ArgumentNullException(nameof(images));
         }
         public Product()
         {

@@ -18,5 +18,6 @@ namespace TradingPlatform.DatabaseService.Domain.Entities
         [DataType(DataType.EmailAddress)]
         public override string Email {  get; set; }
         public virtual IEnumerable<Order> Orders { get; set; }
+      
     }
 }

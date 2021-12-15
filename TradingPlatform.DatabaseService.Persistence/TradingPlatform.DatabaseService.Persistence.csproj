@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
@@ -19,6 +20,12 @@
     <ProjectReference Include="..\TradingPlatform.DatabaseService.Domain\TradingPlatform.DatabaseService.Domain.csproj" />
     <ProjectReference Include="..\TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj" />
     <ProjectReference Include="..\TradingPlatform.EntityExceptions\TradingPlatform.EntityExceptions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\MockImages\Images\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

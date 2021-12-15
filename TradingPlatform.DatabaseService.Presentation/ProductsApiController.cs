@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace TradingPlatform.DatabaseService.Presentation
 
         [HttpGet]
         [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
+        //[Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetProducts()
         {
             IEnumerable<ProductReadDto> products = await ServiceManager.ProductService.GetAllAsync();
@@ -38,10 +40,10 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize (Roles ="Admin,Seller")]
         public async Task<IActionResult> UpdateProduct(int id, ProductCreateDto productCreateDto)
         {
             await ServiceManager.ProductService.UpdateAsync(id, productCreateDto);
-
             return Ok();
         }
 
@@ -49,6 +51,8 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
+        //[Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<ProductReadDto>> CreateProduct(ProductCreateDto productCreateDto)
         {
             var product = await ServiceManager.ProductService.CreateAsync(productCreateDto);
@@ -60,6 +64,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "Admin,Seller")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             await ServiceManager.ProductService.DeleteAsync(id);
@@ -68,7 +73,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         }
         [HttpPost("by-filter")]
         [ProducesResponseType(typeof(IEnumerable<ProductReadDto>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetBySearchFilterAsync([FromBody] ProductSearchDto filter)
+        public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetBySearchFilterAsync(ProductSearchDto filter)
         {
             var products = await ServiceManager.ProductService.FindBySearchAsync(filter);
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TradingPlatform.EntityContracts.Complaint;
@@ -36,6 +37,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "Admin,Custumer")]
         public async Task<IActionResult> UpdateComplaint(int id, ComplaintCreateDto complaintCreateDto)
         {
             await ServiceManager.ComplaintService.UpdateAsync(id, complaintCreateDto);
@@ -47,6 +49,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ComplaintReadDto), StatusCodes.Status200OK)]
+        [Authorize(Roles = "Custumer")]
         public async Task<ActionResult<ComplaintReadDto>> CreateComplaint([FromBody] ComplaintCreateDto complaintCreateDto)
         {
             var complaint = await ServiceManager.ComplaintService.CreateAsync(complaintCreateDto);
@@ -58,6 +61,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ComplaintReadDto), StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "Admin,Custumer")]
         public async Task<IActionResult> DeleteComplaint(int id)
         {
             await ServiceManager.ComplaintService.DeleteAsync(id);

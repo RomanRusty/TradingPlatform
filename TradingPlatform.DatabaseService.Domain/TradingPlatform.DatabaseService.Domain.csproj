@@ -9,11 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TradingPlatform.EntityContracts\TradingPlatform.EntityContracts.csproj" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

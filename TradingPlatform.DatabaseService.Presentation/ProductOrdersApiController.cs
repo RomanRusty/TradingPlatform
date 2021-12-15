@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         // GET: api/ProductOrdersApi
         [HttpGet]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ProductOrderReadDto>>> GetProductOrders()
         {
             var productOrders = await ServiceManager.ProductOrderService.GetAllAsync();
@@ -24,6 +26,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult<ProductOrderReadDto>> GetProductOrder(int id)
         {
             var productOrder = await ServiceManager.ProductOrderService.GetByIdAsync(id);
@@ -37,6 +40,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProductOrder(int id, ProductOrderCreateDto productOrderCreateDto)
         {
             await ServiceManager.ProductOrderService.UpdateAsync(id, productOrderCreateDto);
@@ -49,6 +53,8 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
+        //[Authorize(Roles = "Custumer")]
+        [Authorize]
         public async Task<ActionResult<ProductOrderReadDto>> CreateProductOrder(ProductOrderCreateDto productOrderCreateDto)
         {
             var productOrder = await ServiceManager.ProductOrderService.CreateAsync(productOrderCreateDto);
@@ -60,6 +66,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "Admin,Custumer")]
         public async Task<IActionResult> DeleteProductOrder(int id)
         {
             await ServiceManager.ProductOrderService.DeleteAsync(id);

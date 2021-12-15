@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         // GET: api/OrdersApi
         [HttpGet]
         [ProducesResponseType(typeof(OrderReadDto), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetOrders()
         {
             var orders = await ServiceManager.OrderService.GetAllAsync();
@@ -24,6 +26,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(OrderReadDto), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult<OrderReadDto>> GetOrder(int id)
         {
             var order = await ServiceManager.OrderService.GetByIdAsync(id);
@@ -36,7 +39,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-
+        [Authorize(Roles = "Admin,Custumer")]
         public async Task<IActionResult> UpdateOrder(int id, OrderCreateDto orderCreateDto)
         {
             await ServiceManager.OrderService.UpdateAsync(id, orderCreateDto);
@@ -48,6 +51,8 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(OrderReadDto), StatusCodes.Status200OK)]
+        //[Authorize(Roles = "Custumer")]
+        [Authorize]
         public async Task<ActionResult<OrderReadDto>> CreateOrder(OrderCreateDto orderCreateDto)
         {
             var order = await ServiceManager.OrderService.CreateAsync(orderCreateDto);
@@ -59,6 +64,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(OrderReadDto), StatusCodes.Status204NoContent)]
+        [Authorize(Roles = "Admin,Custumer")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
             await ServiceManager.OrderService.DeleteAsync(id);

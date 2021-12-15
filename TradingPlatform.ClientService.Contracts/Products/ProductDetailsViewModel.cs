@@ -5,14 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TradingPlatform.EntityContracts.Product;
-using TradingPlatform.EntityContracts.ProductOrder;
 
-namespace TradingPlatform.ClientService.Contracts.Modals
+namespace TradingPlatform.ClientService.Contracts.Products
 {
-    public class AddItemToCartViewModel
+    public class ProductDetailsViewModel
     {
         public ProductReadDto Product { get; set; }
-        public SelectList Orders { get; set; }
-        public ProductOrderCreateDto ProductOrder { get; set; }
+        public SelectList AvailableOrdersSelectList { get; set; }
     }
 }

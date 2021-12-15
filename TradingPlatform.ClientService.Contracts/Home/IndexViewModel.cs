@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TradingPlatform.ClientService.Contracts.Modals;
 using TradingPlatform.EntityContracts.Product;
 
-namespace TradingPlatform.ClientService.Contracts
+namespace TradingPlatform.ClientService.Contracts.Home
 {
     public class IndexViewModel
     {

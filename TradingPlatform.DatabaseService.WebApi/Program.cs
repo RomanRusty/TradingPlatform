@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TradingPlatform.DatabaseService.Persistence.Database;
 
-namespace TradingPlatform.DatabaseService.Api
+namespace TradingPlatform.DatabaseService.WebApi
 {
     public class Program
     {
@@ -30,8 +30,6 @@ namespace TradingPlatform.DatabaseService.Api
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                //.UseSerilog((context, loggerConfiguration) //configuration from appsettings
-                //  => loggerConfiguration.ReadFrom.Configuration(context.Configuration))
                  .UseSerilog((context, loggerConfiguration)
                      => loggerConfiguration.ReadFrom.Configuration(context.Configuration)
                          .Enrich.WithEnvironment(Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"))
@@ -43,8 +41,8 @@ namespace TradingPlatform.DatabaseService.Api
                          .Enrich.FromLogContext()
                          .Enrich.WithProcessId()
                          .Enrich.WithThreadId()
-                         .WriteTo.File(new JsonFormatter(), "logs.json",
-                             rollingInterval: RollingInterval.Day)
+                         //.WriteTo.File(new JsonFormatter(), "logs.json",
+                         //    rollingInterval: RollingInterval.Day)
                          .WriteTo.Seq("http://localhost:5341/"))
                 // alternative configuration from code 
                 .ConfigureWebHostDefaults(webBuilder =>

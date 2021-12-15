@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +15,9 @@ using Newtonsoft.Json;
 using System;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using TradingPlatform.DatabaseService.Domain.Entities;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
-using TradingPlatform.DatabaseService.Persistence.Configurations;
 using TradingPlatform.DatabaseService.Persistence.Database;
 using TradingPlatform.DatabaseService.Persistence.Middleware;
 using TradingPlatform.DatabaseService.Persistence.Profiles;
@@ -24,7 +26,7 @@ using TradingPlatform.DatabaseService.Presentation;
 using TradingPlatform.DatabaseService.Services;
 using TradingPlatform.DatabaseService.Services.Abstractions;
 
-namespace TradingPlatform.DatabaseService.Api
+namespace TradingPlatform.DatabaseService.WebApi
 {
     public class Startup
     {
@@ -42,37 +44,70 @@ namespace TradingPlatform.DatabaseService.Api
             services.AddDbContext<RepositoryDbContext>(options =>
                options.UseLazyLoadingProxies().UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireDigit = true;
+            }).AddEntityFrameworkStores<RepositoryDbContext>()
+            .AddDefaultTokenProviders();
 
             services.AddAutoMapper(typeof(CategoriesProfile).Assembly);
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseMicroservice", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "DatabaseMicroservice",
+                    Version = "v1" 
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }
+                });
             });
             services.AddControllers().AddApplicationPart(typeof(CategoriesApiController).Assembly);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+
+            var configurationSection = Configuration.GetSection("Tokens");
+            var key = Encoding.ASCII.GetBytes(configurationSection["AuthToken"]);
+            services.AddAuthentication(x =>
             {
-               options.TokenValidationParameters=new TokenValidationParameters()
-               {
-                   IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                   ValidateIssuerSigningKey = true,
-               };
-            });
-            var identityUrl = Configuration.GetValue<string>("IdentityUrl");
-
-            // Add Authentication services
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
-            {
-                options.Authority = identityUrl;
-                options.RequireHttpsMetadata = false;
-                options.Audience = "orders";
-            });
+                {
+
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+
+
+                    };
+                });
 
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
             services.AddScoped(typeof(IRepositoryManager), typeof(RepositoryManager));
@@ -92,17 +127,6 @@ namespace TradingPlatform.DatabaseService.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DatabaseMicroservice"));
                 serviceProvider.Seed();
             }
-            app.UseExceptionHandler(error => error.Run(async context =>
-            {
-                var feature =
-                    context.Features
-                        .Get<IExceptionHandlerPathFeature>(); //here you can get the actual exception 'feature.Error'
-
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(new
-                { Error = "Ups... Something went wrong" }));
-            }));
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
@@ -111,7 +135,7 @@ namespace TradingPlatform.DatabaseService.Api
 
             app.UseAuthentication();
             app.UseAuthorization();
-         
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

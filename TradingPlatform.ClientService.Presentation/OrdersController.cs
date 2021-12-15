@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+using TradingPlatform.EntityContracts.Order;
 
 namespace TradingPlatform.ClientService.Presentation
 {
-    public class OrdersController : Controller
+    public class OrdersController : ControllerBase
     {
         //private readonly IGenericUnitOfWork _context;
         //private readonly IHttpContextAccessor _httpContextAccessor;
@@ -35,30 +38,26 @@ namespace TradingPlatform.ClientService.Presentation
         //    return View(order);
         //}
 
-        //// GET: Orders/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        // GET: Orders/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //// POST: Orders/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name")] Order order)
-        //{
-        //    string curUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //    order.Custumer = _context.Repository<ApplicationUser>().FindById(curUserId);
-        //    order.CreationDate = DateTime.Today;
-        //    order.Status = OrderStatus.Selecting;
-        //    if (ModelState.IsValid)
-        //    {
-        //        await _context.Repository<Order>().AddAsync(order);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(order);
-        //}
+        // POST: Orders/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name")] OrderCreateDto orderCreateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await ServiceManager.OrderService.CreatePostAsync(orderCreateDto);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(orderCreateDto);
+        }
 
         //// GET: Orders/Edit/5
         //public async Task<IActionResult> Edit(int? id)

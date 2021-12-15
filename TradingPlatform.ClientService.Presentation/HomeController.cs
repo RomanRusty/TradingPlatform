@@ -1,18 +1,27 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TradingPlatform.ClientService.Contracts;
+using TradingPlatform.ClientService.Contracts.Home;
 
 namespace TradingPlatform.ClientService.Presentation
 {
     public class HomeController : ControllerBase {
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, string category, int page)
+        public async Task<IActionResult> Index(string sortOrder, string sortDirection, string currentFilter, string searchString, string category, int page)
         {
-            IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync( sortOrder, currentFilter, searchString, category, page);
+            IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync( sortOrder, sortDirection, currentFilter, searchString, category, page);
+
             return View(indexViewModel);
+        }
+        [Authorize(Roles ="Custumer")]
+        public async Task<IActionResult> BecomeSeller()
+        {
+            await ServiceManager.HomeService.BecomeSeller();
+
+            return RedirectToAction("Index");
         }
         //public async Task<IActionResult> ProductDetails(int? id)
         //{

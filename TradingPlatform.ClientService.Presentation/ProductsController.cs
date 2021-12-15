@@ -1,141 +1,66 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using TradingPlatform.ClientService.Contracts.Products;
+using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.ClientService.Presentation
 {
     public class ProductsController : ControllerBase
     {
-        //    private readonly IGenericUnitOfWork _context;
-
-        //    public ProductsController(IGenericUnitOfWork context)
-        //    {
-        //        _context = context;
-        //    }
-
-        //    // GET: Products
-        //    public async Task<IActionResult> Index()
-        //    {
-        //        return View(await _context.Repository<Product>().GetAllAsync());
-        //    }
-
-        //    // GET: Products/Details/5
-        //    public async Task<IActionResult> Details(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        var product = await _context.Repository<Product>().FindByIdAsync(id);
-        //        if (product == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        SelectList orderSelectList = null;
-
-        //        if (User.Identity.IsAuthenticated)
-        //        {
-        //            IEnumerable<Order> orders = _context.Repository<Order>().FindAll(t => t.Status == OrderStatus.Selecting && t.Custumer.UserName == User.Identity.Name);
-        //            orderSelectList = new SelectList(orders, "Id", "Name");
-        //        }
-        //        return View(new ProductModel() { Product=product, AvailableOrdersSelectList= orderSelectList });
-        //    }
-
-        // GET: Products/Create
-        public IActionResult Create()
+        // GET: Products
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await ServiceManager.ProductService.IndexAsync());
+        }
+        // GET: Products/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(await ServiceManager.ProductService.DetailsAsync(id));
         }
 
-        //    // POST: Products/Create
-        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Quantity,CreationDate,ImageThumbnailPath")] Product product)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            await _context.Repository<Product>().AddAsync(product);
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        return View(product);
-        //    }
+        // GET: Products/Create
+        public async Task<IActionResult> Create()
+        {
+            return View(await ServiceManager.ProductService.CreateGetAsync());
+        }
 
-        //    // GET: Products/Edit/5
-        //    public async Task<IActionResult> Edit(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
+        // POST: Products/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ProductCreateViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await ServiceManager.ProductService.CreatePostAsync(viewModel);
+                return RedirectToAction(nameof(Index),"Home");
+            }
+            viewModel.Categories = (await ServiceManager.ProductService.CreateGetAsync()).Categories;
+            return View(viewModel);
+        }
+        // GET: Products/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View(await ServiceManager.ProductService.EditGetAsync(id));
+        }
 
-        //        var product = await _context.Repository<Product>().FindByIdAsync(id);
-        //        if (product == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        return View(product);
-        //    }
+        // POST: Products/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CreationDate,ImageThumbnailPath")] ProductCreateDto product)
+        {
+            if (ModelState.IsValid)
+            {
+                await ServiceManager.ProductService.EditPostAsync(id, product);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(product);
+        }
 
-        //    // POST: Products/Edit/5
-        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CreationDate,ImageThumbnailPath")] Product product)
-        //    {
-        //        if (id != product.Id)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        if (ModelState.IsValid)
-        //        {
-        //            try
-        //            {
-        //                await _context.Repository<Product>().UpdateAsync(product);
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                if ( !await _context.Repository<Product>().ExistsAsync(id))
-        //                {
-        //                    return NotFound();
-        //                }
-        //                else
-        //                {
-        //                    throw;
-        //                }
-        //            }
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        return View(product);
-        //    }
-
-        //    // GET: Products/Delete/5
-        //    public async Task<IActionResult> Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        var product = await _context.Repository<Product>().FindByIdAsync(id);
-        //        if (product == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return View(product);
-        //    }
-
-        //    // POST: Products/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> DeleteConfirmed(int id)
-        //    {
-        //        var product = await _context.Repository<Product>().FindByIdAsync(id);
-        //        await _context.Repository<Product>().RemoveAsync(product);
-        //        return RedirectToAction(nameof(Index));
-        //    }
+        // GET: Products/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            await ServiceManager.ProductService.DeleteAsync(id);
+            return View();
+        }
     }
 }

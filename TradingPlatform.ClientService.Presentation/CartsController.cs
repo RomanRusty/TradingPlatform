@@ -1,9 +1,11 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.ClientService.Presentation
 {
-    public class CartsController : Controller
+    public class CartsController : ControllerBase
     {
         //private readonly IGenericUnitOfWork _context;
         //public CartsController(IGenericUnitOfWork context)
@@ -11,25 +13,23 @@ namespace TradingPlatform.ClientService.Presentation
         //    _context = context;
         //}
 
-        //public IActionResult Index()
-        //{
-        //    //List<Order> orders = new(_context.Repository<Order>().GetWithInclude(item => item.Custumer.UserName == User.Identity.Name, item => item.Custumer, item => item.ProductOrders, item => item.ProductOrders));
-        //    List<Order> orders = new(_context.Repository<Order>().FindAll(item => item.Custumer.UserName == User.Identity.Name));
-        //    return View(new CartModel() { Orders = orders });
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddProductToOrder(ProductOrder productOrder)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //productOrder.Product = _context.Repository<Product>().FindById(productOrder.ProductIdSelect);
-        //        //productOrder.Order = _context.Repository<Order>().FindById(productOrder.OrderIdSelect);
-        //        await _context.Repository<ProductOrder>().AddAsync(productOrder);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return RedirectToAction("Index", "Home");
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var index = await ServiceManager.CartService.IndexAsync();
+
+            return View(index);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddProductToOrder(ProductOrderCreateDto productOrder)
+        {
+            if (ModelState.IsValid)
+            {
+                await ServiceManager.CartService.AddProductToOrderAsync(productOrder);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index", "Home");
+        }
         //public async Task<IActionResult> ProductDetails(int? id)
         //{
         //    if (id == null)

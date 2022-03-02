@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Category;
 
 namespace TradingPlatform.DatabaseService.Presentation
@@ -37,7 +38,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> UpdateCategory(int id, CategoryCreateDto categoryCreateDto)
         {
             await ServiceManager.CategoryService.UpdateAsync(id, categoryCreateDto);
@@ -49,7 +50,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(CategoryReadDto), StatusCodes.Status200OK)]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult<CategoryReadDto>> CreateCategory([FromBody] CategoryCreateDto categoryCreateDto)
         {
             var categoryReadDto = await ServiceManager.CategoryService.CreateAsync(categoryCreateDto);
@@ -61,7 +62,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(CategoryReadDto), StatusCodes.Status204NoContent)]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             await ServiceManager.CategoryService.DeleteAsync(id);

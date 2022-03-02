@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TradingPlatform.DatabaseService.Domain.Entities;
+using TradingPlatform.EntityContracts.ApplicationUser;
 
 namespace TradingPlatform.DatabaseService.Persistence.Database
 {
@@ -18,9 +19,9 @@ namespace TradingPlatform.DatabaseService.Persistence.Database
             {
                 if (!roleManger.Roles.Any())
                 {
-                    await roleManger.CreateAsync(new IdentityRole() { Name = "Admin" });
-                    await roleManger.CreateAsync(new IdentityRole() { Name = "Seller" });
-                    await roleManger.CreateAsync(new IdentityRole() { Name = "Custumer" });
+                    await roleManger.CreateAsync(new IdentityRole() { Name = UserRoles.Admin });
+                    await roleManger.CreateAsync(new IdentityRole() { Name = UserRoles.Seller });
+                    await roleManger.CreateAsync(new IdentityRole() { Name = UserRoles.Custumer });
                 }
             }
             using (var userManger = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>())
@@ -37,7 +38,7 @@ namespace TradingPlatform.DatabaseService.Persistence.Database
                     };
                     await userManger.CreateAsync(admin, "Admin1");
 
-                    await userManger.AddToRoleAsync(admin, "Admin");
+                    await userManger.AddToRoleAsync(admin, UserRoles.Admin);
 
                     var seller = new ApplicationUser
                     {
@@ -49,7 +50,7 @@ namespace TradingPlatform.DatabaseService.Persistence.Database
                     };
                     await userManger.CreateAsync(seller, "Seller1");
 
-                    await userManger.AddToRoleAsync(seller, "Seller");
+                    await userManger.AddToRoleAsync(seller, UserRoles.Seller);
 
                     var custumer = new ApplicationUser
                     {
@@ -61,7 +62,7 @@ namespace TradingPlatform.DatabaseService.Persistence.Database
                     };
                     await userManger.CreateAsync(custumer, "Custumer1");
 
-                    await userManger.AddToRoleAsync(custumer, "Custumer");
+                    await userManger.AddToRoleAsync(custumer, UserRoles.Custumer);
                 }
             }
             using RepositoryDbContext context = scope.ServiceProvider.GetRequiredService<RepositoryDbContext>();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.DatabaseService.Presentation
@@ -40,7 +41,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> UpdateProductOrder(int id, ProductOrderCreateDto productOrderCreateDto)
         {
             await ServiceManager.ProductOrderService.UpdateAsync(id, productOrderCreateDto);
@@ -53,8 +54,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
-        //[Authorize(Roles = "Custumer")]
-        [Authorize]
+        [Authorize(Roles = UserRoles.Custumer)]
         public async Task<ActionResult<ProductOrderReadDto>> CreateProductOrder(ProductOrderCreateDto productOrderCreateDto)
         {
             var productOrder = await ServiceManager.ProductOrderService.CreateAsync(productOrderCreateDto);
@@ -66,7 +66,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status204NoContent)]
-        [Authorize(Roles = "Admin,Custumer")]
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Custumer)]
         public async Task<IActionResult> DeleteProductOrder(int id)
         {
             await ServiceManager.ProductOrderService.DeleteAsync(id);

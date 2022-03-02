@@ -1,9 +1,7 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,10 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using System;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 using System.Text;
 using TradingPlatform.DatabaseService.Domain.Entities;
 using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
@@ -60,43 +56,45 @@ namespace TradingPlatform.DatabaseService.WebApi
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
                     Title = "DatabaseMicroservice",
-                    Version = "v1" 
+                    Version = "v1"
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
                     Description = "Please insert JWT with Bearer into field",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
                 });
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                //{
-                //    new OpenApiSecurityScheme
-                //    {
-                //        Reference = new OpenApiReference
-                //        {
-                //            Type = ReferenceType.SecurityScheme,
-                //            Id = "Bearer"
-                //        }
-                //    },
-                //    new string[] { }
-                //}
-                //});
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer",
+                        }
+                    },
+                new List<string>()
+                }
+                });
+                //c.OperationFilter<SwaggerAppendAuthorizeToSummaryOperationFilter>();
             });
+
             services.AddControllers().AddApplicationPart(typeof(CategoriesApiController).Assembly);
 
-            var configurationSection = Configuration.GetSection("Tokens");
-            var key = Encoding.ASCII.GetBytes(configurationSection["AuthToken"]);
+            var jwtTokenSection = Configuration.GetSection("Tokens").GetSection("JwtToken");
+            var key = Encoding.ASCII.GetBytes(jwtTokenSection["Token"]);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
                 {
-
                     options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -104,10 +102,16 @@ namespace TradingPlatform.DatabaseService.WebApi
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
                         ValidateAudience = false,
-
-
                     };
                 });
+            //Set Default JwtBearer authorization
+            services.AddAuthorization();
+           //services.AddAuthorization(options =>
+           // {
+           //     var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+           //     defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+           //     options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+           // });
 
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
             services.AddScoped(typeof(IRepositoryManager), typeof(RepositoryManager));

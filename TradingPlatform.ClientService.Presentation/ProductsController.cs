@@ -5,6 +5,7 @@ using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.ClientService.Presentation
 {
+
     public class ProductsController : ControllerBase
     {
         // GET: Products
@@ -27,6 +28,7 @@ namespace TradingPlatform.ClientService.Presentation
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create(ProductCreateViewModel viewModel)
         {
             if (ModelState.IsValid)

@@ -33,27 +33,56 @@ namespace TradingPlatform.ClientService.Persistence.Tokens
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var configurationSection = _configuration.GetSection("Tokens");
-            var key = Encoding.ASCII.GetBytes(configurationSection["AuthToken"]);
+            var jwtTokenSection = _configuration.GetSection("Tokens").GetSection("JwtToken");
+            var key = Encoding.ASCII.GetBytes(jwtTokenSection["Token"]);
 
-            string roles = string.Join(",",await _userManager.GetRolesAsync(user));
-            var claims = new ClaimsIdentity(new[]
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            foreach (var role in await _userManager.GetRolesAsync(user))
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Role, roles)
-
-            });
-            var tokenDescriptor = new SecurityTokenDescriptor
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            var token = GetJwtToken(
+                user.Id,
+                jwtTokenSection["Token"],
+                jwtTokenSection["Issuer"],
+                jwtTokenSection["Audience"],
+                TimeSpan.FromMinutes(Convert.ToInt32(jwtTokenSection["TokenTimeoutMinutes"])),
+                claims.ToArray());
+            return tokenHandler.WriteToken(token);
+        }
+        public static JwtSecurityToken GetJwtToken(
+       string username,
+       string signingKey,
+       string issuer,
+       string audience,
+       TimeSpan expiration,
+       Claim[] additionalClaims = null)
+        {
+            var claims = new[]
             {
-                Subject = new ClaimsIdentity(claims),
-                Issuer = "http://localhost:5002",
-                Audience = "https://localhost:5001",
-                NotBefore = DateTime.UtcNow,
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+            new Claim(JwtRegisteredClaimNames.Sub,username),
+            // this guarantees the token is unique
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
 
-            return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
+            if (additionalClaims is object)
+            {
+                var claimList = new List<Claim>(claims);
+                claimList.AddRange(additionalClaims);
+                claims = claimList.ToArray();
+            }
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            return new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                expires: DateTime.UtcNow.Add(expiration),
+                claims: claims,
+                signingCredentials: creds
+            );
         }
     }
 }

@@ -18,23 +18,22 @@ namespace TradingPlatform.ClientService.Persistence.Tokens
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
-        public TokenManager(UserManager<ApplicationUser> userManager,IConfiguration configuration)
+        public TokenManager(UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _configuration= configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         public async Task<string> GenerateToken(string userName)
         {
-            var user = await _userManager.FindByNameAsync(userName);    
-            if(user == null)
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
             {
                 throw new UserNotFoundException($"User with {userName} username was not found");
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtTokenSection = _configuration.GetSection("Tokens").GetSection("JwtToken");
-            var key = Encoding.ASCII.GetBytes(jwtTokenSection["Token"]);
 
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
@@ -66,7 +65,7 @@ namespace TradingPlatform.ClientService.Persistence.Tokens
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-            if (additionalClaims is object)
+            if (additionalClaims is not null)
             {
                 var claimList = new List<Claim>(claims);
                 claimList.AddRange(additionalClaims);

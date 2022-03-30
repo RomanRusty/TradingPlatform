@@ -85,7 +85,8 @@ namespace TradingPlatform.ClientService.WebMVC
 
             services.Configure<AppConfiguration>(Configuration);
             services.AddHttpClient<IHttpClientManager, HttpClientManager>();
-            services.AddScoped<IServiceManager, ServiceManager>();
+            services.InitializeServices();
+            //services.AddScoped<IServiceManager, ServiceManager>();
             services.AddTransient<ExceptionHandlingMiddleware>();
             services.AddHttpContextAccessor();
             services.AddScoped<ITokenManager, TokenManager>();

@@ -115,7 +115,8 @@ namespace TradingPlatform.DatabaseService.WebApi
 
             services.AddScoped(typeof(IGenericUnitOfWork), typeof(GenericUnitOfWork));
             services.AddScoped(typeof(IRepositoryManager), typeof(RepositoryManager));
-            services.AddScoped<IServiceManager, ServiceManager>();
+            services.InitializeServices();
+            //services.AddScoped<IServiceManager, ServiceManager>();
             services.AddTransient<ExceptionHandlingMiddleware>();
         }
 

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Complaint;
 
@@ -10,14 +12,21 @@ namespace TradingPlatform.DatabaseService.Presentation
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComplaintsApiController : DefaultApiController
+    public class ComplaintsApiController : ControllerBase
     {
+        private readonly IComplaintService _complaintService;
+
+        public ComplaintsApiController(IComplaintService complaintService)
+        {
+            _complaintService = complaintService ?? throw new ArgumentNullException(nameof(complaintService));
+        }
+
         // GET: api/ComplaintsApi
         [HttpGet]
         [ProducesResponseType(typeof(ComplaintReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ComplaintReadDto>>> GetComplaints()
         {
-            var complaints = await ServiceManager.ComplaintService.GetAllAsync();
+            var complaints = await _complaintService.GetAllAsync();
 
             return Ok(complaints);
         }
@@ -28,7 +37,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(ComplaintReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ComplaintReadDto>> GetComplaint(int id)
         {
-            var complaint = await ServiceManager.ComplaintService.GetByIdAsync(id);
+            var complaint = await _complaintService.GetByIdAsync(id);
 
             return Ok(complaint);
         }
@@ -41,7 +50,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles =  UserRoles.Admin+","+UserRoles.Custumer)]
         public async Task<IActionResult> UpdateComplaint(int id, ComplaintCreateDto complaintCreateDto)
         {
-            await ServiceManager.ComplaintService.UpdateAsync(id, complaintCreateDto);
+            await _complaintService.UpdateAsync(id, complaintCreateDto);
 
             return Ok();
         }
@@ -53,7 +62,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Custumer)]
         public async Task<ActionResult<ComplaintReadDto>> CreateComplaint([FromBody] ComplaintCreateDto complaintCreateDto)
         {
-            var complaint = await ServiceManager.ComplaintService.CreateAsync(complaintCreateDto);
+            var complaint = await _complaintService.CreateAsync(complaintCreateDto);
 
             return Ok(complaint);
         }
@@ -65,7 +74,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Custumer)]
         public async Task<IActionResult> DeleteComplaint(int id)
         {
-            await ServiceManager.ComplaintService.DeleteAsync(id);
+            await _complaintService.DeleteAsync(id);
 
             return NoContent();
         }
@@ -73,7 +82,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(IEnumerable<ComplaintReadDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ComplaintReadDto>>> GetBySearchFilterAsync([FromBody] ComplaintSearchDto filter)
         {
-            var complaints = await ServiceManager.ComplaintService.FindBySearchAsync(filter);
+            var complaints = await _complaintService.FindBySearchAsync(filter);
 
             return Ok(complaints);
         }

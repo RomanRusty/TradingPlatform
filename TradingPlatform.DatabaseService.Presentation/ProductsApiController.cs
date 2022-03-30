@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Product;
 
@@ -10,8 +12,15 @@ namespace TradingPlatform.DatabaseService.Presentation
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsApiController : DefaultApiController
+    public class ProductsApiController : ControllerBase
     {
+        private readonly IProductService _productService;
+
+        public ProductsApiController(IProductService productService)
+        {
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+        }
+
         // GET: api/ProductsApi
 
         [HttpGet]
@@ -19,7 +28,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         //[Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetProducts()
         {
-            IEnumerable<ProductReadDto> products = await ServiceManager.ProductService.GetAllAsync();
+            IEnumerable<ProductReadDto> products = await _productService.GetAllAsync();
 
             return Ok(products);
         }
@@ -30,7 +39,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(ProductReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductReadDto>> GetProduct(int id)
         {
-            ProductReadDto product = await ServiceManager.ProductService.GetByIdAsync(id);
+            ProductReadDto product = await _productService.GetByIdAsync(id);
 
             return Ok(product);
         }
@@ -44,7 +53,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize (Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> UpdateProduct(int id, ProductCreateDto productCreateDto)
         {
-            await ServiceManager.ProductService.UpdateAsync(id, productCreateDto);
+            await _productService.UpdateAsync(id, productCreateDto);
             return Ok();
         }
 
@@ -55,7 +64,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Seller)]
         public async Task<ActionResult<ProductReadDto>> CreateProduct(ProductCreateDto productCreateDto)
         {
-            var product = await ServiceManager.ProductService.CreateAsync(productCreateDto);
+            var product = await _productService.CreateAsync(productCreateDto);
 
             return Ok(product);
         }
@@ -67,7 +76,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            await ServiceManager.ProductService.DeleteAsync(id);
+            await _productService.DeleteAsync(id);
 
             return NoContent();
         }
@@ -75,7 +84,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(IEnumerable<ProductReadDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetBySearchFilterAsync(ProductSearchDto filter)
         {
-            var products = await ServiceManager.ProductService.FindBySearchAsync(filter);
+            var products = await _productService.FindBySearchAsync(filter);
 
             return Ok( products);
         }

@@ -1,21 +1,23 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
+using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.ClientService.Presentation
 {
-    public class CartsController : ControllerBase
+    public class CartsController : Controller
     {
-        //private readonly IGenericUnitOfWork _context;
-        //public CartsController(IGenericUnitOfWork context)
-        //{
-        //    _context = context;
-        //}
+        private readonly ICartService _cartService;
+        public CartsController(ICartService cartService)
+        {
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+        }
 
         public async Task<IActionResult> Index()
         {
-            var index = await ServiceManager.CartService.IndexAsync();
+            var index = await _cartService.IndexAsync();
 
             return View(index);
         }
@@ -25,7 +27,7 @@ namespace TradingPlatform.ClientService.Presentation
         {
             if (ModelState.IsValid)
             {
-                await ServiceManager.CartService.AddProductToOrderAsync(productOrder);
+                await _cartService.AddProductToOrderAsync(productOrder);
             }
             return RedirectToAction("Index", "Home");
         }

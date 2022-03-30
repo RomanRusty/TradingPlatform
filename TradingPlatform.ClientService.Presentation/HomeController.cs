@@ -6,20 +6,28 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TradingPlatform.ClientService.Contracts.Home;
+using TradingPlatform.ClientService.Services.Abstractions;
 
 namespace TradingPlatform.ClientService.Presentation
 {
-    public class HomeController : ControllerBase {
+    public class HomeController : Controller {
+        private readonly IHomeService _homeService;
+
+        public HomeController(IHomeService homeService)
+        {
+            _homeService = homeService ?? throw new ArgumentNullException(nameof(homeService));
+        }
+
         public async Task<IActionResult> Index(string sortOrder, string sortDirection, string currentFilter, string searchString, string category, int page)
         {
-            IndexViewModel indexViewModel = await ServiceManager.HomeService.IndexAsync( sortOrder, sortDirection, currentFilter, searchString, category, page);
+            IndexViewModel indexViewModel = await _homeService.IndexAsync( sortOrder, sortDirection, currentFilter, searchString, category, page);
 
             return View(indexViewModel);
         }
         [Authorize(Roles ="Custumer")]
         public async Task<IActionResult> BecomeSeller()
         {
-            await ServiceManager.HomeService.BecomeSeller();
+            await _homeService.BecomeSeller();
 
             return RedirectToAction("Index");
         }

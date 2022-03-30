@@ -1,28 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using TradingPlatform.ClientService.Contracts.Products;
+using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.ClientService.Presentation
 {
 
-    public class ProductsController : ControllerBase
+    public class ProductsController : Controller
     {
+        private readonly IProductService _productService;
+
+        public ProductsController(IProductService productService)
+        {
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+        }
+
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await ServiceManager.ProductService.IndexAsync());
+            return View(await _productService.IndexAsync());
         }
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            return View(await ServiceManager.ProductService.DetailsAsync(id));
+            return View(await _productService.DetailsAsync(id));
         }
 
         // GET: Products/Create
         public async Task<IActionResult> Create()
         {
-            return View(await ServiceManager.ProductService.CreateGetAsync());
+            return View(await _productService.CreateGetAsync());
         }
 
         // POST: Products/Create
@@ -33,16 +42,16 @@ namespace TradingPlatform.ClientService.Presentation
         {
             if (ModelState.IsValid)
             {
-                await ServiceManager.ProductService.CreatePostAsync(viewModel);
+                await _productService.CreatePostAsync(viewModel);
                 return RedirectToAction(nameof(Index),"Home");
             }
-            viewModel.Categories = (await ServiceManager.ProductService.CreateGetAsync()).Categories;
+            viewModel.Categories = (await _productService.CreateGetAsync()).Categories;
             return View(viewModel);
         }
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await ServiceManager.ProductService.EditGetAsync(id));
+            return View(await _productService.EditGetAsync(id));
         }
 
         // POST: Products/Edit/5
@@ -52,7 +61,7 @@ namespace TradingPlatform.ClientService.Presentation
         {
             if (ModelState.IsValid)
             {
-                await ServiceManager.ProductService.EditPostAsync(id, product);
+                await _productService.EditPostAsync(id, product);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -61,7 +70,7 @@ namespace TradingPlatform.ClientService.Presentation
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            await ServiceManager.ProductService.DeleteAsync(id);
+            await _productService.DeleteAsync(id);
             return View();
         }
     }

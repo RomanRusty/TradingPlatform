@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.ProductOrder;
 
@@ -10,15 +12,22 @@ namespace TradingPlatform.DatabaseService.Presentation
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductOrdersApiController : DefaultApiController
+    public class ProductOrdersApiController : ControllerBase
     {
+        private readonly IProductOrderService _productOrderService;
+
+        public ProductOrdersApiController(IProductOrderService productOrderService)
+        {
+            _productOrderService = productOrderService ?? throw new ArgumentNullException(nameof(productOrderService));
+        }
+
         // GET: api/ProductOrdersApi
         [HttpGet]
         [ProducesResponseType(typeof(ProductOrderReadDto), StatusCodes.Status200OK)]
         [Authorize]
         public async Task<ActionResult<IEnumerable<ProductOrderReadDto>>> GetProductOrders()
         {
-            var productOrders = await ServiceManager.ProductOrderService.GetAllAsync();
+            var productOrders = await _productOrderService.GetAllAsync();
 
             return Ok(productOrders);
         }
@@ -30,7 +39,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize]
         public async Task<ActionResult<ProductOrderReadDto>> GetProductOrder(int id)
         {
-            var productOrder = await ServiceManager.ProductOrderService.GetByIdAsync(id);
+            var productOrder = await _productOrderService.GetByIdAsync(id);
 
             return Ok(productOrder);
         }
@@ -44,7 +53,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> UpdateProductOrder(int id, ProductOrderCreateDto productOrderCreateDto)
         {
-            await ServiceManager.ProductOrderService.UpdateAsync(id, productOrderCreateDto);
+            await _productOrderService.UpdateAsync(id, productOrderCreateDto);
 
             return Ok();
         }
@@ -57,7 +66,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Custumer)]
         public async Task<ActionResult<ProductOrderReadDto>> CreateProductOrder(ProductOrderCreateDto productOrderCreateDto)
         {
-            var productOrder = await ServiceManager.ProductOrderService.CreateAsync(productOrderCreateDto);
+            var productOrder = await _productOrderService.CreateAsync(productOrderCreateDto);
 
             return Ok(productOrder);
         }
@@ -69,7 +78,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Custumer)]
         public async Task<IActionResult> DeleteProductOrder(int id)
         {
-            await ServiceManager.ProductOrderService.DeleteAsync(id);
+            await _productOrderService.DeleteAsync(id);
 
             return NoContent();
         }

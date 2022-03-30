@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Category;
 
@@ -10,14 +12,21 @@ namespace TradingPlatform.DatabaseService.Presentation
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesApiController : DefaultApiController
+    public class CategoriesApiController : ControllerBase
     {
+        private readonly ICategoryService _categoryService;
+
+        public CategoriesApiController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService ?? throw new ArgumentNullException(nameof(categoryService));
+        }
+
         // GET: api/CategoriesApi
         [HttpGet]
         [ProducesResponseType(typeof(CategoryReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CategoryReadDto>>> GetCategories()
         {
-            var categories = await ServiceManager.CategoryService.GetAllAsync();
+            var categories = await _categoryService.GetAllAsync();
 
             return Ok(categories);
         }
@@ -28,7 +37,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(CategoryReadDto), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CategoryReadDto>>> GetCategory(int id)
         {
-            var category = await ServiceManager.CategoryService.GetByIdAsync(id);
+            var category = await _categoryService.GetByIdAsync(id);
 
             return Ok(category);
         }
@@ -41,7 +50,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> UpdateCategory(int id, CategoryCreateDto categoryCreateDto)
         {
-            await ServiceManager.CategoryService.UpdateAsync(id, categoryCreateDto);
+            await _categoryService.UpdateAsync(id, categoryCreateDto);
 
             return Ok();
         }
@@ -53,7 +62,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult<CategoryReadDto>> CreateCategory([FromBody] CategoryCreateDto categoryCreateDto)
         {
-            var categoryReadDto = await ServiceManager.CategoryService.CreateAsync(categoryCreateDto);
+            var categoryReadDto = await _categoryService.CreateAsync(categoryCreateDto);
 
             return Ok(categoryReadDto);
         }
@@ -65,7 +74,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            await ServiceManager.CategoryService.DeleteAsync(id);
+            await _categoryService.DeleteAsync(id);
 
             return NoContent();
         }
@@ -73,7 +82,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         [ProducesResponseType(typeof(IEnumerable<CategoryReadDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CategoryReadDto>>> GetBySearchFilterAsync([FromBody] CategorySearchDto filter)
         {
-            var products = await ServiceManager.CategoryService.FindBySearchAsync(filter);
+            var products = await _categoryService.FindBySearchAsync(filter);
 
             return Ok(products);
         }

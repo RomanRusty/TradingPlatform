@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.Order;
 
 namespace TradingPlatform.ClientService.Presentation
 {
-    public class OrdersController : ControllerBase
+    public class OrdersController : Controller
     {
+        private readonly IOrderService _orderService;
+
+        public OrdersController(IOrderService orderService)
+        {
+            _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+        }
+
         //private readonly IGenericUnitOfWork _context;
         //private readonly IHttpContextAccessor _httpContextAccessor;
         //public OrdersController(IGenericUnitOfWork context, IHttpContextAccessor httpContextAccessor)
@@ -53,7 +61,7 @@ namespace TradingPlatform.ClientService.Presentation
         {
             if (ModelState.IsValid)
             {
-                await ServiceManager.OrderService.CreatePostAsync(orderCreateDto);
+                await _orderService.CreatePostAsync(orderCreateDto);
                 return RedirectToAction(nameof(Index));
             }
             return View(orderCreateDto);

@@ -39,7 +39,7 @@ namespace TradingPlatform.DatabaseService.Services
         {
             if (id != productOrderCreateDto.Id)
             {
-                throw new ProductOrderNotFoundException("ProductOrder with such id does not exsist");
+                throw new ProductOrderNotFoundException("ProductOrder with such id does not exists");
             }
             try
             {
@@ -48,17 +48,17 @@ namespace TradingPlatform.DatabaseService.Services
             }
             catch (Exception)
             {
-                if (_repository.ProductOrders.Exists(id))
+                if (await _repository.ProductOrders.ExistsAsync(id))
                 {
                     throw new ProductOrderAlreadyExistsException("ProductOrder already exists");
                 }
             }
         }
-        public async Task<ProductOrderReadDto> CreateAsync(ProductOrderCreateDto ProductOrderCreateDto)
+        public async Task<ProductOrderReadDto> CreateAsync(ProductOrderCreateDto productOrderCreateDto)
         {
-            var productOrder = _mapper.Map<ProductOrder>(ProductOrderCreateDto);
-            productOrder.Product ??= await _repository.Products.FindByIdAsync(ProductOrderCreateDto.ProductIdSelect);
-            productOrder.Order ??= await _repository.Orders.FindByIdAsync(ProductOrderCreateDto.OrderIdSelect);
+            var productOrder = _mapper.Map<ProductOrder>(productOrderCreateDto);
+            productOrder.Product ??= await _repository.Products.FindByIdAsync(productOrderCreateDto.ProductIdSelect);
+            productOrder.Order ??= await _repository.Orders.FindByIdAsync(productOrderCreateDto.OrderIdSelect);
             await _repository.ProductOrders.AddAsync(productOrder);
 
             return _mapper.Map<ProductOrderReadDto>(productOrder);
@@ -68,9 +68,9 @@ namespace TradingPlatform.DatabaseService.Services
             var productOrder = await _repository.ProductOrders.FindByIdAsync(id);
             if (productOrder == null)
             {
-                throw new ProductOrderNotFoundException("ProductOrder with such id does not exsists");
+                throw new ProductOrderNotFoundException("ProductOrder with such id does not exists");
             }
-            _repository.ProductOrders.Remove(productOrder);
+            await _repository.ProductOrders.RemoveAsync(productOrder);
         }
     }
 }

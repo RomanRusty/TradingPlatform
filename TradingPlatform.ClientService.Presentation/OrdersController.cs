@@ -15,19 +15,11 @@ namespace TradingPlatform.ClientService.Presentation
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
         }
 
-        //private readonly IGenericUnitOfWork _context;
-        //private readonly IHttpContextAccessor _httpContextAccessor;
-        //public OrdersController(IGenericUnitOfWork context, IHttpContextAccessor httpContextAccessor)
-        //{
-        //    _context = context;
-        //    _httpContextAccessor = httpContextAccessor;
-        //}
-
-        //// GET: Orders
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Repository<Order>().GetAllAsync());
-        //}
+        // GET: Orders
+        public async Task<IActionResult> Index()
+        {
+            return View(await _orderService.IndexAsync());
+        }
 
         //// GET: Orders/Details/5
         //public async Task<IActionResult> Details(int? id)
@@ -117,19 +109,10 @@ namespace TradingPlatform.ClientService.Presentation
         //    return View(order);
         //}
 
-        //// GET: Orders/Delete/5
+        // GET: Orders/Delete/5
         //public async Task<IActionResult> Delete(int? id)
         //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var order = await _context.Repository<Order>().FindByIdAsync(id);
-        //    if (order == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //    _orderService.DeleteAsync(id);
 
         //    return View(order);
         //}

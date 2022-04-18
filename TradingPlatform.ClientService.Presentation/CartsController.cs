@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using TradingPlatform.ClientService.Contracts.Modals;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ProductOrder;
 
@@ -20,6 +21,12 @@ namespace TradingPlatform.ClientService.Presentation
             var index = await _cartService.IndexAsync();
 
             return View(index);
+        }
+        public async Task<IActionResult> AddProductToOrder(int productId)
+        {
+            var addItemToCartViewModel = await _cartService.AddProductToOrderAsync(productId);
+
+            return PartialView("_ModalAddItemToCart",addItemToCartViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

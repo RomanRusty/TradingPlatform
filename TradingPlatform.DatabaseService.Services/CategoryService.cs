@@ -40,7 +40,7 @@ namespace TradingPlatform.DatabaseService.Services
         {
             if (id != categoryCreateDto.Id)
             {
-                throw new CategoryNotFoundException("Category with such id does not exsist");
+                throw new CategoryNotFoundException("Category with such id does not exists");
             }
             try
             {
@@ -49,7 +49,7 @@ namespace TradingPlatform.DatabaseService.Services
             }
             catch (Exception)
             {
-                if (_repository.Categories.Exists(id))
+                if (await _repository.Categories.ExistsAsync(id))
                 {
                     throw new CategoryNotFoundException("Category already exists");
                 }
@@ -68,9 +68,9 @@ namespace TradingPlatform.DatabaseService.Services
             var category = await _repository.Categories.FindByIdAsync(id);
             if (category == null)
             {
-                throw new CategoryNotFoundException("Category with such id does not exsists");
+                throw new CategoryNotFoundException("Category with such id does not exists");
             }
-            _repository.Categories.Remove(category);
+            await _repository.Categories.RemoveAsync(category);
         }
         public async Task<IEnumerable<CategoryReadDto>> FindBySearchAsync(CategorySearchDto categorySearchDto)
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TradingPlatform.ClientService.Contracts.Carts;
+using TradingPlatform.ClientService.Contracts.Modals;
 using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.ClientService.Services.Abstractions
@@ -12,5 +13,6 @@ namespace TradingPlatform.ClientService.Services.Abstractions
     {
         Task<CartViewModel> IndexAsync();
         Task AddProductToOrderAsync(ProductOrderCreateDto productOrder);
+        Task<AddItemToCartViewModel> AddProductToOrderAsync(int productId);
     }
 }

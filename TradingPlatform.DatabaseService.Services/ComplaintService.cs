@@ -39,7 +39,7 @@ namespace TradingPlatform.DatabaseService.Services
         {
             if (id != complaintCreateDto.Id)
             {
-                throw new ComplaintNotFoundException("Complaint with such id does not exsist");
+                throw new ComplaintNotFoundException("Complaint with such id does not exists");
             }
             try
             {
@@ -48,7 +48,7 @@ namespace TradingPlatform.DatabaseService.Services
             }
             catch (Exception)
             {
-                if (_repository.Complaints.Exists(id))
+                if (await _repository.Complaints.ExistsAsync(id))
                 {
                     throw new ComplaintAlreadyExistsException("Complaint already exists");
                 }
@@ -67,9 +67,9 @@ namespace TradingPlatform.DatabaseService.Services
             var complaint = await _repository.Complaints.FindByIdAsync(id);
             if (complaint == null)
             {
-                throw new ComplaintNotFoundException("Complaint with such id does not exsists");
+                throw new ComplaintNotFoundException("Complaint with such id does not exists");
             }
-            _repository.Complaints.Remove(complaint);
+            await _repository.Complaints.RemoveAsync(complaint);
         }
         public async Task<IEnumerable<ComplaintReadDto>> FindBySearchAsync(ComplaintSearchDto complaintSearchDto)
         {

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>TradingPlatform</title>
+	<title>@ViewData["Title"] - TradingPlatform</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" />
@@ -19,10 +19,22 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<partial name="_CategoriesDropdown" />
-						@if (User.IsInRole("Seller")||User.IsInRole("Admin"))
+						@if (User.IsInRole("Seller"))
 						{
 							<li class="nav-item">
 								<a class="nav-link active" aria-current="page" asp-controller="Products" asp-action="Create">Create product</a>
+							</li>
+						}
+						@if (User.IsInRole("Admin"))
+						{
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" asp-controller="Products" asp-action="Index">Manage products</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" asp-controller="Categories" asp-action="Index">Manage categories</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" asp-controller="Orders" asp-action="Index">Manage orders</a>
 							</li>
 						}
 					</ul>
@@ -51,8 +63,8 @@
 	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 	<script src="~/js/site.js" asp-append-version="true"></script>
+
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

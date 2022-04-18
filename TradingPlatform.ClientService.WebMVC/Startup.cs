@@ -81,12 +81,9 @@ namespace TradingPlatform.ClientService.WebMVC
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
-
-
             services.Configure<AppConfiguration>(Configuration);
             services.AddHttpClient<IHttpClientManager, HttpClientManager>();
             services.InitializeServices();
-            //services.AddScoped<IServiceManager, ServiceManager>();
             services.AddTransient<ExceptionHandlingMiddleware>();
             services.AddHttpContextAccessor();
             services.AddScoped<ITokenManager, TokenManager>();
@@ -103,7 +100,7 @@ namespace TradingPlatform.ClientService.WebMVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseStatusCodePages();
             app.UseAuthentication();
             app.UseAuthorization();
 

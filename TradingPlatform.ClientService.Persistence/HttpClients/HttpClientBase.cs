@@ -28,7 +28,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
             _options = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
         }
-        protected async Task<T> DesserializeAsync<T>(HttpResponseMessage message)
+        protected async Task<T> DeserializeAsync<T>(HttpResponseMessage message)
         {
             return await JsonSerializer.DeserializeAsync<T>(await message.Content.ReadAsStreamAsync(), _options);
         }

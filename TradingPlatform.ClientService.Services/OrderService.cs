@@ -20,12 +20,29 @@ namespace TradingPlatform.ClientService.Services
         {
             _userManager = userManager;
         }
+        public async Task<IEnumerable<OrderReadDto>> IndexAsync()
+        {
+            return await _client.OrderHttpClient.GetAllAsync();
+        }
+
+        public async Task<OrderReadDto> DetailsAsync(int id)
+        {
+            return await _client.OrderHttpClient.GetByIdAsync(id);
+        }
         public async Task CreatePostAsync(OrderCreateDto orderCreateDto)
         {
             orderCreateDto.CreationDate = DateTime.Now.Date;
             orderCreateDto.CustumerId = (await _userManager.FindByNameAsync(_contextAccessor.HttpContext.User.Identity.Name)).Id;
             orderCreateDto.Status = OrderStatus.Selecting;
             await _client.OrderHttpClient.CreateAsync(orderCreateDto);
+        }
+        public async Task UpdateAsync(int id, OrderCreateDto orderCreateDto)
+        {
+            await _client.OrderHttpClient.UpdateAsync(id, orderCreateDto);
+        }
+        public async Task DeleteAsync(int id)
+        {
+            await _client.OrderHttpClient.DeleteAsync(id);
         }
     }
 }

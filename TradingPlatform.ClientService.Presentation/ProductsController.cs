@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using TradingPlatform.ClientService.Contracts.Products;
 using TradingPlatform.ClientService.Services.Abstractions;
+using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.ClientService.Presentation
@@ -22,6 +24,7 @@ namespace TradingPlatform.ClientService.Presentation
         {
             return View(await _productService.IndexAsync());
         }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int id)
         {
@@ -29,6 +32,7 @@ namespace TradingPlatform.ClientService.Presentation
         }
 
         // GET: Products/Create
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> Create()
         {
             return View(await _productService.CreateGetAsync());
@@ -37,7 +41,7 @@ namespace TradingPlatform.ClientService.Presentation
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> Create(ProductCreateViewModel viewModel)
         {
             if (ModelState.IsValid)

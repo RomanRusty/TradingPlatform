@@ -1,0 +1,39 @@
+﻿@using TradingPlatform.EntityContracts.Category
+@model IEnumerable<CategoryReadDto>
+
+@{
+    ViewData["Title"] = "AdminCategories";
+}
+<div class="row">
+<div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h1 class="text-center">Category list</h1>
+        <a asp-action="Create" class="btn btn-success my-2">Create New</a>
+
+        <table class="table table-light table-striped table-hover">
+            
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning mx-1">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info mx-1">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>

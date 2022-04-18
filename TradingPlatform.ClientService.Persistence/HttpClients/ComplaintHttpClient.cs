@@ -34,7 +34,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<IEnumerable<ComplaintReadDto>>(response);
+            return await DeserializeAsync<IEnumerable<ComplaintReadDto>>(response);
         }
 
         public async Task<ComplaintReadDto> GetByIdAsync(int id)
@@ -45,7 +45,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            var complaintDto = await DesserializeAsync<ComplaintReadDto>(response);
+            var complaintDto = await DeserializeAsync<ComplaintReadDto>(response);
 
             if (complaintDto == null)
             {
@@ -79,7 +79,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<ComplaintReadDto>(response);
+            return await DeserializeAsync<ComplaintReadDto>(response);
         }
         public async Task DeleteAsync(int id)
         {
@@ -89,7 +89,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var complaintDto = await DesserializeAsync<ComplaintReadDto>(response);
+            var complaintDto = await DeserializeAsync<ComplaintReadDto>(response);
             if (complaintDto == null)
             {
                 throw new ComplaintNotFoundException("Complaint with such id does not exsists");
@@ -105,7 +105,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<IEnumerable<ComplaintReadDto>>(response);
+            return await DeserializeAsync<IEnumerable<ComplaintReadDto>>(response);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<IEnumerable<ProductOrderReadDto>>(response);
+            return await DeserializeAsync<IEnumerable<ProductOrderReadDto>>(response);
         }
 
         public async Task<ProductOrderReadDto> GetByIdAsync(int id)
@@ -45,7 +45,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            var productOrderDto =await DesserializeAsync<ProductOrderReadDto>(response);
+            var productOrderDto =await DeserializeAsync<ProductOrderReadDto>(response);
 
             if (productOrderDto == null)
             {
@@ -79,7 +79,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<ProductOrderReadDto>(response);
+            return await DeserializeAsync<ProductOrderReadDto>(response);
         }
         public async Task DeleteAsync(int id)
         {
@@ -89,7 +89,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var productOrderDto = DesserializeAsync<ProductOrderReadDto>(response);
+            var productOrderDto = DeserializeAsync<ProductOrderReadDto>(response);
             if (productOrderDto == null)
             {
                 throw new ProductOrderNotFoundException("ProductOrder with such id does not exsists");

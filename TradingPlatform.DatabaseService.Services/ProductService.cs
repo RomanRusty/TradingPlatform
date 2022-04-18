@@ -45,7 +45,7 @@ namespace TradingPlatform.DatabaseService.Services
         {
             if (id != productCreateDto.Id)
             {
-                throw new ProductNotFoundException("Product with such id does not exsist");
+                throw new ProductNotFoundException("Product with such id does not exists");
             }
             try
             {
@@ -54,7 +54,7 @@ namespace TradingPlatform.DatabaseService.Services
             }
             catch (Exception)
             {
-                if (_repository.Products.Exists(id))
+                if (await _repository.Products.ExistsAsync(id))
                 {
                     throw new ProductAlreadyExistsException("Product already exists");
                 }
@@ -74,9 +74,9 @@ namespace TradingPlatform.DatabaseService.Services
             var product = await _repository.Products.FindByIdAsync(id);
             if (product == null)
             {
-                throw new ProductNotFoundException("Product with such id does not exsists");
+                throw new ProductNotFoundException("Product with such id does not exists");
             }
-            _repository.Products.Remove(product);
+            await _repository.Products.RemoveAsync(product);
         }
         public async Task<IEnumerable<ProductReadDto>> FindBySearchAsync(ProductSearchDto productSearchDto)
         {

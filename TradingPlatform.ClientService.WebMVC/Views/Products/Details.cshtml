@@ -11,32 +11,16 @@
 					<div class="carousel-indicators">
 						@for (var i = 0; i < Model.Product.Images.Count(); i++)
 						{
-							if (i == 0)
-							{
-								<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide @i"></button>
-							}
-							else
-							{
-								<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" aria-current="true" aria-label="Slide @i"></button>
-							}
+							<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i" class="@(i==0?"active":"")" aria-current="true" aria-label="Slide @i"></button>
 						}
 					</div>
 					<div class="carousel-inner">
 						@for (var i = 0; i < Model.Product.Images.Count(); i++)
 						{
 							var item = Model.Product.Images.ElementAt(i);
-							if (i == 0)
-							{
-								<div class="carousel-item active">
-									<img src="@item.GetImage()" class="d-block w-100" style="height:500px" alt="Image not loaded">
-								</div>
-							}
-							else
-							{
-								<div class="carousel-item">
-									<img src="@item.GetImage()" class="d-block w-100" style="height:500px" alt="Image not loaded">
-								</div>
-							}
+							<div class="carousel-item @(i==0?"active":"")">
+								<img src="@item.GetImage()" class="d-block w-100" style="height:500px" alt="Image not loaded">
+							</div>
 						}
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -59,11 +43,14 @@
 				</div>
 				@if (User.IsInRole("Custumer"))
 				{
-					<div>
-						<partial name="_ModalAddItemToCart" model="@new AddItemToCartViewModel(){Product=Model.Product,Orders=Model.AvailableOrdersSelectList }" />
-					</div>
-				}
+					<div id="modalAddItemToCart">
 
+					</div>
+					<form class="AddItemToCartForm">
+						<input type="hidden" name="productId" value="@Model.Product.Id" />
+						<button type="submit" class="btn btn-primary">Add to cart</button>
+					</form>
+				}
 			</div>
 		</div>
 	</div>

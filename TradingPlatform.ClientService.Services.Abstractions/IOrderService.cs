@@ -9,6 +9,10 @@ namespace TradingPlatform.ClientService.Services.Abstractions
 {
     public interface IOrderService
     {
+        Task<IEnumerable<OrderReadDto>> IndexAsync();
+        Task<OrderReadDto> DetailsAsync(int id);
         Task CreatePostAsync(OrderCreateDto orderCreateDto);
+        Task UpdateAsync(int id, OrderCreateDto orderCreateDto);
+        Task DeleteAsync(int id);
     }
 }

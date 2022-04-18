@@ -9,6 +9,8 @@ namespace TradingPlatform.ClientService.WebMVC
         public static void InitializeServices(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IHomeService, HomeService>();
+            services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
         }

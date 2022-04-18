@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -35,7 +36,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<IEnumerable<CategoryReadDto>>(response);
+            return await DeserializeAsync<IEnumerable<CategoryReadDto>>(response);
         }
 
         public async Task<CategoryReadDto> GetByIdAsync(int id)
@@ -46,7 +47,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<CategoryReadDto>(response);
+            return await DeserializeAsync<CategoryReadDto>(response);
         }
         public async Task UpdateAsync(int id, CategoryCreateDto categoryCreateDto)
         {
@@ -74,7 +75,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<CategoryReadDto>(response);
+            return await DeserializeAsync<CategoryReadDto>(response);
         }
         public async Task DeleteAsync(int id)
         {
@@ -84,7 +85,7 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var categoryDto = await DesserializeAsync<CategoryReadDto>(response);
+            var categoryDto = await DeserializeAsync<CategoryReadDto>(response);
             if (categoryDto == null)
             {
                 throw new CategoryNotFoundException("Complaint with such id does not exsists");
@@ -94,13 +95,53 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
         {
             var jsonContent = JsonSerializer.Serialize(categorySearchDto);
             var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await PostRequestAsync(_apiName + "/by-filter", data);
+            HttpResponseMessage response = await PostRequestAsync(_apiName + "/by-filter", data);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 return default;
             }
-            return await DesserializeAsync<IEnumerable<CategoryReadDto>>(response);
+            return await DeserializeAsync<IEnumerable<CategoryReadDto>>(response);
+        }
+        private void CheckStatusCode(HttpResponseMessage response)
+        {
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    break;
+                case HttpStatusCode.Created:
+                    break;
+                case HttpStatusCode.Accepted:
+                    break;
+                case HttpStatusCode.NonAuthoritativeInformation:
+                    break;
+                case HttpStatusCode.NoContent:
+                    break;
+                case HttpStatusCode.ResetContent:
+                    break;
+                case HttpStatusCode.PartialContent:
+                    break;
+                case HttpStatusCode.Redirect:
+                    break;
+                case HttpStatusCode.RedirectMethod:
+                    break;
+                case HttpStatusCode.TemporaryRedirect:
+                    break;
+                case HttpStatusCode.PermanentRedirect:
+                    break;
+                case HttpStatusCode.BadRequest:
+                    break;
+                case HttpStatusCode.Unauthorized:
+                    break;
+                case HttpStatusCode.PaymentRequired:
+                    break;
+                case HttpStatusCode.Forbidden:
+                    break;
+                case HttpStatusCode.NotFound:
+                    break;
+                default:
+                    throw new Exception("Something went wrong");
+            }
         }
     }
 }

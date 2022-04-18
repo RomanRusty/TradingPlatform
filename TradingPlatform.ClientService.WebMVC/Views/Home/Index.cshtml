@@ -6,6 +6,8 @@
 	ViewData["Title"] = "Home Page";
 	List<List<ProductReadDto>> products = Model.Products;
 }
+<div id="modalAddItemToCart">
+</div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-2"></div>
@@ -22,7 +24,6 @@
 					<select class="form-select" name="sortOrder" asp-items="@Model.ItemPagination.SortOrderSelectList" id="inputGroupSelect01">
 					</select>
 					<div class="ms-2">
-
 						<div>
 							@if (@Model.ItemPagination.SortDirection.Equals("Asc"))
 							{
@@ -83,11 +84,11 @@
 								<h5 class="card-title">@product.Price</h5>
 								@if (User.IsInRole("Custumer"))
 								{
-											<div>
-									<partial name="_ModalAddItemToCart" model="@new AddItemToCartViewModel(){Product=product,Orders=Model.AvailableOrdersSelectList }" />
-								</div>
+									<form class="AddItemToCartForm">
+										<input type="hidden" name="productId" value="@product.Id" />
+										<button type="submit" class="btn btn-primary">Add to cart</button>
+									</form>
 								}
-						
 							</div>
 						</div>
 					</div>
@@ -99,3 +100,6 @@
 		<partial name="_ItemPagination" model="@Model.ItemPagination" />
 	</div>
 </div>
+@section scripts{
+
+}

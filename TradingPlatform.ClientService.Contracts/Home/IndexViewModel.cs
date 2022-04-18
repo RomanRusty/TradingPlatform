@@ -13,6 +13,5 @@ namespace TradingPlatform.ClientService.Contracts.Home
     {
         public List<List<ProductReadDto>> Products { get; set; }
         public ItemPaginationViewModel ItemPagination { get; set; }
-        public SelectList AvailableOrdersSelectList { get; set; }
     }
 }

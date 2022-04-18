@@ -1,5 +1,6 @@
 ﻿@using TradingPlatform.ClientService.Contracts.Carts
 @using TradingPlatform.EntityContracts.Order
+@using TradingPlatform.EntityContracts.ProductOrder
 @model CartViewModel;
 <div class="container">
 	<div class="row">
@@ -15,7 +16,7 @@
 					<li class="list-group-item">
 						<button class="btn btn-primary w-100 d-flex justify-content-between align-content-center" type="button" data-bs-toggle="collapse" data-bs-target="@collapseId" aria-expanded="false" aria-controls="collapse">
 							<p>@order.Name</p>
-							@*<a type="button" class="btn btn-danger"  asp-action="DeleteOrder" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>*@
+							<a type="button" class="btn btn-danger"  asp-action="DeleteOrder" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>
 						</button>
 						<div class="collapse" id="@collapseForId">
 							<div class="list-group">
@@ -25,44 +26,31 @@
 								}
 								else
 								{
-									<div class="list-group-item list-group-item-action d-flex justify-content-around">
-										<div>
-											Product Name
-										</div>
-										<div>
-											Product Quantity
-										</div>
-										<div>
-											Product Price
-										</div>
-										<div>
-											Total Price
-										</div>
-										<div>
-
-										</div>
-									</div>
-									@foreach (var productOrder in order.ProductOrders)
-									{
-										double totalPrice = productOrder.Product.Price * productOrder.Quantity;
-										<div class="list-group-item d-flex justify-content-between">
-											<a class="list-group-item d-flex justify-content-around w-100" asp-controller="Products" asp-action="Details" asp-route-id="@productOrder.Product.Id">
-												<div>
-													@productOrder.Product.Name
-												</div>
-												<div>
-													@productOrder.Quantity
-												</div>
-												<div>
-													@productOrder.Product.Price
-												</div>
-												<div>
-													@totalPrice
-												</div>S
-											</a>
-											@*<a type="button" class="btn btn-outline-danger bi bi-file-minus" asp-action="DeleteProductOrder" asp-route-id="@productOrder.Id"></a>*@
-										</div>
-									}
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">Name</th>
+												<th scope="col">Price</th>
+												<th scope="col">Quantity</th>
+												<th scope="col">Total Price</th>
+											</tr>
+										</thead>
+										<tbody>
+											@for (int j = 0; j < order.ProductOrders.Count(); j++)
+											{
+												ProductOrderReadDto productOrder = order.ProductOrders.ElementAt(j);
+												double totalPrice = productOrder.Product.Price * productOrder.Quantity;
+												<tr>
+													<th scope="row">@(j+1)</th>
+													<td>@productOrder.Product.Name</td>
+													<td>@productOrder.Product.Price</td>
+													<td>@productOrder.Quantity</td>
+													<td>@totalPrice</td>
+												</tr>
+											}
+										</tbody>
+									</table>
 								}
 							</div>
 						</div>

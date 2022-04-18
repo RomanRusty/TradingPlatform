@@ -45,7 +45,7 @@ namespace TradingPlatform.ClientService.Services
 			var user = _contextAccessor.HttpContext.User;
 			sortDirection ??= "Desc";
 			sortOrder ??= "Price";
-			if (searchString != null)
+			if (searchString is not null)
 			{
 				page = 1;
 			}
@@ -74,27 +74,14 @@ namespace TradingPlatform.ClientService.Services
 				totalProductCount= products.Count();
 				products = products.Skip((page - 1) * itemsOnPage).Take(itemsOnPage).ToList();
 			}
-			
-			SelectList orderSelectList = null;
-			if (user.Identity.IsAuthenticated)
-			{
-				IEnumerable<OrderReadDto> orders = await _client.OrderHttpClient.FindBySearchAsync(new OrderSearchDto()
-				{
-					Status = EntityContracts.Enums.OrderStatus.Selecting,
-					CustumerName = user.Identity.Name
-				});
-				if (orders != null)
-				{
-					orderSelectList = new SelectList(orders, "Id", "Name");
-				}
-			}
+		
 			List<string> SearchStrings=new List<string>()
 			{
 				"Date",
 				"Price"
 			};
 			SelectList sortOrderSelectList;
-			if (sortOrder == null)
+			if (sortOrder is null)
 			{
 				sortOrderSelectList = new SelectList(SearchStrings, SearchStrings[0]);
 			}
@@ -115,55 +102,9 @@ namespace TradingPlatform.ClientService.Services
 					SortOrderSelectList = sortOrderSelectList,
 					Category = category,
 				},
-				AvailableOrdersSelectList = orderSelectList,
 			};
 			return indexViewModel;
 		}
-
-
-
-		//public async Task<CategoryReadDto> GetByIdAsync(int id)
-		//{
-		//    var categoryJson = await _client.GetStreamAsync("api/CategoriesApi/" + id);
-		//    var categoryDto = await JsonSerializer.DeserializeAsync<CategoryReadDto>(categoryJson);
-
-		//    if (categoryDto == null)
-		//    {
-		//        throw new CategoryNotFoundException("Category not found");
-		//    }
-		//    return categoryDto;
-		//}
-		//public async Task UpdateAsync(int id, CategoryCreateDto categoryCreateDto)
-		//{
-		//    if (id != categoryCreateDto.Id)
-		//    {
-		//        throw new CategoryNotFoundException("Category with such id does not exsist");
-		//    }
-
-		//    var jsonContent = JsonSerializer.Serialize(categoryCreateDto);
-		//    var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-		//    await _client.PutAsync("api/CategoriesApi/" + id, data);
-
-		//}
-		//public async Task<CategoryReadDto> CreateAsync(CategoryCreateDto categoryCreateDto)
-		//{
-		//    var jsonContent = JsonSerializer.Serialize(categoryCreateDto);
-		//    var data = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-		//    var categoryJson = await _client.PostAsync("api/CategoriesApi", data);
-
-		//    var categoriesDto = await JsonSerializer.DeserializeAsync<CategoryReadDto>(await categoryJson.Content.ReadAsStreamAsync());
-		//    return categoriesDto;
-		//}
-		//public async Task DeleteAsync(int id)
-		//{
-		//    var categoriesJson = await _client.GetStreamAsync("api/CategoriesApi/" + id);
-		//    var categoryDto = await JsonSerializer.DeserializeAsync<CategoryReadDto>(categoriesJson);
-		//    if (categoryDto == null)
-		//    {
-		//        throw new CategoryNotFoundException("Category with such id does not exsists");
-		//    }
-		//}
-
 		private List<List<ProductReadDto>> ToJaggedArray(IEnumerable<ProductReadDto> array, int cols)
 		{
 			int index = 0;

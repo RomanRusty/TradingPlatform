@@ -1,11 +1,11 @@
 ﻿@using TradingPlatform.ClientService.Services.Abstractions
-@inject IServiceManager serviceManager
+@inject ICategoryService categoryService
 <li class="nav-item dropdown">
 	<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false" asp-area="Identity" asp-page="/Account/Manage/Index">
 		Categories
 	</a>
 	<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-		@foreach (var item in await serviceManager.CategoryService.IndexAsync())
+		@foreach (var item in await categoryService.IndexAsync())
 		{
 			<li><a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-category="@item.Name">@item.Name</a></li>
 		}

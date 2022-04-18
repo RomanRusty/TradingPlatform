@@ -16,15 +16,36 @@ namespace TradingPlatform.ClientService.Services
         public CategoryService(IHttpClientManager client, IHttpContextAccessor contextAccessor) : base(client, contextAccessor)
         {
         }
-
+        public async Task<IEnumerable<CategoryReadDto>> IndexAsync()
+        {
+            return await _client.CategoryHttpClient.GetAllAsync();
+        }
         public async Task<CategoryReadDto> DetailsAsync(int id)
         {
             return await _client.CategoryHttpClient.GetByIdAsync(id);
         }
-
-        public async Task<IEnumerable<CategoryReadDto>> IndexAsync()
+        public async Task CreatePostAsync(CategoryCreateDto categoryCreateDto)
         {
-            return await _client.CategoryHttpClient.GetAllAsync();
+            await _client.CategoryHttpClient.CreateAsync(categoryCreateDto);
+        }
+        public async Task UpdateAsync(int id, CategoryCreateDto categoryCreateDto)
+        {
+            await _client.CategoryHttpClient.UpdateAsync(id,categoryCreateDto);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _client.CategoryHttpClient.DeleteAsync(id);
+        }
+
+        public Task EditPostAsync(int id, CategoryCreateDto categoryCreateDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CategoryCreateDto> EditGetAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

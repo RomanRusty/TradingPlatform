@@ -39,7 +39,7 @@ namespace TradingPlatform.DatabaseService.Services
         {
             if (id != orderCreateDto.Id)
             {
-                throw new OrderNotFoundException("Order with such id does not exsist");
+                throw new OrderNotFoundException("Order with such id does not exists");
             }
             try
             {
@@ -48,7 +48,7 @@ namespace TradingPlatform.DatabaseService.Services
             }
             catch (Exception)
             {
-                if (_repository.Orders.Exists(id))
+                if (await _repository.Orders.ExistsAsync(id))
                 {
                     throw new OrderAlreadyExistsException("Order already exists");
                 }
@@ -67,9 +67,9 @@ namespace TradingPlatform.DatabaseService.Services
             var order = await _repository.Orders.FindByIdAsync(id);
             if (order == null)
             {
-                throw new OrderNotFoundException("Order with such id does not exsists");
+                throw new OrderNotFoundException("Order with such id does not exists");
             }
-            _repository.Orders.Remove(order);
+            await _repository.Orders.RemoveAsync(order);
         }
         public async Task<IEnumerable<OrderReadDto>> FindBySearchAsync(OrderSearchDto orderSearchDto)
         {

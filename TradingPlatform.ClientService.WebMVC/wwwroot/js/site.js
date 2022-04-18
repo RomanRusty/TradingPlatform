@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿$(document).ready(function () {
+    $('.AddItemToCartForm').submit(function (e) {
+        e.preventDefault();
+        var $inputs = $('.AddItemToCartForm :input');
+        var values = {};
+        $inputs.each(function () {
+            values[this.name] = $(this).val();
+        });
+        var productId = values["productId"];
+        $('#modalAddItemToCart').load("https://localhost:44359/Carts/AddProductToOrder?productId=" + productId, function (response, status, xhr) {
+            $('#addItemToCartButton').click();
+        });
+    });
+});

@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
-using TradingPlatform.ClientService.Persistence.HttpClients;
 
 namespace TradingPlatform.ClientService.Services
 {
@@ -11,10 +8,13 @@ namespace TradingPlatform.ClientService.Services
     {
         protected readonly IHttpClientManager _client;
         protected readonly IHttpContextAccessor _contextAccessor;
-        protected ServiceBase(IHttpClientManager client, IHttpContextAccessor contextAccessor)
+        protected readonly IMapper _mapper;
+
+        protected ServiceBase(IHttpClientManager client, IHttpContextAccessor contextAccessor, IMapper mapper)
         {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
-            _contextAccessor= contextAccessor ?? throw new ArgumentNullException(nameof(_contextAccessor));
+            _client = client;
+            _contextAccessor = contextAccessor;
+            _mapper = mapper;
         }
     }
 }

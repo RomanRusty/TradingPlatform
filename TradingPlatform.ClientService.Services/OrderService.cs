@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using TradingPlatform.ClientService.Domain.Entities;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
@@ -15,8 +16,9 @@ namespace TradingPlatform.ClientService.Services
 {
     public class OrderService : ServiceBase, IOrderService
     {
-        UserManager<ApplicationUser> _userManager;
-        public OrderService(IHttpClientManager client, IHttpContextAccessor contextAccessor, UserManager<ApplicationUser> userManager) : base(client, contextAccessor)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public OrderService(IHttpClientManager client, IHttpContextAccessor contextAccessor, IMapper mapper, UserManager<ApplicationUser> userManager) : base(client, contextAccessor, mapper)
         {
             _userManager = userManager;
         }

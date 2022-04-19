@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using TradingPlatform.ClientService.Contracts.Products;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
@@ -21,7 +22,7 @@ namespace TradingPlatform.ClientService.Services
 {
     public class ProductService : ServiceBase, IProductService
     {
-        public ProductService(IHttpClientManager client, IHttpContextAccessor contextAccessor) : base(client, contextAccessor)
+        public ProductService(IHttpClientManager client, IHttpContextAccessor contextAccessor, IMapper mapper) : base(client, contextAccessor, mapper)
         {
         }
 

@@ -25,7 +25,7 @@ namespace TradingPlatform.ClientService.Persistence.Middleware
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                await HandleExceptionAsync(context, e);
+                 await HandleExceptionAsync(context, e);
             }
         }
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)

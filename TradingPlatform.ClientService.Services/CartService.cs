@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using TradingPlatform.ClientService.Contracts.Carts;
 using TradingPlatform.ClientService.Contracts.Modals;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
@@ -16,9 +17,10 @@ namespace TradingPlatform.ClientService.Services
 {
     public class CartService : ServiceBase, ICartService
     {
-        public CartService(IHttpClientManager client, IHttpContextAccessor contextAccessor) : base(client, contextAccessor)
+        public CartService(IHttpClientManager client, IHttpContextAccessor contextAccessor, IMapper mapper) : base(client, contextAccessor, mapper)
         {
         }
+
         public async Task<CartViewModel> IndexAsync()
         {
             var orders = await _client.OrderHttpClient.FindBySearchAsync(new OrderSearchDto() { CustumerName = _contextAccessor.HttpContext.User.Identity.Name });

@@ -1,23 +1,10 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using TradingPlatform.ClientService.Domain.Entities;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Domain.Tokens;
@@ -25,10 +12,9 @@ using TradingPlatform.ClientService.Persistence.Configurations;
 using TradingPlatform.ClientService.Persistence.Database;
 using TradingPlatform.ClientService.Persistence.HttpClients;
 using TradingPlatform.ClientService.Persistence.Middleware;
+using TradingPlatform.ClientService.Persistence.Profiles;
 using TradingPlatform.ClientService.Persistence.Tokens;
 using TradingPlatform.ClientService.Presentation;
-using TradingPlatform.ClientService.Services;
-using TradingPlatform.ClientService.Services.Abstractions;
 
 namespace TradingPlatform.ClientService.WebMVC
 {
@@ -44,7 +30,7 @@ namespace TradingPlatform.ClientService.WebMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(CategoriesProfile).Assembly);
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.DatabaseSer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B658DE21-5595-4900-A062-64699B458CEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.ClientService.Presentation.Test", "TradingPlatform.ClientService.Presentation.Test\TradingPlatform.ClientService.Presentation.Test.csproj", "{421728FD-5565-47FF-AC27-8359C7542188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Presentation.Test", "TradingPlatform.ClientService.Presentation.Test\TradingPlatform.ClientService.Presentation.Test.csproj", "{421728FD-5565-47FF-AC27-8359C7542188}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -51,9 +51,9 @@ namespace TradingPlatform.ClientService.Presentation
         }
 
         // GET: Books/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            return View(await _categoryService.EditGetAsync(id));
         }
 
         // POST: Books/Edit/5
@@ -61,7 +61,7 @@ namespace TradingPlatform.ClientService.Presentation
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,PageCount,CreatedDate,Price")] CategoryCreateDto categoryCreateDto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] CategoryCreateDto categoryCreateDto)
         {
             await _categoryService.EditPostAsync(id, categoryCreateDto);
             return View();

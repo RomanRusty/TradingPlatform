@@ -9,6 +9,7 @@ using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.Category;
 using TradingPlatform.EntityContracts.Product;
+using TradingPlatform.EntityExceptions.Category;
 
 namespace TradingPlatform.ClientService.Services
 {
@@ -39,9 +40,14 @@ namespace TradingPlatform.ClientService.Services
             await _client.CategoryHttpClient.UpdateAsync(id, categoryCreateDto);
         }
 
-        public async Task<CategoryReadDto> EditGetAsync(int id)
+        public async Task<CategoryCreateDto> EditGetAsync(int id)
         {
-            return await _client.CategoryHttpClient.GetByIdAsync(id);
+            var category = await _client.CategoryHttpClient.GetByIdAsync(id);
+            if (category == null)
+            {
+                throw new CategoryNotFoundException("Category not found");
+            }
+            return _mapper.Map<CategoryCreateDto>(category);
         }
     }
 }

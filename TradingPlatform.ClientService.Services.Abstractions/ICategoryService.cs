@@ -12,7 +12,7 @@ namespace TradingPlatform.ClientService.Services.Abstractions
         Task<IEnumerable<CategoryReadDto>> IndexAsync();
         Task<CategoryReadDto> DetailsAsync(int id);
         Task CreatePostAsync(CategoryCreateDto categoryCreateDto);
-        Task<CategoryReadDto> EditGetAsync(int id);
+        Task<CategoryCreateDto> EditGetAsync(int id);
         Task EditPostAsync(int id, CategoryCreateDto categoryCreateDto);
 
         Task DeleteAsync(int id);

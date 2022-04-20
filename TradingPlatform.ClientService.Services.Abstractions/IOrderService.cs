@@ -11,8 +11,10 @@ namespace TradingPlatform.ClientService.Services.Abstractions
     {
         Task<IEnumerable<OrderReadDto>> IndexAsync();
         Task<OrderReadDto> DetailsAsync(int id);
-        Task CreatePostAsync(OrderCreateDto orderCreateDto);
-        Task UpdateAsync(int id, OrderCreateDto orderCreateDto);
+        Task<OrderCreateDto> CreateGetAsync();
+        Task CreatePostAsync(OrderCreateDto productCreateViewModel);
+        Task<OrderCreateDto> EditGetAsync(int id);
+        Task EditPostAsync(int id, OrderCreateDto productCreateDto);
         Task DeleteAsync(int id);
     }
 }

@@ -38,9 +38,21 @@ namespace TradingPlatform.ClientService.Services
             orderCreateDto.Status = OrderStatus.Selecting;
             await _client.OrderHttpClient.CreateAsync(orderCreateDto);
         }
-        public async Task UpdateAsync(int id, OrderCreateDto orderCreateDto)
+
+
+        public Task<OrderCreateDto> CreateGetAsync()
         {
-            await _client.OrderHttpClient.UpdateAsync(id, orderCreateDto);
+            throw new NotImplementedException();
+        }
+
+        public Task<OrderCreateDto> EditGetAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EditPostAsync(int id, OrderCreateDto productCreateDto)
+        {
+            throw new NotImplementedException();
         }
         public async Task DeleteAsync(int id)
         {

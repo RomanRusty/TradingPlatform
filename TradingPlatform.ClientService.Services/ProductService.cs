@@ -66,14 +66,14 @@ namespace TradingPlatform.ClientService.Services
             };
         }
 
-        public Task<ProductReadDto> EditGetAsync(int id)
+        public async Task<ProductCreateDto> EditGetAsync(int id)
         {
-            var product = _client.ProductHttpClient.GetByIdAsync(id);
+            var product =await _client.ProductHttpClient.GetByIdAsync(id);
             if (product == null)
             {
                 throw new ProductNotFoundException("Product not found");
             }
-            return product;
+            return _mapper.Map<ProductCreateDto>(product); ;
         }
         public async Task EditPostAsync(int id, ProductCreateDto productCreateDto)
         {

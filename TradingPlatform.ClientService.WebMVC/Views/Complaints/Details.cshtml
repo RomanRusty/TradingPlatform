@@ -1,6 +1,7 @@
 ﻿@model TradingPlatform.EntityContracts.Complaint.ComplaintReadDto
 @{
     ViewData["Title"] = "Complaint details";
+    string shortDate = Model.CreationDate.ToShortDateString();
 }
 <div>
     <h2 class="text-center">Complaint Details</h2>
@@ -34,7 +35,7 @@
             @Html.DisplayNameFor(model => model.CreationDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreationDate.ToShortDateString())
+            @Html.DisplayFor(model => shortDate)
         </dd>
     </dl>
 </div>

@@ -57,10 +57,18 @@ namespace TradingPlatform.ClientService.Services
             await _client.ComplaintHttpClient.UpdateAsync(id, complaintCreateDto);
         }
 
-        public async Task<ComplaintCreateDto> EditGetAsync(int id)
+        public async Task<ComplaintEditViewModel> EditGetAsync(int id)
         {
             var complaint = await _client.ComplaintHttpClient.GetByIdAsync(id);
-            return _mapper.Map<ComplaintCreateDto>(complaint);
+            return new ComplaintEditViewModel()
+            {
+                ComplaintEdit = _mapper.Map<ComplaintCreateDto>(complaint),
+                ComplaintTypes = new SelectList(Enum.GetValues(typeof(ComplaintType)).Cast<ComplaintType>().Select(v => new SelectListItem
+                {
+                    Text = v.ToString(),
+                    Value = ((int)v).ToString()
+                }).ToList(), "Value", "Text", complaint.Type)
+            };
         }
     }
 }

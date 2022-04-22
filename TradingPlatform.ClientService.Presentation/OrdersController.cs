@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.ComponentModel.Design;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using TradingPlatform.ClientService.Services.Abstractions;
+using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Order;
 
 namespace TradingPlatform.ClientService.Presentation
@@ -9,7 +12,6 @@ namespace TradingPlatform.ClientService.Presentation
     public class OrdersController : Controller
     {
         private readonly IOrderService _orderService;
-
         public OrdersController(IOrderService orderService)
         {
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
@@ -43,7 +45,11 @@ namespace TradingPlatform.ClientService.Presentation
             if (ModelState.IsValid)
             {
                 await _orderService.CreatePostAsync(orderCreateDto);
-                return RedirectToAction(nameof(Index));
+                if (User.IsInRole(UserRoles.Admin))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Index), "Home");
             }
             return View(orderCreateDto);
         }
@@ -64,7 +70,11 @@ namespace TradingPlatform.ClientService.Presentation
             if (ModelState.IsValid)
             {
                 await _orderService.EditPostAsync(id, orderCreateDto);
-                return RedirectToAction(nameof(Index));
+                if (User.IsInRole(UserRoles.Admin))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Index),"Home");
             }
             return View(orderCreateDto);
         }
@@ -83,7 +93,11 @@ namespace TradingPlatform.ClientService.Presentation
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _orderService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            if (User.IsInRole(UserRoles.Admin))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index), "Carts");
         }
     }
 }

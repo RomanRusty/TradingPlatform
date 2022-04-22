@@ -1,5 +1,5 @@
 ﻿@using TradingPlatform.EntityContracts.Enums
-@model TradingPlatform.EntityContracts.Complaint.ComplaintCreateDto
+@model TradingPlatform.ClientService.Contracts.Complaints.ComplaintEditViewModel
 
 @{
     ViewData["Title"] = "Edit Complaint";
@@ -13,21 +13,22 @@
         <hr />
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CreationDate" class="form-control" value="@Model.CreationDate"/>
+            <input type="hidden" asp-for="ComplaintEdit.Id" class="form-control" value="@Model.ComplaintEdit?.Id"/>>
+            <input type="hidden" asp-for="ComplaintEdit.CreationDate" class="form-control" value="@Model.ComplaintEdit?.CreationDate"/>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" value="@Model.Title"/>
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="ComplaintEdit.Title" class="control-label"></label>
+                <input asp-for="ComplaintEdit.Title" class="form-control" value="@Model.ComplaintEdit.Title"/>
+                <span asp-validation-for="ComplaintEdit.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" value="@Model.Description"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="ComplaintEdit.Description" class="control-label"></label>
+                <textarea asp-for="ComplaintEdit.Description" class="form-control" value="@Model.ComplaintEdit.Description"></textarea>
+                <span asp-validation-for="ComplaintEdit.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control" value="@Model.Type"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <label asp-for="ComplaintEdit.Type" class="control-label"></label>
+                <select asp-for="ComplaintEdit.Type" class="form-control" asp-items="@Model.ComplaintTypes"></select>
+                <span asp-validation-for="ComplaintEdit.Type" class="text-danger"></span>
             </div>
             <div class="form-group d-flex justify-content-between accordion-body mt-2">
                 <input type="submit" value="Submit" class="btn btn-primary"/>

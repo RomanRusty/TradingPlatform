@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TradingPlatform.ClientService.Contracts.Complaints;
 using TradingPlatform.ClientService.Services.Abstractions;
+using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Complaint;
 using TradingPlatform.EntityContracts.Enums;
 
@@ -48,7 +49,11 @@ namespace TradingPlatform.ClientService.Presentation
             if (ModelState.IsValid)
             {
                 await _complaintService.CreatePostAsync(complaintCreateViewModel.ComplaintCreate);
-                return RedirectToAction(nameof(Index));
+                if (User.IsInRole(UserRoles.Admin))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                return RedirectToAction(nameof(Index),"Home");
             }
 
             complaintCreateViewModel.ComplaintTypes = new SelectList(Enum.GetValues(typeof(ComplaintType))
@@ -58,8 +63,6 @@ namespace TradingPlatform.ClientService.Presentation
                     Value = ((int) v).ToString()
                 }).ToList(), "Value", "Text");
             return View(complaintCreateViewModel);
-          
-            return View();
         }
 
         // GET: Complaints/Edit/5
@@ -73,15 +76,14 @@ namespace TradingPlatform.ClientService.Presentation
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ComplaintCreateDto complaintCreateDto)
+        public async Task<IActionResult> Edit(int id, ComplaintEditViewModel complaintEditViewModel)
         {
             if (ModelState.IsValid)
             {
-                await _complaintService.EditPostAsync(id, complaintCreateDto);
+                await _complaintService.EditPostAsync(id, complaintEditViewModel.ComplaintEdit);
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View();
+            return View(complaintEditViewModel);
         }
 
         // GET: Complaints/Delete/5

@@ -57,7 +57,7 @@ namespace TradingPlatform.DatabaseService.Services
         public async Task<ComplaintReadDto> CreateAsync(ComplaintCreateDto complaintCreateDto)
         {
             var complaint = _mapper.Map<Complaint>(complaintCreateDto);
-
+            complaint.Product =await _repository.Products.FindByIdAsync(complaintCreateDto.ProductId);
             await _repository.Complaints.AddAsync(complaint);
 
             return _mapper.Map<ComplaintReadDto>(complaint);

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete complaint";
+    string shortDate = Model.CreationDate.ToShortDateString();
 }
 
 
@@ -36,10 +37,10 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreationDate)
+            @Html.DisplayNameFor(model =>  model.CreationDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreationDate.ToShortDateString())
+            @Html.DisplayFor(model => shortDate)
         </dd>
     </dl>
 

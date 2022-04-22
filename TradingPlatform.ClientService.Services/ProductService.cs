@@ -41,7 +41,7 @@ namespace TradingPlatform.ClientService.Services
         public async Task CreatePostAsync(ProductCreateViewModel productCreateViewModel)
         {
             var productCreateDto = productCreateViewModel.ProductCreate;
-
+            productCreateDto.CreationDate=DateTime.Now.Date;
             productCreateDto.ImageThumbnail = FormFileToImage(productCreateViewModel.ImageThumbnail);
             productCreateDto.Images = FromFilesToImages(productCreateViewModel.Images);
 

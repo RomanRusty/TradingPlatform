@@ -39,24 +39,32 @@ namespace TradingPlatform.ClientService.Services
             await _client.OrderHttpClient.CreateAsync(orderCreateDto);
         }
 
-
         public Task<OrderCreateDto> CreateGetAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<OrderCreateDto> EditGetAsync(int id)
+        public async Task<OrderCreateDto> EditGetAsync(int id)
         {
-            throw new NotImplementedException();
+            var order = await _client.OrderHttpClient.GetByIdAsync(id);
+            return _mapper.Map<OrderCreateDto>(order);
         }
 
-        public Task EditPostAsync(int id, OrderCreateDto productCreateDto)
+        public async Task EditPostAsync(int id, OrderCreateDto orderCreateDto)
         {
-            throw new NotImplementedException();
+            await _client.OrderHttpClient.UpdateAsync(id, orderCreateDto);
         }
         public async Task DeleteAsync(int id)
         {
-            await _client.OrderHttpClient.DeleteAsync(id);
+           var productOrders = (await _client.OrderHttpClient.GetByIdAsync(id)).ProductOrders;
+           if (productOrders != null)
+           {
+               foreach (var item in productOrders)
+               {
+                   await _client.ProductOrderHttpClient.DeleteAsync(item.Id);
+               }
+            }
+           await _client.OrderHttpClient.DeleteAsync(id);
         }
     }
 }

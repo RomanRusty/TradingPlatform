@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+ using System.Threading;
+ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
@@ -15,59 +16,66 @@ namespace TradingPlatform.ClientService.Presentation
     public class CategoriesController : Controller
     {
         private readonly ICategoryService _categoryService;
-
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
 
-        // GET: Books
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
             return View(await _categoryService.IndexAsync());
         }
 
-        // GET: Books/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int id)
         {
             return View(await _categoryService.DetailsAsync(id));
         }
 
-        // GET: Books/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Books/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] CategoryCreateDto categoryCreateDto)
         {
-            await _categoryService.CreatePostAsync(categoryCreateDto);
-            return View();
+            if (ModelState.IsValid)
+            {
+                await _categoryService.CreatePostAsync(categoryCreateDto);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(categoryCreateDto);
         }
 
-        // GET: Books/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             return View(await _categoryService.EditGetAsync(id));
         }
 
-        // POST: Books/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] CategoryCreateDto categoryCreateDto)
         {
-            await _categoryService.EditPostAsync(id, categoryCreateDto);
-            return View();
+            if (ModelState.IsValid)
+            {
+                await _categoryService.EditPostAsync(id, categoryCreateDto);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(categoryCreateDto);
         }
 
-        // GET: Books/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             var category = await _categoryService.DetailsAsync(id);
@@ -75,7 +83,7 @@ namespace TradingPlatform.ClientService.Presentation
             return View(category);
         }
 
-        // POST: Books/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

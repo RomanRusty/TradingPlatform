@@ -90,11 +90,6 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var orderDto = await DeserializeAsync<OrderReadDto>(response);
-            if (orderDto == null)
-            {
-                throw new OrderNotFoundException("Order with such id does not exsists");
-            }
         }
         public async Task<IEnumerable<OrderReadDto>> FindBySearchAsync(OrderSearchDto orderSearchDto)
         {

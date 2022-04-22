@@ -13,9 +13,5 @@ namespace TradingPlatform.ClientService.Services.Abstractions
     {
         Task<IndexViewModel> IndexAsync(string sortOrder, string sortDirection, string currentFilter, string searchString, string category, int page);
         Task BecomeSeller();
-        //Task<CategoryReadDto> GetByIdAsync(int id);
-        //Task UpdateAsync(int id, CategoryCreateDto categoryReadDto);
-        //Task<CategoryReadDto> CreateAsync(CategoryCreateDto categoryCreateDto);
-        //Task DeleteAsync(int id);
     }
 }

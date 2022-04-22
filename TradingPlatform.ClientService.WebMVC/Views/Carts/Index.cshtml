@@ -16,7 +16,7 @@
 					<li class="list-group-item">
 						<button class="btn btn-primary w-100 d-flex justify-content-between align-content-center" type="button" data-bs-toggle="collapse" data-bs-target="@collapseId" aria-expanded="false" aria-controls="collapse">
 							<p>@order.Name</p>
-							<a type="button" class="btn btn-danger"  asp-action="DeleteOrder" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>
+							<a type="button" class="btn btn-danger" asp-controller="Orders"  asp-action="Delete" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>
 						</button>
 						<div class="collapse" id="@collapseForId">
 							<div class="list-group">
@@ -47,6 +47,9 @@
 													<td>@productOrder.Product.Price</td>
 													<td>@productOrder.Quantity</td>
 													<td>@totalPrice</td>
+													<td>
+														<a asp-action="DeleteProductFromOrder" asp-route-id="@productOrder.Id" class="btn btn-close"></a>
+													</td>
 												</tr>
 											}
 										</tbody>

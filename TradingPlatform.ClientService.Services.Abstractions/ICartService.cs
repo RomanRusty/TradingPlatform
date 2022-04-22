@@ -14,5 +14,6 @@ namespace TradingPlatform.ClientService.Services.Abstractions
         Task<CartViewModel> IndexAsync();
         Task AddProductToOrderAsync(ProductOrderCreateDto productOrder);
         Task<AddItemToCartViewModel> AddProductToOrderAsync(int productId);
+        Task DeleteProductFromOrder(int productOrderId);
     }
 }

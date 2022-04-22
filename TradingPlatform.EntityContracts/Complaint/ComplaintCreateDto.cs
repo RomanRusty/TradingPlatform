@@ -17,7 +17,7 @@ namespace TradingPlatform.EntityContracts.Complaint
         [StringLength(3000, ErrorMessage = "Description must be less than 3000 symbols")]
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
-        //[Required]
-        //public virtual ProductReadDto Product { get; set; }
+
+        public int ProductId { get; set; }
     }
 }

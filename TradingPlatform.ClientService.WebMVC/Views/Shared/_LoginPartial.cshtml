@@ -20,7 +20,7 @@
 		@*			<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Sellings</a></li>
 					<li><a asp-controller="Carts" asp-action="Index" class="dropdown-item">Purchases</a></li>*@
 				}
-				<li><a class="dropdown-item">Settings</a></li>
+				@*<li><a class="dropdown-item">Settings</a></li>*@
 				<li><hr class="dropdown-divider"></li>
 				<li class="dropdown-item">
 					<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

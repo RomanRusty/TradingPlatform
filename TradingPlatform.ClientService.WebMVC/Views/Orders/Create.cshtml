@@ -1,4 +1,5 @@
-﻿@model TradingPlatform.EntityContracts.Order.OrderCreateDto
+﻿@using TradingPlatform.EntityContracts.ApplicationUser
+@model TradingPlatform.EntityContracts.Order.OrderCreateDto
 
 @{
 	ViewData["Title"] = "Create order";
@@ -15,11 +16,15 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="Name" class="control-label"></label>
-				<input asp-for="Name" class="form-control"/>
+				<input asp-for="Name" class="form-control" value="@Model?.Name"/>
 				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
-            <div class="form-group d-flex justify-content-between mt-2">
+			<div class="form-group d-flex justify-content-between mt-2">
 				<input type="submit" value="Create" class="btn btn-primary"/>
+				@if (User.IsInRole(UserRoles.Admin))
+				{
+					<a asp-action="Index" class="btn btn-primary">Back to List</a>
+				}
 			</div>
 		</form>
 	</div>

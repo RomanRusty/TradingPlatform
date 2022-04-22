@@ -46,11 +46,16 @@
 					<div id="modalAddItemToCart">
 
 					</div>
-					<form class="AddItemToCartForm">
-						<input type="hidden" name="productId" value="@Model.Product.Id" />
-						<button type="submit" class="btn btn-primary">Add to cart</button>
-					</form>
+					<div class="d-flex justify-content-between mt-3">
+						<form class="AddItemToCartForm">
+							<input type="hidden" name="productId" value="@Model.Product.Id" />
+							<button type="submit" class="btn btn-primary">Add to cart</button>
+						</form>
+
+						
+					</div>
 				}
+				<a asp-action="Create" asp-controller="Complaints" asp-route-productId="@Model.Product.Id" class="btn btn-warning">Complain</a>
 			</div>
 		</div>
 	</div>

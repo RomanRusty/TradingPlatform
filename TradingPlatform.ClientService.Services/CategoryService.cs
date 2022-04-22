@@ -43,10 +43,6 @@ namespace TradingPlatform.ClientService.Services
         public async Task<CategoryCreateDto> EditGetAsync(int id)
         {
             var category = await _client.CategoryHttpClient.GetByIdAsync(id);
-            if (category == null)
-            {
-                throw new CategoryNotFoundException("Category not found");
-            }
             return _mapper.Map<CategoryCreateDto>(category);
         }
     }

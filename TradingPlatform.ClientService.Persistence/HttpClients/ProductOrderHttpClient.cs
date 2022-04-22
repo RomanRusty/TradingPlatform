@@ -89,11 +89,6 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var productOrderDto = DeserializeAsync<ProductOrderReadDto>(response);
-            if (productOrderDto == null)
-            {
-                throw new ProductOrderNotFoundException("ProductOrder with such id does not exsists");
-            }
         }
     }
 }

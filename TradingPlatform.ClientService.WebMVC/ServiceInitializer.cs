@@ -13,6 +13,7 @@ namespace TradingPlatform.ClientService.WebMVC
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IComplaintService, ComplaintService>();
         }
     }
 }

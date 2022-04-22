@@ -51,16 +51,13 @@ namespace TradingPlatform.ClientService.Services
         {
             var orders = await _client.OrderHttpClient.FindBySearchAsync(
                     new OrderSearchDto() { Status = OrderStatus.Selecting });
-            if (orders is null) 
+            if (orders is null)
             {
                 orders = new List<OrderReadDto>();
             }
             var product = await _client.ProductHttpClient.GetByIdAsync(id);
-            if(product is null)
+            return new ProductDetailsViewModel()
             {
-                throw new ProductNotFoundException("Product with such id does not exists");
-            }
-            return  new ProductDetailsViewModel() {
                 Product = product,
                 AvailableOrdersSelectList = new SelectList(orders, "Id", "Name"),
             };
@@ -68,24 +65,29 @@ namespace TradingPlatform.ClientService.Services
 
         public async Task<ProductCreateDto> EditGetAsync(int id)
         {
-            var product =await _client.ProductHttpClient.GetByIdAsync(id);
-            if (product == null)
-            {
-                throw new ProductNotFoundException("Product not found");
-            }
+            var product = await _client.ProductHttpClient.GetByIdAsync(id);
             return _mapper.Map<ProductCreateDto>(product); ;
         }
         public async Task EditPostAsync(int id, ProductCreateDto productCreateDto)
         {
             await _client.ProductHttpClient.UpdateAsync(id, productCreateDto);
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeletePostAsync(int id)
         {
             await _client.ProductHttpClient.DeleteAsync(id);
         }
+        public async Task<ProductReadDto> DeleteGetAsync(int id)
+        {
+            return await _client.ProductHttpClient.GetByIdAsync(id);
+        }
         private List<ProductImageCreateDto> FromFilesToImages(IEnumerable<IFormFile> files)
         {
+            if (files == null)
+            {
+                return null;
+            }
             List<ProductImageCreateDto> images = new();
+
             foreach (var file in files)
             {
                 images.Add(FormFileToImage(file));
@@ -94,7 +96,7 @@ namespace TradingPlatform.ClientService.Services
         }
         private ProductImageCreateDto FormFileToImage(IFormFile file)
         {
-            if (file.Length > 0)
+            if (file != null && file.Length > 0)
             {
                 using var ms = new MemoryStream();
                 file.CopyTo(ms);
@@ -110,7 +112,7 @@ namespace TradingPlatform.ClientService.Services
             {
                 return null;
             }
-              
+
         }
     }
 }

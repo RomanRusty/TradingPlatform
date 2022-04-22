@@ -59,8 +59,8 @@ namespace TradingPlatform.DatabaseService.Presentation
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ComplaintReadDto), StatusCodes.Status200OK)]
-        [Authorize(Roles = UserRoles.Custumer)]
-        public async Task<ActionResult<ComplaintReadDto>> CreateComplaint([FromBody] ComplaintCreateDto complaintCreateDto)
+        //[Authorize(Roles = UserRoles.Custumer)]
+        public async Task<ActionResult<ComplaintReadDto>> CreateComplaint(ComplaintCreateDto complaintCreateDto)
         {
             var complaint = await _complaintService.CreateAsync(complaintCreateDto);
 

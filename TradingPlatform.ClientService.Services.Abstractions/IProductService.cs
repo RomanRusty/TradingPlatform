@@ -18,6 +18,7 @@ namespace TradingPlatform.ClientService.Services.Abstractions
         Task CreatePostAsync(ProductCreateViewModel productCreateViewModel);
         Task<ProductCreateDto> EditGetAsync(int id);
         Task EditPostAsync(int id, ProductCreateDto productCreateDto);
-        Task DeleteAsync(int id);
+        Task<ProductReadDto> DeleteGetAsync(int id);
+        Task DeletePostAsync(int id);
     }
 }

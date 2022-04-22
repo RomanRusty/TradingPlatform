@@ -8,7 +8,7 @@ namespace TradingPlatform.ClientService.Persistence.Profiles
         public CategoriesProfile()
         {
             CreateMap<CategoryCreateDto, CategoryReadDto>().MaxDepth(2);
-            CreateMap<CategoryCreateDto, CategoryReadDto>().MaxDepth(2);
+            CreateMap<CategoryReadDto, CategoryCreateDto>().MaxDepth(2);
         }
     }
 }

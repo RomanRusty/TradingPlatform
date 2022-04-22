@@ -30,11 +30,10 @@ namespace TradingPlatform.ClientService.WebMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(CategoriesProfile).Assembly);
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -48,6 +47,8 @@ namespace TradingPlatform.ClientService.WebMVC
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+
+            services.AddAutoMapper(typeof(CategoriesProfile).Assembly);
 
             services.AddControllersWithViews().AddApplicationPart(typeof(HomeController).Assembly)
                 .AddRazorRuntimeCompilation();

@@ -1,0 +1,45 @@
+﻿@using TradingPlatform.EntityContracts.ApplicationUser
+@model TradingPlatform.ClientService.Contracts.Complaints.ComplaintCreateViewModel
+
+@{
+    ViewData["Title"] = "Create complaint";
+}
+
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2 class="text-center">Create Complaint</h2>
+        <hr />
+        <form asp-action="Create">
+            <input type="hidden" asp-for="ComplaintCreate.ProductId" class="form-control" value="@Model.ComplaintCreate.ProductId"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ComplaintCreate.Title" class="control-label"></label>
+                <input asp-for="ComplaintCreate.Title" class="form-control" value="@Model.ComplaintCreate?.Title"/>
+                <span asp-validation-for="ComplaintCreate.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComplaintCreate.Type" class="control-label"></label>
+                <select asp-for="ComplaintCreate.Type" class="form-control" asp-items="@Model.ComplaintTypes" value="@Model.ComplaintCreate?.Type"></select>
+                <span asp-validation-for="ComplaintCreate.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ComplaintCreate.Description" class="control-label"></label>
+                <input asp-for="ComplaintCreate.Description" class="form-control" value="@Model.ComplaintCreate?.Description">
+                <span asp-validation-for="ComplaintCreate.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-between mt-2">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+                @if (User.IsInRole(UserRoles.Admin))
+                {
+                    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

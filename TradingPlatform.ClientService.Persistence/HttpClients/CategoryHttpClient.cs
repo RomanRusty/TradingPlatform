@@ -85,11 +85,6 @@ namespace TradingPlatform.ClientService.Persistence.HttpClients
                 _logger.LogError("Request failed {Route} Status code {StatusCode} Content {Content}", response.RequestMessage.RequestUri, response.StatusCode, await response.Content.ReadAsStringAsync());
                 throw new BadRequestException("Request to database service failed");
             }
-            var categoryDto = await DeserializeAsync<CategoryReadDto>(response);
-            if (categoryDto == null)
-            {
-                throw new CategoryNotFoundException("Complaint with such id does not exsists");
-            }
         }
         public async Task<IEnumerable<CategoryReadDto>> FindBySearchAsync(CategorySearchDto categorySearchDto)
         {

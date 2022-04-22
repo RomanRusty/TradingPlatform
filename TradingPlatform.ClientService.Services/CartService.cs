@@ -49,5 +49,10 @@ namespace TradingPlatform.ClientService.Services
                 Product = await _client.ProductHttpClient.GetByIdAsync(productId)
             };
         }
+
+        public async Task DeleteProductFromOrder(int productOrderId)
+        {
+            await _client.ProductOrderHttpClient.DeleteAsync(productOrderId);
+        }
     }
 }

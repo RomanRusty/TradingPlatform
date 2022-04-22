@@ -1,35 +1,35 @@
 ﻿@using TradingPlatform.ClientService.Contracts.Products
+@using TradingPlatform.EntityContracts.ApplicationUser
 @model ProductCreateViewModel;
 @{
-	ViewData["Title"] = "Create";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Create Product";
 }
 
 <div class="row">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
-		<h2 class="text-center">Create Category</h2>
+		<h2 class="text-center">Create Product</h2>
 		<hr />
 		<form asp-action="Create">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
 				<label asp-for="ProductCreate.Name" class="control-label"></label>
-				<input asp-for="ProductCreate.Name" class="form-control" />
+				<input asp-for="ProductCreate.Name" class="form-control" value="@Model.ProductCreate?.Name" />
 				<span asp-validation-for="ProductCreate.Name" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="ProductCreate.Description" class="control-label"></label>
-				<input asp-for="ProductCreate.Description" class="form-control" />
+				<input asp-for="ProductCreate.Description" class="form-control" value="@Model.ProductCreate?.Description" />
 				<span asp-validation-for="ProductCreate.Description" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="ProductCreate.Price" class="control-label"></label>
-				<input asp-for="ProductCreate.Price" class="form-control" />
+				<input asp-for="ProductCreate.Price" class="form-control" value="@Model.ProductCreate?.Price" />
 				<span asp-validation-for="ProductCreate.Price" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="ProductCreate.Quantity" class="control-label"></label>
-				<input asp-for="ProductCreate.Quantity" class="form-control" />
+				<input asp-for="ProductCreate.Quantity" class="form-control" value="@Model.ProductCreate?.Quantity" />
 				<span asp-validation-for="ProductCreate.Quantity" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -50,6 +50,10 @@
 			</div>
 			<div class="form-group d-flex justify-content-between mt-2">
 				<input type="submit" value="Create" class="btn btn-primary"/>
+				@if (User.IsInRole(UserRoles.Admin))
+				{
+					<a asp-action="Index" class="btn btn-primary">Back to List</a>
+				}
 			</div>
 		</form>
 	</div>

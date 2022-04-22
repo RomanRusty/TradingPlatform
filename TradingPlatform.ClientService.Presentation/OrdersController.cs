@@ -21,22 +21,11 @@ namespace TradingPlatform.ClientService.Presentation
             return View(await _orderService.IndexAsync());
         }
 
-        //// GET: Orders/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var order = await _context.Repository<Order>().FindByIdAsync(id);
-        //    if (order == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(order);
-        //}
+        // GET: Orders/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(await _orderService.DetailsAsync(id));
+        }
 
         // GET: Orders/Create
         public IActionResult Create()
@@ -59,72 +48,42 @@ namespace TradingPlatform.ClientService.Presentation
             return View(orderCreateDto);
         }
 
-        //// GET: Orders/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Orders/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View(await _orderService.EditGetAsync(id));
+        }
 
-        //    var order = await _context.Repository<Order>().FindByIdAsync(id);
-        //    if (order == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(order);
-        //}
-
-        //// POST: Orders/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CreationDate,Status")] Order order)
-        //{
-        //    if (id != order.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            await _context.Repository<Order>().UpdateAsync(order);
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!await _context.Repository<Order>().ExistsAsync(order.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(order);
-        //}
+        // POST: Orders/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] OrderCreateDto orderCreateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _orderService.EditPostAsync(id, orderCreateDto);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(orderCreateDto);
+        }
 
         // GET: Orders/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    _orderService.DeleteAsync(id);
+        public async Task<IActionResult> Delete(int id)
+        {
+            var order = await _orderService.DetailsAsync(id);
 
-        //    return View(order);
-        //}
+            return View(order);
+        }
 
-        //// POST: Orders/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var order = await _context.Repository<Order>().FindByIdAsync(id);
-        //    await _context.Repository<Order>().RemoveAsync(order);
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // POST: Orders/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _orderService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

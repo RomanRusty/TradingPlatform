@@ -20,6 +20,7 @@ namespace TradingPlatform.ClientService.Presentation
         }
 
         // GET: Products
+
         public async Task<IActionResult> Index()
         {
             return View(await _productService.IndexAsync());
@@ -53,6 +54,7 @@ namespace TradingPlatform.ClientService.Presentation
             return View(viewModel);
         }
         // GET: Products/Edit/5
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> Edit(int id)
         {
             return View(await _productService.EditGetAsync(id));
@@ -61,6 +63,7 @@ namespace TradingPlatform.ClientService.Presentation
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Quantity,CreationDate,ImageThumbnailPath")] ProductCreateDto product)
         {
             if (ModelState.IsValid)
@@ -72,10 +75,21 @@ namespace TradingPlatform.ClientService.Presentation
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Seller)]
         public async Task<IActionResult> Delete(int id)
         {
-            await _productService.DeleteAsync(id);
-            return View();
+            var product = await _productService.DeleteGetAsync(id);
+
+            return View(product);
+        }
+
+        // POST: Products/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _productService.DeletePostAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

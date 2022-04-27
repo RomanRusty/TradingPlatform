@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: databases-depl
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: databaseservice
+ template:
+  metadata:
+   labels:
+    apps: databaseservice
+  spec:
+   containers:
+    - name: databaseservice
+      image: rusty12732/databaseservice:latest
+---
+apiVersion: v 1
+kind: Service
+metadata:
+ name: databases-clusterip-srv
+spec:
+ type: ClusterIp
+ selector: 
+  app: databaseservice
+ ports:
+ - name: databaseservice
+   protocol: TCP
+   port: 80
+   targetPort: 80

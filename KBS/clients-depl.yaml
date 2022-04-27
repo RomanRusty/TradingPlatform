@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: clients-depl
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   app: clientservice
+ template:
+  metadata:
+   labels:
+    apps: clientservice
+  spec:
+   containers:
+    - name: clientservice
+      image: rusty12732/clientservice:latest
+---
+apiVersion: v 1
+kind: Service
+metadata:
+ name: clients-clusterip-srv
+spec:
+ type: ClusterIp
+ selector: 
+  app: clientservice
+ ports:
+ - name: clientservice
+   protocol: TCP
+   port: 80
+   targetPort: 80

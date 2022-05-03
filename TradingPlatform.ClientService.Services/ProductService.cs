@@ -1,22 +1,17 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using TradingPlatform.ClientService.Contracts.Products;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
-using TradingPlatform.EntityContracts.Category;
 using TradingPlatform.EntityContracts.Enums;
 using TradingPlatform.EntityContracts.Order;
 using TradingPlatform.EntityContracts.Product;
 using TradingPlatform.EntityContracts.ProductImage;
-using TradingPlatform.EntityExceptions.Product;
 
 namespace TradingPlatform.ClientService.Services
 {

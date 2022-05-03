@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Enums;
 using TradingPlatform.EntityContracts.ProductOrder;
 

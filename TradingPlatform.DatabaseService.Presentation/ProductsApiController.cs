@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;

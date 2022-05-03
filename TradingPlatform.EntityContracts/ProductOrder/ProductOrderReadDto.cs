@@ -1,5 +1,4 @@
-﻿using TradingPlatform.EntityContracts.Order;
-using TradingPlatform.EntityContracts.Product;
+﻿using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.EntityContracts.ProductOrder
 {

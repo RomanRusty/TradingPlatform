@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using TradingPlatform.ClientService.Contracts.Modals;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ProductOrder;
 

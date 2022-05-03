@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.ComponentModel.Design;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Order;

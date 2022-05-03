@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Domain.Tokens;
 using TradingPlatform.ClientService.Persistence.Configurations;
-using TradingPlatform.ClientService.Persistence.HttpClients;
 
 namespace TradingPlatform.ClientService.Persistence.HttpClients
 {

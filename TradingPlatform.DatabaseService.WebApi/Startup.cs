@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -19,8 +18,6 @@ using TradingPlatform.DatabaseService.Persistence.Middleware;
 using TradingPlatform.DatabaseService.Persistence.Profiles;
 using TradingPlatform.DatabaseService.Persistence.Repository;
 using TradingPlatform.DatabaseService.Presentation;
-using TradingPlatform.DatabaseService.Services;
-using TradingPlatform.DatabaseService.Services.Abstractions;
 
 namespace TradingPlatform.DatabaseService.WebApi
 {

@@ -7,8 +7,6 @@ using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
 using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityExceptions.Product;
 using System;
-using System.IO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 
 namespace TradingPlatform.DatabaseService.Services

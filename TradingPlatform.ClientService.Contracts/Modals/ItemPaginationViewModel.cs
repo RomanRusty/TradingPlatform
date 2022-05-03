@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
 
 namespace TradingPlatform.ClientService.Contracts.Modals
 {

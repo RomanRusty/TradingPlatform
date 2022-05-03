@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.Category;
-using TradingPlatform.EntityContracts.Product;
-using TradingPlatform.EntityExceptions.Category;
 
 namespace TradingPlatform.ClientService.Services
 {

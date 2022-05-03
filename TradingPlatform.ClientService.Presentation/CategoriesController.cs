@@ -1,10 +1,5 @@
-﻿ using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
- using System.Threading;
- using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;

@@ -1,6 +1,5 @@
 ﻿using System;
 using TradingPlatform.EntityContracts.Enums;
-using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.EntityContracts.Complaint
 {

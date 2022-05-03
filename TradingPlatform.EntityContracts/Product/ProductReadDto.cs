@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using TradingPlatform.EntityContracts.Category;
-using TradingPlatform.EntityContracts.Complaint;
 using TradingPlatform.EntityContracts.ProductImage;
-using TradingPlatform.EntityContracts.ProductOrder;
 
 namespace TradingPlatform.EntityContracts.Product
 {

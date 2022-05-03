@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TradingPlatform.EntityContracts.ApplicationUser;
 using TradingPlatform.EntityContracts.Enums;
 
 namespace TradingPlatform.EntityContracts.Order

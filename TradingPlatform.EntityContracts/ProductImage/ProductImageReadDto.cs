@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.EntityContracts.ProductImage
 {

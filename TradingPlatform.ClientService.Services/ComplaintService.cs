@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +10,6 @@ using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.Complaint;
 using TradingPlatform.EntityContracts.Enums;
-using TradingPlatform.EntityExceptions.Complaint;
 
 namespace TradingPlatform.ClientService.Services
 {

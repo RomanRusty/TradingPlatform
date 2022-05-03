@@ -1,14 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using TradingPlatform.DatabaseService.Domain.Repository_interfaces;
-using TradingPlatform.DatabaseService.Services;
-using TradingPlatform.DatabaseService.Services.Abstractions;
-using TradingPlatform.EntityContracts.Product;
 using Xunit;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;

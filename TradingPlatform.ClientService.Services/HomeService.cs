@@ -4,23 +4,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using TradingPlatform.ClientService.Contracts;
 using TradingPlatform.ClientService.Contracts.Home;
 using TradingPlatform.ClientService.Contracts.Modals;
 using TradingPlatform.ClientService.Domain.Entities;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
-using TradingPlatform.EntityContracts.Order;
 using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.ClientService.Services
 {
-	public class HomeService : ServiceBase, IHomeService
+    public class HomeService : ServiceBase, IHomeService
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 

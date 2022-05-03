@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TradingPlatform.EntityContracts.Order;
-using TradingPlatform.EntityContracts.Product;
 
 namespace TradingPlatform.EntityContracts.ProductOrder
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TradingPlatform.DatabaseService.Domain.Entities;
 
 namespace TradingPlatform.DatabaseService.Persistence.Database

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TradingPlatform.ClientService.Contracts.Complaints;
 using TradingPlatform.ClientService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
-using TradingPlatform.EntityContracts.Complaint;
 using TradingPlatform.EntityContracts.Enums;
 
 namespace TradingPlatform.ClientService.Presentation

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using TradingPlatform.DatabaseService.Services.Abstractions;
 using TradingPlatform.EntityContracts.ApplicationUser;
@@ -19,6 +20,7 @@ namespace TradingPlatform.DatabaseService.Presentation
         public ProductsApiController(IProductService productService)
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            
         }
 
         // GET: api/ProductsApi

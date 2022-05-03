@@ -57,6 +57,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B658DE21
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform.ClientService.Presentation.Test", "TradingPlatform.ClientService.Presentation.Test\TradingPlatform.ClientService.Presentation.Test.csproj", "{421728FD-5565-47FF-AC27-8359C7542188}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform.DatabaseService.Presentation.Test", "TradingPlatform.DatabaseService.Presentation.Test\TradingPlatform.DatabaseService.Presentation.Test.csproj", "{FEA741EF-1B6B-47D5-ACB5-A40AB8A50A08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +137,10 @@ Global
 		{421728FD-5565-47FF-AC27-8359C7542188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421728FD-5565-47FF-AC27-8359C7542188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421728FD-5565-47FF-AC27-8359C7542188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEA741EF-1B6B-47D5-ACB5-A40AB8A50A08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA741EF-1B6B-47D5-ACB5-A40AB8A50A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA741EF-1B6B-47D5-ACB5-A40AB8A50A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA741EF-1B6B-47D5-ACB5-A40AB8A50A08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +170,7 @@ Global
 		{6AA4CAC9-2B02-4273-A991-AB1DECC9FCCA} = {C05F6278-CCBE-40AC-9841-18FEFB7B8832}
 		{B658DE21-5595-4900-A062-64699B458CEF} = {5ACD78E8-10A6-4847-97F1-AFF2C828D4B0}
 		{421728FD-5565-47FF-AC27-8359C7542188} = {B658DE21-5595-4900-A062-64699B458CEF}
+		{FEA741EF-1B6B-47D5-ACB5-A40AB8A50A08} = {C05F6278-CCBE-40AC-9841-18FEFB7B8832}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49460036-2A5C-4A85-AD8E-FF463A31E2FE}

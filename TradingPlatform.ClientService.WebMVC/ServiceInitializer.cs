@@ -14,6 +14,7 @@ namespace TradingPlatform.ClientService.WebMVC
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IComplaintService, ComplaintService>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
     }
 }

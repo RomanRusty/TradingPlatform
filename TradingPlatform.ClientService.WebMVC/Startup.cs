@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Stripe;
 using TradingPlatform.ClientService.Domain.Entities;
 using TradingPlatform.ClientService.Domain.HttpInterfaces;
 using TradingPlatform.ClientService.Domain.Tokens;
@@ -13,6 +14,7 @@ using TradingPlatform.ClientService.Persistence.Database;
 using TradingPlatform.ClientService.Persistence.HttpClients;
 using TradingPlatform.ClientService.Persistence.Middleware;
 using TradingPlatform.ClientService.Persistence.Profiles;
+using TradingPlatform.ClientService.Persistence.Settings;
 using TradingPlatform.ClientService.Persistence.Tokens;
 using TradingPlatform.ClientService.Presentation;
 
@@ -74,11 +76,13 @@ namespace TradingPlatform.ClientService.WebMVC
             services.AddTransient<ExceptionHandlingMiddleware>();
             services.AddHttpContextAccessor();
             services.AddScoped<ITokenManager, TokenManager>();
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseMigrationsEndPoint();
             app.UseHsts();
 

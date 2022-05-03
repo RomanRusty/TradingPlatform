@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Stripe.net" Version="39.108.0" />
   </ItemGroup>
 
   <ItemGroup>

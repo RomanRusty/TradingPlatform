@@ -4,69 +4,80 @@
 @model CartViewModel;
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-10">
-			<a asp-action="Create" asp-controller="Orders" class="btn btn-success my-2">Create New Order</a>
-			<ul class="list-group">
-				@for (var i = 0; i < Model.Orders.Count(); i++)
-				{
-					string collapseId = "#orderCollapse" + i;
-					string collapseForId = "orderCollapse" + i;
-					OrderReadDto order = Model.Orders.ElementAt(i);
-					<li class="list-group-item">
-						<button class="btn btn-primary w-100 d-flex justify-content-between align-content-center" type="button" data-bs-toggle="collapse" data-bs-target="@collapseId" aria-expanded="false" aria-controls="collapse">
-							<p>@order.Name</p>
-							@{
-								double orderPrice = order.ProductOrders.Select(item => item.Product).Select(item => item.Price * item.Quantity).Sum();
-							}
-							<p>@orderPrice</p>
-							<a type="button" class="btn btn-danger" asp-controller="Payment" asp-action="Checkout" asp-route-id="@order.Id">Checkout</a>
-                            <a type="button" class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>
-						</button>
-						<div class="collapse" id="@collapseForId">
-							<div class="list-group">
-								@if (order.ProductOrders == null)
-								{
-									<a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">No products in order. Buy one</a>
-								}
-								else
-								{
-									<table class="table">
-										<thead>
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Name</th>
-											<th scope="col">Price</th>
-											<th scope="col">Quantity</th>
-											<th scope="col">Total Price</th>
-										</tr>
-										</thead>
-										<tbody>
-										@for (int j = 0; j < order.ProductOrders.Count(); j++)
-										{
-											ProductOrderReadDto productOrder = order.ProductOrders.ElementAt(j);
-											double totalPrice = productOrder.Product.Price * productOrder.Quantity;
-											<tr>
-												<th scope="row">@(j + 1)</th>
-												<td>@productOrder.Product.Name</td>
-												<td>@productOrder.Product.Price</td>
-												<td>@productOrder.Quantity</td>
-												<td>@totalPrice</td>
-												<td>
-													<a asp-action="DeleteProductFromOrder" asp-route-id="@productOrder.Id" class="btn btn-close"></a>
-												</td>
-											</tr>
-										}
-										</tbody>
-									</table>
-								}
-							</div>
-						</div>
-					</li>
-				}
-			</ul>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <a asp-action="Create" asp-controller="Orders" class="btn btn-success my-2">Create New Order</a>
+            <ul class="list-group">
+                @for (var i = 0; i < Model.Orders.Count(); i++)
+                {
+                    string collapseId = "#orderCollapse" + i;
+                    string collapseForId = "orderCollapse" + i;
+                    OrderReadDto order = Model.Orders.ElementAt(i);
+                    <li class="list-group-item">
+                        <button class="btn btn-primary w-100 d-flex justify-content-between align-content-center" type="button" data-bs-toggle="collapse" data-bs-target="@collapseId" aria-expanded="false" aria-controls="collapse">
+                            <p>@order.Name</p>
+                            @{
+                                double orderPrice = order.ProductOrders.Select(item => item.Product).Select(item => item.Price * item.Quantity).Sum();
+                            }
+                            <div class="d-flex">
+                                <p>@orderPrice</p>
+                                <a type="button" class="btn btn-danger" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id"><i class="bi bi-file-minus"></i></a>
+                            </div>
+                        </button>
+                        @*<form id="payment-form">
+                            <div id="payment-element">
+                            <!--Stripe.js injects the Payment Element-->
+                            </div>
+                            <button id="submit">
+                            <div class="spinner hidden" id="spinner"></div>
+                            <span id="button-text">Pay now</span>
+                            </button>
+                            <div id="payment-message" class="hidden"></div>
+                            </form>*@
+                        <div class="collapse" id="@collapseForId">
+                            <div class="list-group">
+                                @if (order.ProductOrders == null)
+                                {
+                                    <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Index">No products in order. Buy one</a>
+                                }
+                                else
+                                {
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Total Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int j = 0; j < order.ProductOrders.Count(); j++)
+                                            {
+                                                ProductOrderReadDto productOrder = order.ProductOrders.ElementAt(j);
+                                                double totalPrice = productOrder.Product.Price * productOrder.Quantity;
+                                                <tr>
+                                                    <th scope="row">@(j + 1)</th>
+                                                    <td>@productOrder.Product.Name</td>
+                                                    <td>@productOrder.Product.Price</td>
+                                                    <td>@productOrder.Quantity</td>
+                                                    <td>@totalPrice</td>
+                                                    <td>
+                                                        <a asp-action="DeleteProductFromOrder" asp-route-id="@productOrder.Id" class="btn btn-close"></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
